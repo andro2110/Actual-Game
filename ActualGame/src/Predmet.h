@@ -1,9 +1,9 @@
 #pragma once
-#include "TextureManager.h"
 #include "Vec2D.h"
-#include "Game.h"
+#include "TextureManager.h"
 #include <cstdlib>
 #include <iostream>
+#include <math.h>
 
 class Predmet
 {
@@ -25,6 +25,7 @@ public:
 	void premik();
 	virtual void border();
 	virtual void posUpdate();
+	//bool collisonDetection(Hudoba* a[10]);
 	void render();
 };
 
@@ -49,5 +50,8 @@ public:
 	~Hudoba();
 
 	void update() override;
+	int getx() { return m_position.x; }
+	int gety() { return m_position.y; }
 	void posUpdate() override;
+
 };

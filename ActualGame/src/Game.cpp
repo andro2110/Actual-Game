@@ -1,5 +1,4 @@
 #include "Game.h"
-#include "Predmet.h"
 #include "Map.h"
 #include <iostream>
 #include <vector>
@@ -47,11 +46,9 @@ void Game::Init(const char* title, int x, int y, int w, int h, Uint32 flags)
 	//tuki pis kodo
 	map = new Map();
 
-	player = new Igralec("Assets/Player.png", 3.0f);
-
-	for (int i = 0; i < 10; i++) {
-		hudoba[i] = new Hudoba("Assets/Enemy.png", 3.0f);
-	}
+	player = new Igralec("Assets/Player1.png", 3.0f);
+	for(int i = 0; i < 10; i++)
+		hudoba[i] = new Hudoba("Assets/Enemy1.png", 3.0f);
 }
 
 void Game::HandleEvents()
@@ -72,7 +69,8 @@ void Game::HandleEvents()
 void Game::Update()
 {
 	player->update();
-	for (int i = 0; i < 10; i++) {
+	for (int i = 0; i < 10; i++)
+	{
 		hudoba[i]->update();
 	}
 
@@ -85,8 +83,10 @@ void Game::Render()
 	/* Tuki se rendera: */
 	map->drawMap();
 	player->render();
-	for (int i = 0; i < 10; i++) {
+	for (int i = 0; i < 10; i++)
+	{
 		hudoba[i]->render();
+		map->correctMap(hudoba[i]);
 	}
 
 	SDL_RenderPresent(Game::renderer);

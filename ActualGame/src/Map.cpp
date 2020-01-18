@@ -1,5 +1,4 @@
 #include "Map.h"
-#include "TextureManager.h"
 
 int lvl1[20][25] = { 
 	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -27,6 +26,7 @@ int lvl1[20][25] = {
 Map::Map()
 {
 	m_normalTree = TextureManager::LoadTexture("Assets/Drevo.png");
+	m_fireTree = TextureManager::LoadTexture("Assets/Ogenj.png");
 
 	loadMap(lvl1);
 
@@ -72,10 +72,27 @@ void Map::drawMap()
 			case 0:
 				TextureManager::Draw(m_normalTree, m_srcRect, m_destRect);
 				break;
+
+			case 1:
+				TextureManager::Draw(m_fireTree, m_srcRect, m_destRect);
 			default:
 				break;
 			}
 		}
 	}
 	
+}
+
+void Map::correctMap(Hudoba* a)
+{
+	
+	float ypos;
+	float xpos;
+
+	ypos = floor(a->gety() / 32) + 3;
+	xpos = floor(a->getx() / 32);
+
+	std::cout << "Pozicija ognja" << xpos << ", " << ypos << std::endl;
+
+	m_map[int(ypos)][int(xpos)] = 1;
 }

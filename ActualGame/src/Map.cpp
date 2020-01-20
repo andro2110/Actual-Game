@@ -92,7 +92,5 @@ void Map::correctMap(Hudoba* a)
 	ypos = floor(a->gety() / 32) + 3;
 	xpos = floor(a->getx() / 32);
 
-	std::cout << "Pozicija ognja" << xpos << ", " << ypos << std::endl;
-
 	m_map[int(ypos)][int(xpos)] = 1;
 }

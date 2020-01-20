@@ -26,6 +26,8 @@ public:
 	virtual void border();
 	virtual void posUpdate();
 	//bool collisonDetection(Hudoba* a[10]);
+	int getx() { return m_position.x; }
+	int gety() { return m_position.y; }
 	void render();
 };
 
@@ -44,14 +46,29 @@ public:
 class Hudoba : public Predmet
 {
 private:
+	int randx;
+	int randy;
 
 public:
 	Hudoba(const char* path, float scale);
 	~Hudoba();
 
 	void update() override;
-	int getx() { return m_position.x; }
-	int gety() { return m_position.y; }
+	void changePos();
 	void posUpdate() override;
+};
 
+class Staroselec : public Predmet
+{
+private:
+	Hudoba* m_hudoba;
+
+public:
+	Staroselec(const char* path, float scale);
+	~Staroselec();
+
+	void update() override;
+	void posUpdate() override;
+	void getHudoba(Hudoba* a) { m_hudoba = a; }
+	void changePos();
 };

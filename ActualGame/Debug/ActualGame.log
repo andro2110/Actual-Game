@@ -1,8 +1,2 @@
-﻿  Predmet.cpp
-C:\Users\Andraž Pergar\Desktop\ActualGame\ActualGame\src\Predmet.cpp(37,29): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\Andraž Pergar\Desktop\ActualGame\ActualGame\src\Predmet.cpp(38,29): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\Andraž Pergar\Desktop\ActualGame\ActualGame\src\Predmet.cpp(172,29): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\Andraž Pergar\Desktop\ActualGame\ActualGame\src\Predmet.cpp(173,29): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\Andraž Pergar\Desktop\ActualGame\ActualGame\src\Predmet.cpp(205,29): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\Andraž Pergar\Desktop\ActualGame\ActualGame\src\Predmet.cpp(206,29): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+﻿  Game.cpp
   ActualGame.vcxproj -> C:\Users\Andraž Pergar\Desktop\ActualGame\Debug\ActualGame.exe

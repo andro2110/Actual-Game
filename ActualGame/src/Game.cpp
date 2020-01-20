@@ -11,7 +11,8 @@ Game::~Game() {}
 
 Map* map;
 Igralec* player;
-Hudoba* hudoba[10];
+Hudoba* hudoba;
+Staroselec* starina[3];
 
 //std::vector<Hudoba>* hudoba;
 
@@ -46,9 +47,13 @@ void Game::Init(const char* title, int x, int y, int w, int h, Uint32 flags)
 	//tuki pis kodo
 	map = new Map();
 
-	player = new Igralec("Assets/Player1.png", 3.0f);
-	for(int i = 0; i < 10; i++)
-		hudoba[i] = new Hudoba("Assets/Enemy1.png", 3.0f);
+	player = new Igralec("Assets/Player.png", 3.0f);
+	hudoba = new Hudoba("Assets/Enemy.png", 3.0f);
+	for (int i = 0; i < 3; i++)
+	{
+		starina[i] = new Staroselec("Assets/Staroselec.png", 3.0f);
+		starina[i]->getHudoba(hudoba);
+	}
 }
 
 void Game::HandleEvents()
@@ -69,9 +74,10 @@ void Game::HandleEvents()
 void Game::Update()
 {
 	player->update();
-	for (int i = 0; i < 10; i++)
+	hudoba->update();
+	for (int i = 0; i < 3; i++)
 	{
-		hudoba[i]->update();
+		starina[i]->update();
 	}
 
 	m_Framecount++;
@@ -82,15 +88,16 @@ void Game::Render()
 	SDL_RenderClear(renderer);
 	/* Tuki se rendera: */
 	map->drawMap();
+
 	player->render();
-	for (int i = 0; i < 10; i++)
+	hudoba->render();
+	for (int i = 0; i < 3; i++)
 	{
-		hudoba[i]->render();
-		map->correctMap(hudoba[i]);
+		starina[i]->render();
 	}
+	map->correctMap(hudoba);
 
 	SDL_RenderPresent(Game::renderer);
-
 }
 
 void Game::Clean()

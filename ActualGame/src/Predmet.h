@@ -12,6 +12,7 @@ protected:
 	Vec2 m_smer;
 
 	int m_speed = 3;
+	int m_framecount;
 
 	SDL_Texture* m_texture;
 	SDL_Rect m_srcRect, m_destRect;
@@ -25,7 +26,6 @@ public:
 	void premik();
 	virtual void border();
 	virtual void posUpdate();
-	//bool collisonDetection(Hudoba* a[10]);
 	int getx() { return m_position.x; }
 	int gety() { return m_position.y; }
 	void render();
@@ -56,6 +56,7 @@ public:
 	void update() override;
 	void changePos();
 	void posUpdate() override;
+	void preveriPos();
 };
 
 class Staroselec : public Predmet

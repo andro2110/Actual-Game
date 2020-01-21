@@ -96,7 +96,6 @@ void Predmet::border()
 	//za obj velikost 16x32*/
 
 	//za velikost 10x30
-
 	if (m_position.x <= 3)
 		m_position.x = 3;
 	else if (m_position.x >= 768)
@@ -106,38 +105,8 @@ void Predmet::border()
 		m_position.y = 3;
 	else if (m_position.y >= 550)
 		m_position.y = 550;
-
 	//za velikost 10x30
 }
-
-/*bool Predmet::collisonDetection(Hudoba* a[10])
-{
-	int xdist = 0;
-	int ydist = 0;
-	int xhudoba[10];
-	int yhudoba[10];
-	int razdalja[10];
-
-	//sredina texture (Player1, Enemy1)
-	xdist = (m_position.x + 16) / 2;
-	ydist = (m_position.y + 32) / 2;
-
-	for (int i = 0; i < 10; i++)
-	{
-		//sredina texture od hudobe
-		xhudoba[i] = (a[i]->getx + 16) / 2;
-		yhudoba[i] = (a[i]->gety + 16) / 2;
-
-		razdalja[i] = //formula za razdaljo med dvema toèkama
-	}
-
-	for (int i = 0; i < 10; i++)
-	{
-		if(//razdalja  >= 16)
-			/*std::cout << "collision" << std::endl;
-			
-	}
-}*/
 
 Igralec::Igralec(const char* path, float scale) : Predmet(path, scale)
 {
@@ -195,7 +164,10 @@ void Hudoba::update()
 {
 	Predmet::border();
 	posUpdate();
+	preveriPos();
 	changePos();
+
+	std::cout << m_framecount << std::endl;
 }
 
 void Hudoba::posUpdate()
@@ -218,6 +190,20 @@ void Hudoba::changePos()
 		m_position.y--;
 	else if (m_position.y < randy)
 		m_position.y++;
+}
+
+void Hudoba::preveriPos()
+{
+	if (m_position.x == randx && m_position.y == randy)
+	{
+		m_framecount++;
+		if (m_framecount == 100)
+		{
+			randx = rand() % 759 - 28;
+			randy = rand() % 557 - 14;
+			m_framecount = 0;
+		}
+	}
 }
 
 Staroselec::Staroselec(const char* path, float scale) : Predmet(path, scale)
@@ -253,14 +239,14 @@ void Staroselec::posUpdate()
 void Staroselec::changePos()
 {
 	if (m_position.x > m_hudoba->getx())
-		m_position.x--;
+		m_position.x -= 0.35;
 	else if (m_position.x < m_hudoba->getx())
-		m_position.x++;
+		m_position.x += 0.35;
 
 	if (m_position.y > m_hudoba->gety())
-		m_position.y--;
+		m_position.y -= 0.35;
 	else if (m_position.y < m_hudoba->gety())
-		m_position.y++;
+		m_position.y += 0.35;
 }
 
 Predmet::~Predmet() {}

@@ -14,18 +14,17 @@ public:
 	void Update();
 	void Render();
 	void Clean();
+	int getFrame() { return m_Framecount; }
 
 	bool IsRunning() { return m_IsRunning; }
 
 	static SDL_Renderer* renderer;
 	static SDL_Event event;
+	int m_Framecount;
 
 private:
 	bool m_IsRunning;
 	SDL_Window* m_window;
-
-	int m_Framecount;
-	int m_NumberofItems;
 
 	int posx, posy;
 };

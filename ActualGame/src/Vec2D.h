@@ -2,6 +2,6 @@
 
 struct Vec2
 {
-	int x;
-	int y;
+	float x;
+	float y;
 };

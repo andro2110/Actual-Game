@@ -12,7 +12,7 @@ Game::~Game() {}
 Map* map;
 Igralec* player;
 Hudoba* hudoba;
-Staroselec* starina[3];
+Staroselec* starina;
 
 //std::vector<Hudoba>* hudoba;
 
@@ -49,11 +49,9 @@ void Game::Init(const char* title, int x, int y, int w, int h, Uint32 flags)
 
 	player = new Igralec("Assets/Player.png", 3.0f);
 	hudoba = new Hudoba("Assets/Enemy.png", 3.0f);
-	for (int i = 0; i < 3; i++)
-	{
-		starina[i] = new Staroselec("Assets/Staroselec.png", 3.0f);
-		starina[i]->getHudoba(hudoba);
-	}
+
+	starina = new Staroselec("Assets/Staroselec.png", 3.0f);
+	starina->getHudoba(hudoba);
 }
 
 void Game::HandleEvents()
@@ -75,10 +73,8 @@ void Game::Update()
 {
 	player->update();
 	hudoba->update();
-	for (int i = 0; i < 3; i++)
-	{
-		starina[i]->update();
-	}
+
+	starina->update();
 
 	m_Framecount++;
 }
@@ -91,11 +87,9 @@ void Game::Render()
 
 	player->render();
 	hudoba->render();
-	for (int i = 0; i < 3; i++)
-	{
-		starina[i]->render();
-	}
-	map->correctMap(hudoba);
+
+	starina->render();
+	//map->correctMap(hudoba);
 
 	SDL_RenderPresent(Game::renderer);
 }

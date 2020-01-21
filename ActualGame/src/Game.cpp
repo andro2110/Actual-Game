@@ -14,6 +14,8 @@ Igralec* player;
 Hudoba* hudoba;
 Staroselec* starina;
 
+bool preveri;
+
 //std::vector<Hudoba>* hudoba;
 
 void Game::Init(const char* title, int x, int y, int w, int h, Uint32 flags)
@@ -73,6 +75,7 @@ void Game::Update()
 {
 	player->update();
 	hudoba->update();
+	preveri = hudoba->pravoMesto();
 
 	starina->update();
 
@@ -89,7 +92,7 @@ void Game::Render()
 	hudoba->render();
 
 	starina->render();
-	//map->correctMap(hudoba);
+	map->correctMap(hudoba, preveri);
 
 	SDL_RenderPresent(Game::renderer);
 }

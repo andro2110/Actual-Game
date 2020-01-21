@@ -166,8 +166,6 @@ void Hudoba::update()
 	posUpdate();
 	preveriPos();
 	changePos();
-
-	std::cout << m_framecount << std::endl;
 }
 
 void Hudoba::posUpdate()
@@ -196,6 +194,7 @@ void Hudoba::preveriPos()
 {
 	if (m_position.x == randx && m_position.y == randy)
 	{
+		m_pravoMesto = 1;
 		m_framecount++;
 		if (m_framecount == 100)
 		{
@@ -204,6 +203,8 @@ void Hudoba::preveriPos()
 			m_framecount = 0;
 		}
 	}
+	else
+		m_pravoMesto = 0;
 }
 
 Staroselec::Staroselec(const char* path, float scale) : Predmet(path, scale)

@@ -48,6 +48,7 @@ class Hudoba : public Predmet
 private:
 	int randx;
 	int randy;
+	bool m_pravoMesto;
 
 public:
 	Hudoba(const char* path, float scale);
@@ -57,6 +58,7 @@ public:
 	void changePos();
 	void posUpdate() override;
 	void preveriPos();
+	bool pravoMesto() { return m_pravoMesto; }
 };
 
 class Staroselec : public Predmet

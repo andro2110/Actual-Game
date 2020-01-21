@@ -27,6 +27,7 @@ Map::Map()
 {
 	m_normalTree = TextureManager::LoadTexture("Assets/Drevo.png");
 	m_fireTree = TextureManager::LoadTexture("Assets/Ogenj.png");
+	m_stor = TextureManager::LoadTexture("Assets/Stor.png");
 
 	loadMap(lvl1);
 
@@ -75,6 +76,9 @@ void Map::drawMap()
 
 			case 1:
 				TextureManager::Draw(m_fireTree, m_srcRect, m_destRect);
+
+			case 2:
+				TextureManager::Draw(m_stor, m_srcRect, m_destRect);
 			default:
 				break;
 			}
@@ -83,14 +87,17 @@ void Map::drawMap()
 	
 }
 
-void Map::correctMap(Hudoba* a)
+void Map::correctMap(Hudoba* a, bool test)
 {
-	
 	float ypos;
 	float xpos;
 
 	ypos = floor(a->gety() / 32) + 3;
 	xpos = floor(a->getx() / 32);
 
-	m_map[int(ypos)][int(xpos)] = 1;
+	if (test)
+	{
+		m_map[int(ypos)][int(xpos)] = 2;
+	}
+
 }

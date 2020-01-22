@@ -151,11 +151,11 @@ Hudoba::Hudoba(const char* path, float scale) : Predmet(path, scale)
 	m_srcRect.w = 10;
 	m_srcRect.h = 30;
 
-	m_position.x = rand() % 759 - 28;
-	m_position.y = rand() % 557 - 14;
+	m_position.x = rand() % 758 + 3;
+	m_position.y = rand() % 520 + 3;
 
-	randx = rand() % 759 - 28;
-	randy = rand() % 557 - 14;
+	randx = rand() % 758 + 3;
+	randy = rand() % 520 + 3;
 
 	m_scale = scale;
 }
@@ -198,8 +198,10 @@ void Hudoba::preveriPos()
 		m_framecount++;
 		if (m_framecount == 100)
 		{
-			randx = rand() % 759 - 28;
-			randy = rand() % 557 - 14;
+			randx = rand() % 758 + 3;
+			randy = rand() % 520 + 3;
+
+			std::cout << randx << ", " << randy << std::endl;
 			m_framecount = 0;
 		}
 	}
@@ -214,8 +216,8 @@ Staroselec::Staroselec(const char* path, float scale) : Predmet(path, scale)
 	m_srcRect.w = 10;
 	m_srcRect.h = 25;
 
-	m_position.x = rand() % 759 - 28;
-	m_position.y = rand() % 557 - 14;
+	m_position.x = rand() % 758 + 3;
+	m_position.y = rand() % 520 + 3;
 
 	m_scale = scale;
 }

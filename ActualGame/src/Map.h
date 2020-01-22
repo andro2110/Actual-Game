@@ -11,7 +11,7 @@ public:
 	void loadMap(int array[20][25]);
 	void drawMap();
 	void correctMap(Hudoba *a, bool test);
-	bool returnTest() { return m_test; }
+	void randomFire();
 
 private:
 	SDL_Rect m_srcRect, m_destRect;
@@ -20,6 +20,7 @@ private:
 	SDL_Texture* m_stor;
 
 	bool m_test;
+	int m_counter = 0;
 
 	int m_map[20][25];
 };

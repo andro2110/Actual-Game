@@ -14,6 +14,8 @@ Igralec* player;
 Hudoba* hudoba;
 Staroselec* starina;
 
+
+
 bool preveri;
 
 //std::vector<Hudoba>* hudoba;

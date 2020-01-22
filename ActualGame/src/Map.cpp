@@ -1,6 +1,6 @@
 #include "Map.h"
 
-int lvl1[20][25] = { 
+int lvl[20][25] = { 
 	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -29,7 +29,7 @@ Map::Map()
 	m_fireTree = TextureManager::LoadTexture("Assets/Ogenj.png");
 	m_stor = TextureManager::LoadTexture("Assets/Stor.png");
 
-	loadMap(lvl1);
+	loadMap(lvl);
 
 	m_srcRect.x = 0;
 	m_srcRect.y = 0;
@@ -84,20 +84,37 @@ void Map::drawMap()
 			}
 		}
 	}
-	
+	randomFire();
 }
 
 void Map::correctMap(Hudoba* a, bool test)
 {
-	float ypos;
-	float xpos;
+	int ypos;
+	int xpos;
 
 	ypos = floor(a->gety() / 32) + 3;
 	xpos = floor(a->getx() / 32);
 
-	if (test)
+	if (test == true && m_map[ypos][xpos] != 1)
+		m_map[ypos][xpos] = 2;
+
+}
+
+void Map::randomFire()
+{
+	int xpos;
+	int ypos;
+
+	if (m_counter == 200)
 	{
-		m_map[int(ypos)][int(xpos)] = 2;
+		xpos = floor((rand() % 640 + 0) / 32);
+		ypos = floor((rand() % 800 + 0) / 32);
+
+		if (m_map[xpos][ypos] != 2)
+			m_map[xpos][ypos] = 1;
+
+		m_counter = 0;
 	}
 
+	m_counter++;
 }

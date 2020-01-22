@@ -16,6 +16,7 @@ Predmet::Predmet(const char* path, float scale)
 	m_scale = scale;
 }
 
+
 void Predmet::update()
 {
 	
@@ -140,6 +141,8 @@ void Igralec::posUpdate()
 	m_destRect.x = m_position.x;
 	m_destRect.y = m_position.y;
 
+	//std::cout << m_position.x << ", " << m_position.y << std::endl;
+
 	m_destRect.w = m_srcRect.w * m_scale;
 	m_destRect.h = m_srcRect.h * m_scale;
 }
@@ -201,7 +204,6 @@ void Hudoba::preveriPos()
 			randx = rand() % 758 + 3;
 			randy = rand() % 520 + 3;
 
-			std::cout << randx << ", " << randy << std::endl;
 			m_framecount = 0;
 		}
 	}

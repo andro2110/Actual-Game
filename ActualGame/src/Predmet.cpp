@@ -16,7 +16,6 @@ Predmet::Predmet(const char* path, float scale)
 	m_scale = scale;
 }
 
-
 void Predmet::update()
 {
 	
@@ -157,8 +156,8 @@ Hudoba::Hudoba(const char* path, float scale) : Predmet(path, scale)
 	m_position.x = rand() % 758 + 3;
 	m_position.y = rand() % 520 + 3;
 
-	randx = rand() % 758 + 3;
-	randy = rand() % 520 + 3;
+	m_randx = rand() % 758 + 3;
+	m_randy = rand() % 520 + 3;
 
 	m_scale = scale;
 }
@@ -169,6 +168,8 @@ void Hudoba::update()
 	posUpdate();
 	preveriPos();
 	changePos();
+
+	std::cout << "hudoba: " << m_position.x << ", " << m_position.y << std::endl;
 }
 
 void Hudoba::posUpdate()
@@ -182,27 +183,27 @@ void Hudoba::posUpdate()
 
 void Hudoba::changePos()
 {
-	if (m_position.x > randx)
+	if (m_position.x > m_randx)
 		m_position.x--;
-	else if (m_position.x < randx)
+	else if (m_position.x < m_randx)
 		m_position.x++;
 
-	if (m_position.y > randy)
+	if (m_position.y > m_randy)
 		m_position.y--;
-	else if (m_position.y < randy)
+	else if (m_position.y < m_randy)
 		m_position.y++;
 }
 
 void Hudoba::preveriPos()
 {
-	if (m_position.x == randx && m_position.y == randy)
+	if (m_position.x == m_randx && m_position.y == m_randy)
 	{
 		m_pravoMesto = 1;
 		m_framecount++;
 		if (m_framecount == 100)
 		{
-			randx = rand() % 758 + 3;
-			randy = rand() % 520 + 3;
+			m_randx = rand() % 758 + 3;
+			m_randy = rand() % 520 + 3;
 
 			m_framecount = 0;
 		}
@@ -228,8 +229,6 @@ void Staroselec::update()
 {
 	Predmet::border();
 	posUpdate();
-	changePos();
-	changePos();
 }
 
 void Staroselec::posUpdate()
@@ -241,17 +240,17 @@ void Staroselec::posUpdate()
 	m_destRect.h = m_srcRect.h * m_scale;
 }
 
-void Staroselec::changePos()
+void Staroselec::changePos(int hudx, int hudy)
 {
-	if (m_position.x > m_hudoba->getx())
-		m_position.x -= 0.35;
-	else if (m_position.x < m_hudoba->getx())
-		m_position.x += 0.35;
+	if (m_position.x > hudy)
+		m_position.x -= 0.5;
+	else if (m_position.x < hudx)
+		m_position.x += 0.5;
 
-	if (m_position.y > m_hudoba->gety())
-		m_position.y -= 0.35;
-	else if (m_position.y < m_hudoba->gety())
-		m_position.y += 0.35;
+	if (m_position.y > hudx)
+		m_position.y -= 0.5;
+	else if (m_position.y < hudy)
+		m_position.y += 0.5;
 }
 
 Predmet::~Predmet() {}

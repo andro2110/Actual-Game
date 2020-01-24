@@ -11,14 +11,10 @@ Game::~Game() {}
 
 Map* map;
 Igralec* player;
-Hudoba* hudoba;
-Staroselec* starina;
+//Staroselec* starina;
 
-
-
-bool preveri;
-
-//std::vector<Hudoba>* hudoba;
+std::vector<std::unique_ptr<Hudoba>> hudoba;
+std::vector<std::unique_ptr<Staroselec>> starina;
 
 void Game::Init(const char* title, int x, int y, int w, int h, Uint32 flags)
 {
@@ -52,10 +48,14 @@ void Game::Init(const char* title, int x, int y, int w, int h, Uint32 flags)
 	map = new Map();
 
 	player = new Igralec("Assets/Player.png", 3.0f);
-	hudoba = new Hudoba("Assets/Enemy.png", 3.0f);
+	
+	for (int i = 0; i < 1; i++)
+	{
+		hudoba.push_back(std::unique_ptr<Hudoba>(std::make_unique<Hudoba>("Assets/Enemy.png", 3.0f)));
+		starina.push_back(std::unique_ptr<Staroselec>(std::make_unique<Staroselec>("Assets/Staroselec.png", 3.0f)));
+	}
 
-	starina = new Staroselec("Assets/Staroselec.png", 3.0f);
-	starina->getHudoba(hudoba);
+	//starina = new Staroselec("Assets/Staroselec.png", 3.0f);
 }
 
 void Game::HandleEvents()
@@ -76,10 +76,19 @@ void Game::HandleEvents()
 void Game::Update()
 {
 	player->update();
-	hudoba->update();
-	preveri = hudoba->pravoMesto();
 
-	starina->update();
+	for (auto& h : hudoba)
+		h->update();
+
+	for (int i = 0; i < 1; i++)
+	{
+		starina[i]->changePos(hudoba[i]->getx(), hudoba[i]->gety());
+	}
+
+	std::cout << "Starina:" << starina[0]->getx() << ", " << starina[0]->gety() << std::endl;
+
+	for (auto& s : starina)
+		s->update();
 
 	m_Framecount++;
 }
@@ -91,10 +100,14 @@ void Game::Render()
 	map->drawMap();
 
 	player->render();
-	hudoba->render();
+	
+	for (auto& h : hudoba)
+		h->render();
 
-	starina->render();
-	map->correctMap(hudoba, preveri);
+	map->correctmap(hudoba);
+
+	for (auto& s : starina)
+		s->render();
 
 	SDL_RenderPresent(Game::renderer);
 }

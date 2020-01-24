@@ -87,17 +87,18 @@ void Map::drawMap()
 	randomFire();
 }
 
-void Map::correctMap(Hudoba* a, bool test)
+void Map::correctmap(std::vector<std::unique_ptr<Hudoba>> &a)
 {
-	int ypos;
-	int xpos;
+	for (int i = 0; i < a.size(); i++)
+	{
+		int xpos = floor(a[i]->getx() / 32);
+		int ypos = floor(a[i]->gety() / 32);
 
-	ypos = floor(a->gety() / 32) + 3;
-	xpos = floor(a->getx() / 32);
-
-	if (test == true && m_map[ypos][xpos] != 1)
-		m_map[ypos][xpos] = 2;
-
+		if (a[i]->pravoMesto() == true && m_map[ypos][xpos] != 1 && m_map[ypos][xpos] != 2)
+		{
+			m_map[ypos][xpos] = 2;
+		}
+	}
 }
 
 void Map::randomFire()

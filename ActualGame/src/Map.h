@@ -1,6 +1,7 @@
 #pragma once
 #include "TextureManager.h"
 #include "Predmet.h"
+#include <vector>
 
 class Map
 {
@@ -10,7 +11,7 @@ public:
 
 	void loadMap(int array[20][25]);
 	void drawMap();
-	void correctMap(Hudoba *a, bool test);
+	void correctmap(std::vector<std::unique_ptr<Hudoba>> &a);
 	void randomFire();
 
 private:

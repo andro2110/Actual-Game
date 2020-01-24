@@ -4,6 +4,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <math.h>
+#include <vector>
 
 class Predmet
 {
@@ -46,8 +47,8 @@ public:
 class Hudoba : public Predmet
 {
 private:
-	int randx;
-	int randy;
+	int m_randx;
+	int m_randy;
 	bool m_pravoMesto;
 
 public:
@@ -59,12 +60,15 @@ public:
 	void posUpdate() override;
 	void preveriPos();
 	bool pravoMesto() { return m_pravoMesto; }
+
+	int randx() { return m_randx; }
+	int randy() { return m_randy; }
 };
 
 class Staroselec : public Predmet
 {
 private:
-	Hudoba* m_hudoba;
+	//Hudoba m_hudoba;
 
 public:
 	Staroselec(const char* path, float scale);
@@ -72,6 +76,6 @@ public:
 
 	void update() override;
 	void posUpdate() override;
-	void getHudoba(Hudoba* a) { m_hudoba = a; }
-	void changePos();
+	//void getHudoba(std::vector<Hudoba>::iterator it) { m_hudoba = *(it); }
+	void changePos(int x, int y);
 };

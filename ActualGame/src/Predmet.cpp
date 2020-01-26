@@ -108,6 +108,43 @@ void Predmet::border()
 	//za velikost 10x30
 }
 
+bool Predmet::checkCollision(SDL_Rect dest)
+{
+	/*int leftA, leftB;
+	int rightA, rightB;
+	int topA, topB;
+	int bottomA, bottomB;
+
+	leftA = m_position.x;
+	rightA = m_position.x + m_srcRect.w;
+	topA = m_position.y;
+	bottomA = m_position.y + m_srcRect.h;
+
+	leftB = dest.x;
+	rightB = dest.x + 10;
+	topB = dest.y;
+	bottomB = dest.y + 30;
+
+	if (bottomA <= topB)
+		return false;
+
+	if (topA >= bottomB)
+		return false;
+
+	if (rightA <= leftB)
+		return false;
+
+	if (leftA >= rightB)
+		return false;
+
+	return true;*/
+
+	if ((m_position.x + 10) >= dest.x && m_position.x <= dest.x + 10 && m_position.y + 30 >= dest.y && m_position.y <= dest.y + 30)
+		return true;
+	else
+		return false;
+}
+
 Igralec::Igralec(const char* path, float scale) : Predmet(path, scale)
 {
 	m_texture = TextureManager::LoadTexture(path);
@@ -241,14 +278,14 @@ void Staroselec::posUpdate()
 void Staroselec::changePos()
 {
 	if (m_position.x > m_hux)
-		m_position.x -= 0.5;
+		m_position.x -= 1;
 	else if (m_position.x < m_hux)
-		m_position.x += 0.5;
+		m_position.x += 1;
 
 	if (m_position.y < m_huy)
-		m_position.y += 0.5;
+		m_position.y += 1;
 	else if (m_position.y > m_huy)
-		m_position.y -= 0.5;
+		m_position.y -= 1;
 }
 
 void Staroselec::getHudoba(int x, int y)

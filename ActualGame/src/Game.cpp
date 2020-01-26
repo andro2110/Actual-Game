@@ -81,9 +81,12 @@ void Game::Update()
 
 	for (int i = 0; i < 1; i++)
 	{
+		starina[i]->getHudoba(hudoba[i]->getx(), hudoba[i]->gety());
 		starina[i]->changePos();
 	}
-	starina[0]->getHudoba(hudoba[0]->getx(), hudoba[0]->gety());
+
+	if (starina[0]->checkCollision(hudoba[0]->vrniDest()) == true || hudoba[0]->checkCollision(starina[0]->vrniDest()) == true)
+		std::cout << "Collision" << std::endl;
 
 	for (auto& s : starina)
 		s->update();

@@ -168,8 +168,6 @@ void Hudoba::update()
 	posUpdate();
 	preveriPos();
 	changePos();
-
-	std::cout << "hudoba: " << m_position.x << ", " << m_position.y << std::endl;
 }
 
 void Hudoba::posUpdate()
@@ -240,17 +238,23 @@ void Staroselec::posUpdate()
 	m_destRect.h = m_srcRect.h * m_scale;
 }
 
-void Staroselec::changePos(int hudx, int hudy)
+void Staroselec::changePos()
 {
-	if (m_position.x > hudy)
+	if (m_position.x > m_hux)
 		m_position.x -= 0.5;
-	else if (m_position.x < hudx)
+	else if (m_position.x < m_hux)
 		m_position.x += 0.5;
 
-	if (m_position.y > hudx)
-		m_position.y -= 0.5;
-	else if (m_position.y < hudy)
+	if (m_position.y < m_huy)
 		m_position.y += 0.5;
+	else if (m_position.y > m_huy)
+		m_position.y -= 0.5;
+}
+
+void Staroselec::getHudoba(int x, int y)
+{
+	m_hux = x;
+	m_huy = y;
 }
 
 Predmet::~Predmet() {}

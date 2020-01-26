@@ -5,6 +5,7 @@
 #include <iostream>
 #include <math.h>
 #include <vector>
+#include <memory>
 
 class Predmet
 {
@@ -68,7 +69,8 @@ public:
 class Staroselec : public Predmet
 {
 private:
-	//Hudoba m_hudoba;
+	int m_hux;
+	int m_huy;
 
 public:
 	Staroselec(const char* path, float scale);
@@ -76,6 +78,6 @@ public:
 
 	void update() override;
 	void posUpdate() override;
-	//void getHudoba(std::vector<Hudoba>::iterator it) { m_hudoba = *(it); }
-	void changePos(int x, int y);
+	void getHudoba(int x, int y);
+	void changePos();
 };

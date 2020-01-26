@@ -11,10 +11,11 @@ Game::~Game() {}
 
 Map* map;
 Igralec* player;
-//Staroselec* starina;
 
 std::vector<std::unique_ptr<Hudoba>> hudoba;
 std::vector<std::unique_ptr<Staroselec>> starina;
+
+std::vector<int> test;
 
 void Game::Init(const char* title, int x, int y, int w, int h, Uint32 flags)
 {
@@ -54,8 +55,6 @@ void Game::Init(const char* title, int x, int y, int w, int h, Uint32 flags)
 		hudoba.push_back(std::unique_ptr<Hudoba>(std::make_unique<Hudoba>("Assets/Enemy.png", 3.0f)));
 		starina.push_back(std::unique_ptr<Staroselec>(std::make_unique<Staroselec>("Assets/Staroselec.png", 3.0f)));
 	}
-
-	//starina = new Staroselec("Assets/Staroselec.png", 3.0f);
 }
 
 void Game::HandleEvents()
@@ -82,10 +81,9 @@ void Game::Update()
 
 	for (int i = 0; i < 1; i++)
 	{
-		starina[i]->changePos(hudoba[i]->getx(), hudoba[i]->gety());
+		starina[i]->changePos();
 	}
-
-	std::cout << "Starina:" << starina[0]->getx() << ", " << starina[0]->gety() << std::endl;
+	starina[0]->getHudoba(hudoba[0]->getx(), hudoba[0]->gety());
 
 	for (auto& s : starina)
 		s->update();

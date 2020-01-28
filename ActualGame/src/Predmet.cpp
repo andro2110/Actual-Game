@@ -278,14 +278,14 @@ void Staroselec::posUpdate()
 void Staroselec::changePos()
 {
 	if (m_position.x > m_hux)
-		m_position.x -= 1;
+		m_position.x -= 0.5;
 	else if (m_position.x < m_hux)
-		m_position.x += 1;
+		m_position.x += 0.5;
 
 	if (m_position.y < m_huy)
-		m_position.y += 1;
+		m_position.y += 0.5;
 	else if (m_position.y > m_huy)
-		m_position.y -= 1;
+		m_position.y -= 0.5;
 }
 
 void Staroselec::getHudoba(int x, int y)

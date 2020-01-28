@@ -28,6 +28,7 @@ Map::Map()
 	m_normalTree = TextureManager::LoadTexture("Assets/Drevo.png");
 	m_fireTree = TextureManager::LoadTexture("Assets/Ogenj.png");
 	m_stor = TextureManager::LoadTexture("Assets/Stor.png");
+	m_zazgan = TextureManager::LoadTexture("Assets/Zazgano.png");
 
 	loadMap(lvl);
 
@@ -76,9 +77,15 @@ void Map::drawMap()
 
 			case 1:
 				TextureManager::Draw(m_fireTree, m_srcRect, m_destRect);
-
+				break;
+				
 			case 2:
 				TextureManager::Draw(m_stor, m_srcRect, m_destRect);
+				break;
+
+			case 3:
+				TextureManager::Draw(m_zazgan, m_srcRect, m_destRect);
+				break;
 			default:
 				break;
 			}
@@ -106,7 +113,7 @@ void Map::randomFire()
 	int xpos;
 	int ypos;
 
-	if (m_counterOgenj == 200)
+	if (m_counterOgenj == m_delay)
 	{
 		xpos = floor((rand() % 640 + 0) / 32);
 		ypos = floor((rand() % 800 + 0) / 32);
@@ -126,7 +133,5 @@ void Map::pogasiPozar(Igralec* igralec)
 	int ypos = floor(igralec->gety() / 32) + 3;
 
 	if (m_map[ypos][xpos] == 1)
-	{
-		m_map[ypos][xpos] = 0;
-	}
+		m_map[ypos][xpos] = 3;
 }

@@ -20,10 +20,12 @@ private:
 	SDL_Texture* m_normalTree;
 	SDL_Texture* m_fireTree;
 	SDL_Texture* m_stor;
+	SDL_Texture* m_zazgan;
 
 	bool m_test;
 	int m_counterOgenj = 0;
 	int m_counterIgralec = 0;
+	int m_delay = 200;
 
 	int m_map[20][25];
 };

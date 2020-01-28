@@ -85,8 +85,8 @@ void Game::Update()
 		starina[i]->changePos();
 	}
 
-	if (starina[0]->checkCollision(hudoba[0]->vrniDest()) == true || hudoba[0]->checkCollision(starina[0]->vrniDest()) == true)
-		std::cout << "Collision" << std::endl;
+	/*if (starina[0]->checkCollision(hudoba[0]->vrniDest()) == true || hudoba[0]->checkCollision(starina[0]->vrniDest()) == true)
+		std::cout << "Collision" << std::endl;*/
 
 	for (auto& s : starina)
 		s->update();
@@ -99,6 +99,7 @@ void Game::Render()
 	SDL_RenderClear(renderer);
 	/* Tuki se rendera: */
 	map->drawMap();
+	map->pogasiPozar(player);
 
 	player->render();
 	

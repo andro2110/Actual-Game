@@ -13,6 +13,7 @@ public:
 	void drawMap();
 	void correctmap(std::vector<std::unique_ptr<Hudoba>> &a);
 	void randomFire();
+	void pogasiPozar(Igralec *igralec);
 
 private:
 	SDL_Rect m_srcRect, m_destRect;
@@ -21,7 +22,8 @@ private:
 	SDL_Texture* m_stor;
 
 	bool m_test;
-	int m_counter = 0;
+	int m_counterOgenj = 0;
+	int m_counterIgralec = 0;
 
 	int m_map[20][25];
 };

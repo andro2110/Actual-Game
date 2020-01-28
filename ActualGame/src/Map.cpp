@@ -106,7 +106,7 @@ void Map::randomFire()
 	int xpos;
 	int ypos;
 
-	if (m_counter == 200)
+	if (m_counterOgenj == 200)
 	{
 		xpos = floor((rand() % 640 + 0) / 32);
 		ypos = floor((rand() % 800 + 0) / 32);
@@ -114,8 +114,19 @@ void Map::randomFire()
 		if (m_map[xpos][ypos] != 2)
 			m_map[xpos][ypos] = 1;
 
-		m_counter = 0;
+		m_counterOgenj = 0;
 	}
 
-	m_counter++;
+	m_counterOgenj++;
+}
+
+void Map::pogasiPozar(Igralec* igralec)
+{
+	int xpos = floor(igralec->getx() / 32);
+	int ypos = floor(igralec->gety() / 32) + 3;
+
+	if (m_map[ypos][xpos] == 1)
+	{
+		m_map[ypos][xpos] = 0;
+	}
 }

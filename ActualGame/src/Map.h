@@ -14,6 +14,8 @@ public:
 	void correctmap(std::vector<std::unique_ptr<Hudoba>> &a);
 	void randomFire();
 	void pogasiPozar(Igralec *igralec);
+	void razsiriOgenj();
+	void drevo(int x, int y);
 
 private:
 	SDL_Rect m_srcRect, m_destRect;
@@ -23,9 +25,11 @@ private:
 	SDL_Texture* m_zazgan;
 
 	bool m_test;
-	int m_counterOgenj = 0;
+	int m_spawnFire = 0;
 	int m_counterIgralec = 0;
 	int m_delay = 200;
+	int m_razsiri = 0;
+	int m_razsiriDelay = 400;
 
 	int m_map[20][25];
 };

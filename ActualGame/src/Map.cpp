@@ -113,7 +113,7 @@ void Map::randomFire()
 	int xpos;
 	int ypos;
 
-	if (m_counterOgenj == m_delay)
+	if (m_spawnFire == m_delay)
 	{
 		xpos = floor((rand() % 640 + 0) / 32);
 		ypos = floor((rand() % 800 + 0) / 32);
@@ -121,10 +121,9 @@ void Map::randomFire()
 		if (m_map[xpos][ypos] != 2)
 			m_map[xpos][ypos] = 1;
 
-		m_counterOgenj = 0;
+		m_spawnFire = 0;
 	}
-
-	m_counterOgenj++;
+	m_spawnFire++;
 }
 
 void Map::pogasiPozar(Igralec* igralec)
@@ -134,4 +133,35 @@ void Map::pogasiPozar(Igralec* igralec)
 
 	if (m_map[ypos][xpos] == 1)
 		m_map[ypos][xpos] = 3;
+}
+
+void Map::razsiriOgenj()
+{	
+	for (int i = 0; i < 20; i++)
+		for (int j = 0; j < 25; j++)
+			if (m_map[i][j] == 1)
+			{
+				if (m_razsiri == m_razsiriDelay)
+				{
+					m_map[i + 1][j] = 1;
+					m_map[i][j + 1] = 1;
+					//m_map[i - 1][j] = 1;
+					//m_map[i][j - 1] = 1;
+
+					m_razsiri = 0;
+				}
+				m_razsiri++;
+			}
+}
+
+void Map::drevo(int y, int x)
+{
+	if (m_razsiri == 100)
+	{
+		m_map[x][y + 1] = 1;
+
+		m_razsiri = 0;
+	}
+	std::cout << m_razsiri << std::endl;
+	m_razsiri++;
 }

@@ -15,7 +15,8 @@ public:
 	void randomFire();
 	void pogasiPozar(Igralec *igralec);
 	void razsiriOgenj();
-	void drevo(int x, int y);
+	void izracun();
+	void zazgiDrevo(int x, int y) { m_map[x][y] = 1; }
 
 private:
 	SDL_Rect m_srcRect, m_destRect;
@@ -27,9 +28,12 @@ private:
 	bool m_test;
 	int m_spawnFire = 0;
 	int m_counterIgralec = 0;
-	int m_delay = 200;
+	int m_delay = 150;
 	int m_razsiri = 0;
 	int m_razsiriDelay = 400;
+	
+	int score = 0;
+	int uniceno = 0;
 
 	int m_map[20][25];
 };

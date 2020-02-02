@@ -101,9 +101,10 @@ void Map::correctmap(std::vector<std::unique_ptr<Hudoba>> &a)
 		int xpos = floor(a[i]->getx() / 32);
 		int ypos = floor(a[i]->gety() / 32) + 3;
 
-		if (a[i]->pravoMesto() == true && m_map[ypos][xpos] != 1 && m_map[ypos][xpos] != 2)
+		if (a[i]->pravoMesto() == true && m_map[ypos][xpos] != 1 && m_map[ypos][xpos] != 2 && m_map[ypos][xpos] != 3)
 		{
 			m_map[ypos][xpos] = 2;
+			uniceno++;
 		}
 	}
 }
@@ -119,7 +120,10 @@ void Map::randomFire()
 		ypos = floor((rand() % 800 + 0) / 32);
 
 		if (m_map[xpos][ypos] != 2)
+		{
 			m_map[xpos][ypos] = 1;
+			uniceno++;
+		}
 
 		m_spawnFire = 0;
 	}
@@ -132,36 +136,40 @@ void Map::pogasiPozar(Igralec* igralec)
 	int ypos = floor(igralec->gety() / 32) + 3;
 
 	if (m_map[ypos][xpos] == 1)
+	{
 		m_map[ypos][xpos] = 3;
+		score++;
+		uniceno++;
+	}
 }
 
 void Map::razsiriOgenj()
 {	
-	for (int i = 0; i < 20; i++)
-		for (int j = 0; j < 25; j++)
-			if (m_map[i][j] == 1)
-			{
-				if (m_razsiri == m_razsiriDelay)
-				{
-					m_map[i + 1][j] = 1;
-					m_map[i][j + 1] = 1;
-					//m_map[i - 1][j] = 1;
-					//m_map[i][j - 1] = 1;
-
-					m_razsiri = 0;
-				}
-				m_razsiri++;
-			}
-}
-
-void Map::drevo(int y, int x)
-{
-	if (m_razsiri == 100)
+	bool flag = 0;
+	if (m_razsiri == m_razsiriDelay)
 	{
-		m_map[x][y + 1] = 1;
-
+		for (int i = 0; i < 20; i++)
+		{
+			for (int j = 0; j < 25; j++)
+			{
+				if (m_map[i][j] == 1 && m_map[i + 1][j + 1] != 1)
+				{
+					int x = i + 1;
+					int y = j + 1;
+					zazgiDrevo(x, y);
+				}
+			}
+		}
 		m_razsiri = 0;
 	}
 	std::cout << m_razsiri << std::endl;
 	m_razsiri++;
+}
+
+void Map::izracun()
+{
+	//int procent = (100 * (500 - uniceno)) / 500;
+	//std::cout << "Uniceno (%): " << procent << " Tocke: " << score << std::endl;
+
+	//std::cout << uniceno << std::endl;
 }

@@ -91,6 +91,8 @@ void Game::Update()
 	for (auto& s : starina)
 		s->update();
 
+	map->izracun();
+
 	m_Framecount++;
 }
 
@@ -101,13 +103,12 @@ void Game::Render()
 	map->drawMap();
 	map->pogasiPozar(player);
 	map->razsiriOgenj();
+	map->correctmap(hudoba);
 
 	player->render();
 	
 	for (auto& h : hudoba)
 		h->render();
-
-	map->correctmap(hudoba);
 
 	for (auto& s : starina)
 		s->render();

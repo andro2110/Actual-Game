@@ -140,16 +140,13 @@ void Map::pogasiPozar(Igralec* igralec)
 	{
 		m_map[ypos][xpos] = 3;
 		score++;
-		uniceno++;
 	}
 }
 
 void Map::izracun()
 {
-	//int procent = (100 * (500 - uniceno)) / 500;
-	//std::cout << "Uniceno (%): " << procent << " Tocke: " << score << std::endl;
-
-	//std::cout << uniceno << std::endl;
+	int procent = (100 * uniceno) / 500;
+	std::cout << "Uniceno (%): " << procent << " Tocke: " << score << std::endl;
 }
 
 void Map::razsiriOgenj()
@@ -163,56 +160,139 @@ void Map::razsiriOgenj()
 				if (m_map[i][j] == 1)
 				{
 					int smer;
-					smer = rand() % 4 + 2;
+					smer = rand() % 4 + 1;
+					
 					switch (smer)
 					{
 					case 1:
-						m_map[i][j + 1] = 1;
+						if (m_map[i][j + 1] != 1)
+						{
+							m_map[i][j + 1] = 1;
+							uniceno++;
 
-						if (j + 1 >= 24)
-							break;
-						else
-							j += 1;
+							if (j + 1 >= 24)
+								break;
+							else
+								j += 1;
+						}
 						break;
 
 					case 2:
-						m_map[i + 1][j] = 1;
+						if (m_map[i + 1][j] != 1)
+						{
+							m_map[i + 1][j] = 1;
+							uniceno++;
 
-						if (i + 1 >= 19)
-							break;
-						else
-							i += 1;
+							if (i + 1 >= 19)
+								break;
+							else
+								i += 1;
+						}
 						break;
 
 					case 3:
-
-						if (m_map[i][j - 1] > 0)
+						if (j - 1 < 0)
 							break;
 
 						else
 						{
-							m_map[i][j - 1] = 1;
-							j += 1;
+							if (m_map[i][j - 1] != 1)
+							{
+								m_map[i][j - 1] = 1;
+								j += 1;
+								uniceno++;
+							}
 						}
 						break;
 
 					case 4:
-						if (m_map[i - 1][j] > 0)
+						if (i - 1 < 0)
 							break;
 
 						else
 						{
-							m_map[i - 1][j] = 1;
-							i -= 1;
+							if (m_map[i - 1][j] != 1)
+							{
+								m_map[i - 1][j] = 1;
+								i -= 1;
+								uniceno++;
+							}
 						}
+						break;
 
 					default:
 						break;
 					}
+
 					m_razsiri = 0;
 				}
 			}
 		}
 	}
 	m_razsiri++;
+}
+
+void Map::zazgiDrevo(int i, int j, int smer)
+{
+	switch (smer)
+	{
+	case 1:
+		if (m_map[i][j + 1] != 1)
+		{
+			m_map[i][j + 1] = 1;
+			uniceno++;
+
+			if (j + 1 >= 24)
+				break;
+			else
+				j += 1;
+		}
+		break;
+
+	case 2:
+		if (m_map[i + 1][j] != 1)
+		{
+			m_map[i + 1][j] = 1;
+			uniceno++;
+
+			if (i + 1 >= 19)
+				break;
+			else
+				i += 1;
+		}
+		break;
+
+	case 3:
+		if (j - 1 < 0)
+			break;
+
+		else
+		{
+			if (m_map[i][j - 1] != 1)
+			{
+				m_map[i][j - 1] = 1;
+				j += 1;
+				uniceno++;
+			}
+		}
+		break;
+
+	case 4:
+		if (i - 1 < 0)
+			break;
+
+		else
+		{
+			if (m_map[i - 1][j] != 1)
+			{
+				m_map[i - 1][j] = 1;
+				i -= 1;
+				uniceno++;
+			}
+		}
+		break;
+
+	default:
+		break;
+	}
 }

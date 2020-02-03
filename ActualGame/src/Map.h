@@ -16,6 +16,7 @@ public:
 	void pogasiPozar(Igralec *igralec);
 	void razsiriOgenj();
 	void izracun();
+	void zazgiDrevo(int i, int j, int smer);
 
 private:
 	SDL_Rect m_srcRect, m_destRect;

@@ -92,6 +92,7 @@ void Map::drawMap()
 		}
 	}
 	randomFire();
+	razsiriOgenj();
 }
 
 void Map::correctmap(std::vector<std::unique_ptr<Hudoba>> &a)
@@ -143,33 +144,75 @@ void Map::pogasiPozar(Igralec* igralec)
 	}
 }
 
-void Map::razsiriOgenj()
-{	
-	bool flag = 0;
-	if (m_razsiri == m_razsiriDelay)
-	{
-		for (int i = 0; i < 20; i++)
-		{
-			for (int j = 0; j < 25; j++)
-			{
-				if (m_map[i][j] == 1 && m_map[i + 1][j + 1] != 1)
-				{
-					int x = i + 1;
-					int y = j + 1;
-					zazgiDrevo(x, y);
-				}
-			}
-		}
-		m_razsiri = 0;
-	}
-	std::cout << m_razsiri << std::endl;
-	m_razsiri++;
-}
-
 void Map::izracun()
 {
 	//int procent = (100 * (500 - uniceno)) / 500;
 	//std::cout << "Uniceno (%): " << procent << " Tocke: " << score << std::endl;
 
 	//std::cout << uniceno << std::endl;
+}
+
+void Map::razsiriOgenj()
+{
+	if (m_razsiri == m_razsiriDelay)
+	{
+		for (int i = 0; i < 20; i++)
+		{
+			for (int j = 0; j < 25; j++)
+			{
+				if (m_map[i][j] == 1)
+				{
+					int smer;
+					smer = rand() % 4 + 2;
+					switch (smer)
+					{
+					case 1:
+						m_map[i][j + 1] = 1;
+
+						if (j + 1 >= 24)
+							break;
+						else
+							j += 1;
+						break;
+
+					case 2:
+						m_map[i + 1][j] = 1;
+
+						if (i + 1 >= 19)
+							break;
+						else
+							i += 1;
+						break;
+
+					case 3:
+
+						if (m_map[i][j - 1] > 0)
+							break;
+
+						else
+						{
+							m_map[i][j - 1] = 1;
+							j += 1;
+						}
+						break;
+
+					case 4:
+						if (m_map[i - 1][j] > 0)
+							break;
+
+						else
+						{
+							m_map[i - 1][j] = 1;
+							i -= 1;
+						}
+
+					default:
+						break;
+					}
+					m_razsiri = 0;
+				}
+			}
+		}
+	}
+	m_razsiri++;
 }

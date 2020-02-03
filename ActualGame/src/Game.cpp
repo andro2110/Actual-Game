@@ -102,7 +102,6 @@ void Game::Render()
 	/* Tuki se rendera: */
 	map->drawMap();
 	map->pogasiPozar(player);
-	map->razsiriOgenj();
 	map->correctmap(hudoba);
 
 	player->render();

@@ -93,6 +93,9 @@ void Game::Update()
 
 	map->izracun();
 
+	if (map->preveriProcente() >= 70)
+		m_IsRunning = false;
+
 	m_Framecount++;
 }
 

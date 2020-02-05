@@ -105,7 +105,7 @@ void Map::correctmap(std::vector<std::unique_ptr<Hudoba>> &a)
 		if (a[i]->pravoMesto() == true && m_map[ypos][xpos] != 1 && m_map[ypos][xpos] != 2 && m_map[ypos][xpos] != 3)
 		{
 			m_map[ypos][xpos] = 2;
-			uniceno++;
+			m_uniceno++;
 		}
 	}
 }
@@ -123,7 +123,7 @@ void Map::randomFire()
 		if (m_map[xpos][ypos] != 2)
 		{
 			m_map[xpos][ypos] = 1;
-			uniceno++;
+			m_uniceno++;
 		}
 
 		m_spawnFire = 0;
@@ -139,14 +139,14 @@ void Map::pogasiPozar(Igralec* igralec)
 	if (m_map[ypos][xpos] == 1)
 	{
 		m_map[ypos][xpos] = 3;
-		score++;
+		m_score++;
 	}
 }
 
 void Map::izracun()
 {
-	int procent = (100 * uniceno) / 500;
-	std::cout << "Uniceno (%): " << procent << " Tocke: " << score << std::endl;
+	int procent = (100 * m_uniceno) / 500;
+	std::cout << "Uniceno (%): " << procent << " Tocke: " << m_score << std::endl;
 }
 
 void Map::razsiriOgenj()
@@ -168,7 +168,7 @@ void Map::razsiriOgenj()
 						if (m_map[i][j + 1] != 1)
 						{
 							m_map[i][j + 1] = 1;
-							uniceno++;
+							m_uniceno++;
 
 							if (j + 1 >= 24)
 								break;
@@ -181,7 +181,7 @@ void Map::razsiriOgenj()
 						if (m_map[i + 1][j] != 1)
 						{
 							m_map[i + 1][j] = 1;
-							uniceno++;
+							m_uniceno++;
 
 							if (i + 1 >= 19)
 								break;
@@ -200,7 +200,7 @@ void Map::razsiriOgenj()
 							{
 								m_map[i][j - 1] = 1;
 								j += 1;
-								uniceno++;
+								m_uniceno++;
 							}
 						}
 						break;
@@ -215,7 +215,7 @@ void Map::razsiriOgenj()
 							{
 								m_map[i - 1][j] = 1;
 								i -= 1;
-								uniceno++;
+								m_uniceno++;
 							}
 						}
 						break;
@@ -232,67 +232,9 @@ void Map::razsiriOgenj()
 	m_razsiri++;
 }
 
-void Map::zazgiDrevo(int i, int j, int smer)
+int Map::preveriProcente()
 {
-	switch (smer)
-	{
-	case 1:
-		if (m_map[i][j + 1] != 1)
-		{
-			m_map[i][j + 1] = 1;
-			uniceno++;
+	int procent = (100 * m_uniceno) / 500;
 
-			if (j + 1 >= 24)
-				break;
-			else
-				j += 1;
-		}
-		break;
-
-	case 2:
-		if (m_map[i + 1][j] != 1)
-		{
-			m_map[i + 1][j] = 1;
-			uniceno++;
-
-			if (i + 1 >= 19)
-				break;
-			else
-				i += 1;
-		}
-		break;
-
-	case 3:
-		if (j - 1 < 0)
-			break;
-
-		else
-		{
-			if (m_map[i][j - 1] != 1)
-			{
-				m_map[i][j - 1] = 1;
-				j += 1;
-				uniceno++;
-			}
-		}
-		break;
-
-	case 4:
-		if (i - 1 < 0)
-			break;
-
-		else
-		{
-			if (m_map[i - 1][j] != 1)
-			{
-				m_map[i - 1][j] = 1;
-				i -= 1;
-				uniceno++;
-			}
-		}
-		break;
-
-	default:
-		break;
-	}
+	return procent;
 }

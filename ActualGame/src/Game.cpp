@@ -50,10 +50,10 @@ void Game::Init(const char* title, int x, int y, int w, int h, Uint32 flags)
 
 	player = new Igralec("Assets/Player.png", 3.0f);
 	
-	for (int i = 0; i < 1; i++)
+	for (int i = 0; i < 3; i++)
 	{
 		hudoba.push_back(std::unique_ptr<Hudoba>(std::make_unique<Hudoba>("Assets/Enemy.png", 3.0f)));
-		starina.push_back(std::unique_ptr<Staroselec>(std::make_unique<Staroselec>("Assets/Staroselec.png", 3.0f)));
+		//starina.push_back(std::unique_ptr<Staroselec>(std::make_unique<Staroselec>("Assets/Staroselec.png", 3.0f)));
 	}
 }
 
@@ -79,22 +79,22 @@ void Game::Update()
 	for (auto& h : hudoba)
 		h->update();
 
-	for (int i = 0; i < 1; i++)
+	/*for (int i = 0; i < 1; i++)
 	{
 		starina[i]->getHudoba(hudoba[i]->getx(), hudoba[i]->gety());
 		starina[i]->changePos();
-	}
+	}*/
 
-	/*if (starina[0]->checkCollision(hudoba[0]->vrniDest()) == true || hudoba[0]->checkCollision(starina[0]->vrniDest()) == true)
-		std::cout << "Collision" << std::endl;*/
+	if (player->checkCollision(hudoba[0]->vrniDest(), hudoba[0]->vrniSrc()))//vedno moras poiskati prvo hudobo; ko unicis zadnjo program crasha
+	{
+		hudoba.erase(hudoba.begin());
+	}
 
 	for (auto& s : starina)
 		s->update();
 
-	map->izracun();
-
-	if (map->preveriProcente() >= 70)
-		m_IsRunning = false;
+	/*if (map->preveriProcente() >= 70)
+		m_IsRunning = false;*/
 
 	m_Framecount++;
 }
@@ -112,8 +112,8 @@ void Game::Render()
 	for (auto& h : hudoba)
 		h->render();
 
-	for (auto& s : starina)
-		s->render();
+	/*for (auto& s : starina)
+		s->render();*/
 
 	SDL_RenderPresent(Game::renderer);
 }

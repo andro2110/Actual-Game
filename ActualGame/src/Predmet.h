@@ -31,7 +31,7 @@ public:
 	int getx() { return m_position.x; }
 	int gety() { return m_position.y; }
 	void render();
-	bool checkCollision(SDL_Rect dest);
+	bool checkCollision(SDL_Rect dest, SDL_Rect src);
 
 	SDL_Rect vrniSrc() { return m_srcRect; }
 	SDL_Rect vrniDest() { return m_destRect; }

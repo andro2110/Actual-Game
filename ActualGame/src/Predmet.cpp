@@ -108,36 +108,49 @@ void Predmet::border()
 	//za velikost 10x30
 }
 
-bool Predmet::checkCollision(SDL_Rect dest)
+bool Predmet::checkCollision(SDL_Rect dest, SDL_Rect src)
 {
-	/*int leftA, leftB;
-	int rightA, rightB;
-	int topA, topB;
-	int bottomA, bottomB;
+	int topL = m_destRect.x;
+	int topR = m_destRect.x + m_srcRect.w;
+	int botL = m_destRect.y + m_srcRect.h;
+	int botR = botL + m_srcRect.w;
 
-	leftA = m_position.x;
-	rightA = m_position.x + m_srcRect.w;
-	topA = m_position.y;
-	bottomA = m_position.y + m_srcRect.h;
+	int BtopL = dest.x;
+	int BtopR = dest.x + src.w;
+	int BbotL = dest.y + src.h;
+	int BbotR = botL + src.w;
 
-	leftB = dest.x;
-	rightB = dest.x + 10;
-	topB = dest.y;
-	bottomB = dest.y + 30;
-
-	if (bottomA <= topB)
+	/*if (BtopL <= topR && dest.y <= botL)
+	{
+		return true;
+		std::cout << "Prva" << std::endl;
+	}
+	else
 		return false;
 
-	if (topA >= bottomB)
+	if (BtopR >= botL && dest.y <= botL)
+	{
+		return true;
+		std::cout << "Druga" << std::endl;
+	}
+	else
 		return false;
 
-	if (rightA <= leftB)
+	if (topL <= BtopR && m_destRect.y <= botL)
+	{
+		return true;
+		std::cout << "Tretja" << std::endl;
+	}
+	else
 		return false;
 
-	if (leftA >= rightB)
-		return false;
-
-	return true;*/
+	if (topR >= BbotL && m_destRect.y << BbotL)
+	{
+		return true;
+		std::cout << "Cetrta" << std::endl;
+	}
+	else
+		return false;*/
 
 	if ((m_position.x + 10) >= dest.x && m_position.x <= dest.x + 10 && m_position.y + 30 >= dest.y && m_position.y <= dest.y + 30)
 		return true;

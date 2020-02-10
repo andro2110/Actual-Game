@@ -110,49 +110,33 @@ void Predmet::border()
 
 bool Predmet::checkCollision(SDL_Rect dest, SDL_Rect src)
 {
-	int topL = m_destRect.x;
-	int topR = m_destRect.x + m_srcRect.w;
-	int botL = m_destRect.y + m_srcRect.h;
-	int botR = botL + m_srcRect.w;
-
-	int BtopL = dest.x;
-	int BtopR = dest.x + src.w;
-	int BbotL = dest.y + src.h;
-	int BbotR = botL + src.w;
-
-	/*if (BtopL <= topR && dest.y <= botL)
+	/*if (m_position.x <= (dest.x + src.w) && m_position.y >= (dest.y + src.h))//levo zgori
 	{
 		return true;
 		std::cout << "Prva" << std::endl;
 	}
-	else
-		return false;
 
-	if (BtopR >= botL && dest.y <= botL)
+	if ((m_position.x + m_srcRect.w) >= dest.x && m_position.y <= (dest.y + src.h))//desno zgori
 	{
 		return true;
 		std::cout << "Druga" << std::endl;
 	}
-	else
-		return false;
 
-	if (topL <= BtopR && m_destRect.y <= botL)
+	if (m_position.x <= (dest.x + src.w) && (m_position.y + m_srcRect.h) >= dest.y)//levo spodi
 	{
 		return true;
 		std::cout << "Tretja" << std::endl;
 	}
-	else
-		return false;
 
-	if (topR >= BbotL && m_destRect.y << BbotL)
+	if ((m_position.x + m_srcRect.w) >= dest.x && (m_position.y + m_srcRect.h) >= dest.y) //desno spodi
 	{
 		return true;
 		std::cout << "Cetrta" << std::endl;
 	}
-	else
-		return false;*/
 
-	if ((m_position.x + 10) >= dest.x && m_position.x <= dest.x + 10 && m_position.y + 30 >= dest.y && m_position.y <= dest.y + 30)
+	return false;*/
+
+	if ((m_position.x + m_srcRect.w) >= dest.x && m_position.x <= dest.x + src.w && m_position.y + m_srcRect.h >= dest.y && m_position.y <= dest.y + src.h)
 		return true;
 	else
 		return false;

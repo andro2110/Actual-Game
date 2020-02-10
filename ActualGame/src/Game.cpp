@@ -50,11 +50,12 @@ void Game::Init(const char* title, int x, int y, int w, int h, Uint32 flags)
 
 	player = new Igralec("Assets/Player.png", 3.0f);
 	
-	for (int i = 0; i < 3; i++)
+	/*for (int i = 0; i < 5; i++)
 	{
-		hudoba.push_back(std::unique_ptr<Hudoba>(std::make_unique<Hudoba>("Assets/Enemy.png", 3.0f)));
+		//hudoba.push_back(std::unique_ptr<Hudoba>(std::make_unique<Hudoba>("Assets/Enemy.png", 3.0f)));
 		//starina.push_back(std::unique_ptr<Staroselec>(std::make_unique<Staroselec>("Assets/Staroselec.png", 3.0f)));
-	}
+	}*/
+	hudoba.push_back(std::unique_ptr<Hudoba>(std::make_unique<Hudoba>("Assets/Enemy.png", 3.0f)));
 }
 
 void Game::HandleEvents()
@@ -79,16 +80,21 @@ void Game::Update()
 	for (auto& h : hudoba)
 		h->update();
 
+	std::cout << m_Framecount << std::endl;
+
 	/*for (int i = 0; i < 1; i++)
 	{
 		starina[i]->getHudoba(hudoba[i]->getx(), hudoba[i]->gety());
 		starina[i]->changePos();
 	}*/
+	if(m_Framecount % 200 == 0)
+		hudoba.push_back(std::unique_ptr<Hudoba>(std::make_unique<Hudoba>("Assets/Enemy.png", 3.0f)));
 
-	if (player->checkCollision(hudoba[0]->vrniDest(), hudoba[0]->vrniSrc()))//vedno moras poiskati prvo hudobo; ko unicis zadnjo program crasha
-	{
-		hudoba.erase(hudoba.begin());
-	}
+	if(hudoba.size() != 0)
+		if (player->checkCollision(hudoba[0]->vrniDest(), hudoba[0]->vrniSrc()))//vedno moras poiskati prvo hudobo; ko unicis zadnjo program crasha
+		{
+			hudoba.erase(hudoba.begin());
+		}
 
 	for (auto& s : starina)
 		s->update();

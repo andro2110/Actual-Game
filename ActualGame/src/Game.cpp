@@ -50,11 +50,6 @@ void Game::Init(const char* title, int x, int y, int w, int h, Uint32 flags)
 
 	player = new Igralec("Assets/Player.png", 3.0f);
 	
-	/*for (int i = 0; i < 5; i++)
-	{
-		//hudoba.push_back(std::unique_ptr<Hudoba>(std::make_unique<Hudoba>("Assets/Enemy.png", 3.0f)));
-		//starina.push_back(std::unique_ptr<Staroselec>(std::make_unique<Staroselec>("Assets/Staroselec.png", 3.0f)));
-	}*/
 	hudoba.push_back(std::unique_ptr<Hudoba>(std::make_unique<Hudoba>("Assets/Enemy.png", 3.0f)));
 }
 
@@ -80,21 +75,43 @@ void Game::Update()
 	for (auto& h : hudoba)
 		h->update();
 
-	std::cout << m_Framecount << std::endl;
-
-	/*for (int i = 0; i < 1; i++)
+	if (m_Framecount % 200 == 0)
 	{
-		starina[i]->getHudoba(hudoba[i]->getx(), hudoba[i]->gety());
-		starina[i]->changePos();
-	}*/
-	if(m_Framecount % 200 == 0)
 		hudoba.push_back(std::unique_ptr<Hudoba>(std::make_unique<Hudoba>("Assets/Enemy.png", 3.0f)));
+		starina.push_back(std::unique_ptr<Staroselec>(std::make_unique<Staroselec>("Assets/Staroselec.png", 3.0f)));
+	}
 
-	if(hudoba.size() != 0)
-		if (player->checkCollision(hudoba[0]->vrniDest(), hudoba[0]->vrniSrc()))//vedno moras poiskati prvo hudobo; ko unicis zadnjo program crasha
+	if (hudoba.size() != 0)//preveri, èe so hudobe
+	{
+		
+
+		for (int i = 0; i < hudoba.size(); i++)
 		{
-			hudoba.erase(hudoba.begin());
+			if (player->checkCollision(hudoba[i]->vrniDest(), hudoba[i]->vrniSrc()))//player x hudoba collision
+			{
+				hudoba.erase(hudoba.begin() + i);//zbriše hudobo
+			}
 		}
+		for (int i = 0; i < hudoba.size(); i++)
+		{
+			starina[i]->getHudoba(hudoba[i]->getx(), hudoba[i]->gety());//staroselci zacnejo slediti hudobam, ki so na njihovem indexu
+			starina[i]->changePos();
+
+			for (int j = 0; j < hudoba.size(); j++)
+				if (starina[i]->checkCollision(hudoba[j]->vrniDest(), hudoba[j]->vrniSrc()))//starina x hudoba collision
+					hudoba.erase(hudoba.begin() + j);
+		}
+
+		if (hudoba.size() < starina.size())//preverja, èe je veè staroselcev kot hudob
+		{
+			int prevelko = starina.size() - hudoba.size();
+			while (prevelko > 0)
+			{
+				starina.erase(starina.begin() + prevelko);
+				prevelko--;
+			}
+		}
+	}
 
 	for (auto& s : starina)
 		s->update();
@@ -118,8 +135,8 @@ void Game::Render()
 	for (auto& h : hudoba)
 		h->render();
 
-	/*for (auto& s : starina)
-		s->render();*/
+	for (auto& s : starina)
+		s->render();
 
 	SDL_RenderPresent(Game::renderer);
 }

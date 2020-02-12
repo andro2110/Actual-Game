@@ -102,14 +102,9 @@ void Game::Update()
 					hudoba.erase(hudoba.begin() + j);
 		}
 
-		if (hudoba.size() < starina.size())//preverja, èe je veè staroselcev kot hudob
+		if (hudoba.size() < starina.size())//èe je staroselcev veè kot hudob, se izbriše zadnji staroselec
 		{
-			int prevelko = starina.size() - hudoba.size();
-			while (prevelko > 0)
-			{
-				starina.erase(starina.begin() + prevelko);
-				prevelko--;
-			}
+			starina.erase(starina.end() - 1);
 		}
 	}
 

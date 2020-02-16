@@ -1,4 +1,4 @@
-#include "Map.h"
+ #include "Map.h"
 
 int lvl[20][25] = { 
 	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -147,6 +147,39 @@ void Map::izracun()
 {
 	int procent = (100 * m_uniceno) / 500;
 	std::cout << "Uniceno (%): " << procent << " Tocke: " << m_score << std::endl;
+}
+
+void Map::getStaroselec(std::vector<std::unique_ptr<Staroselec>>& a)
+{
+	for (int i = 0; i < a.size(); i++)
+	{
+		int x, y;
+		bool test;
+		test = a[i]->pravoMesto();
+
+		Vec2 tmp;
+		tmp.x = (a[i]->gety() + 15 * 3.0f);
+		tmp.y = (a[i]->getx() + 5 * 3.0f);
+
+		x = tmp.x / 32;
+		y = tmp.y / 32; // pretvorba v indexe tabele
+
+		for (int range = 0; range < 4; range++)
+		{
+			if (m_map[x][y + range] == 1)
+			{
+				a[i]->changePos((y + range) * 32, x * 32, 1); //ciljna pozicija
+				
+				if (a[i]->pravoMesto() == true)
+				{
+					m_map[y][x] = 3;
+				}
+			}
+			else
+				a[i]->premakni();
+		}
+		std::cout << "Map: " << a[i]->pravoMesto() << std::endl;
+	}
 }
 
 void Map::razsiriOgenj()

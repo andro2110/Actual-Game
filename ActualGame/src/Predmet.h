@@ -41,8 +41,6 @@ class Igralec : public Predmet
 {
 private:
 
-	
-
 public:
 	Igralec(const char* path, float scale);
 	~Igralec();
@@ -63,13 +61,11 @@ public:
 	~Hudoba();
 
 	void update() override;
-	void changePos();
+	void premakni();
 	void posUpdate() override;
 	void preveriPos();
+	void changePos(int x, int y);
 	bool pravoMesto() { return m_pravoMesto; }
-
-	int randx() { return m_randx; }
-	int randy() { return m_randy; }
 };
 
 class Staroselec : public Predmet
@@ -78,6 +74,11 @@ private:
 	int m_hux;
 	int m_huy;
 
+	int m_nasMestox;
+	int m_nasMestoy;
+	bool m_pravoMesto;
+	bool m_naselOgenj;
+
 public:
 	Staroselec(const char* path, float scale);
 	~Staroselec();
@@ -85,5 +86,10 @@ public:
 	void update() override;
 	void posUpdate() override;
 	void getHudoba(int x, int y);
-	void changePos();
+	void premakni();
+	void changePos(int x, int y, bool og);
+
+	bool pravoMesto() { return m_pravoMesto; }
+
+	void preveriPos();
 };

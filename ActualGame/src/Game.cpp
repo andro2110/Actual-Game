@@ -50,7 +50,8 @@ void Game::Init(const char* title, int x, int y, int w, int h, Uint32 flags)
 
 	player = new Igralec("Assets/Player.png", 3.0f);
 	
-	hudoba.push_back(std::unique_ptr<Hudoba>(std::make_unique<Hudoba>("Assets/Enemy.png", 3.0f)));
+	//hudoba.push_back(std::unique_ptr<Hudoba>(std::make_unique<Hudoba>("Assets/Enemy.png", 3.0f)));
+	starina.push_back(std::unique_ptr<Staroselec>(std::make_unique<Staroselec>("Assets/Staroselec.png", 3.0f)));
 }
 
 void Game::HandleEvents()
@@ -75,7 +76,9 @@ void Game::Update()
 	for (auto& h : hudoba)
 		h->update();
 
-	if (m_Framecount % 200 == 0)
+	map->getStaroselec(starina);
+
+	/*if (m_Framecount % 200 == 0)
 	{
 		hudoba.push_back(std::unique_ptr<Hudoba>(std::make_unique<Hudoba>("Assets/Enemy.png", 3.0f)));
 		starina.push_back(std::unique_ptr<Staroselec>(std::make_unique<Staroselec>("Assets/Staroselec.png", 3.0f)));
@@ -106,7 +109,7 @@ void Game::Update()
 		{
 			starina.erase(starina.end() - 1);
 		}
-	}
+	}*/
 
 	for (auto& s : starina)
 		s->update();

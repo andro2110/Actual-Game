@@ -1,7 +1,8 @@
 #pragma once
 #include "TextureManager.h"
 #include "Predmet.h"
-#include <vector>
+//#include <vector>
+#include <cmath>
 
 class Map
 {
@@ -16,6 +17,7 @@ public:
 	void pogasiPozar(Igralec *igralec);
 	void razsiriOgenj();
 	void izracun();
+	void getStaroselec(std::vector<std::unique_ptr<Staroselec>> &a);
 	
 	int preveriProcente();
 

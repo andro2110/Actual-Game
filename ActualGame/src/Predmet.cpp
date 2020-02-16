@@ -201,7 +201,7 @@ void Hudoba::update()
 	Predmet::border();
 	posUpdate();
 	preveriPos();
-	changePos();
+	premakni();
 }
 
 void Hudoba::posUpdate()
@@ -213,7 +213,7 @@ void Hudoba::posUpdate()
 	m_destRect.h = m_srcRect.h * m_scale;
 }
 
-void Hudoba::changePos()
+void Hudoba::premakni()
 {
 	if (m_position.x > m_randx)
 		m_position.x--;
@@ -244,6 +244,19 @@ void Hudoba::preveriPos()
 		m_pravoMesto = 0;
 }
 
+void Hudoba::changePos(int x, int y)
+{
+	if (m_position.x > x)
+		m_position.x--;
+	else if (m_position.x < x)
+		m_position.x++;
+
+	if (m_position.y > y)
+		m_position.y--;
+	else if (m_position.y < y)
+		m_position.y++;
+}
+
 Staroselec::Staroselec(const char* path, float scale) : Predmet(path, scale)
 {
 	m_texture = TextureManager::LoadTexture(path);
@@ -254,6 +267,9 @@ Staroselec::Staroselec(const char* path, float scale) : Predmet(path, scale)
 	m_position.x = rand() % 758 + 3;
 	m_position.y = rand() % 520 + 3;
 
+	m_nasMestox = rand() % 758 + 3;
+	m_nasMestoy = rand() % 520 + 3;
+
 	m_scale = scale;
 }
 
@@ -261,6 +277,8 @@ void Staroselec::update()
 {
 	Predmet::border();
 	posUpdate();
+	premakni();
+	preveriPos();
 }
 
 void Staroselec::posUpdate()
@@ -272,16 +290,16 @@ void Staroselec::posUpdate()
 	m_destRect.h = m_srcRect.h * m_scale;
 }
 
-void Staroselec::changePos()
+void Staroselec::premakni()
 {
-	if (m_position.x > m_hux)
+	if (m_position.x > m_nasMestox)
 		m_position.x -= 0.5;
-	else if (m_position.x < m_hux)
+	else if (m_position.x < m_nasMestox)
 		m_position.x += 0.5;
 
-	if (m_position.y < m_huy)
+	if (m_position.y < m_nasMestoy)
 		m_position.y += 0.5;
-	else if (m_position.y > m_huy)
+	else if (m_position.y > m_nasMestoy)
 		m_position.y -= 0.5;
 }
 
@@ -289,6 +307,52 @@ void Staroselec::getHudoba(int x, int y)
 {
 	m_hux = x;
 	m_huy = y;
+}
+
+void Staroselec::changePos(int x, int y, bool og)//og se prenese iz map.cpp, ko zazna ogenj 3 indexe desno
+{
+	m_nasMestox = x;
+	m_nasMestoy = y;
+	m_naselOgenj = og;
+}
+
+void Staroselec::preveriPos()
+{
+	if (m_naselOgenj == 1)//ogenj je v vidnem polju
+	{
+
+		if (m_position.x == m_nasMestox && m_position.y == m_nasMestoy)
+		{
+			m_pravoMesto = 1;
+			m_framecount++;
+			if (m_framecount == 100)
+			{
+				m_nasMestox = rand() % 758 + 3;
+				m_nasMestoy = rand() % 520 + 3;//mesto gre spet na random, ko pride do pozara
+
+				m_framecount = 0;
+			}
+		}
+		else
+			m_pravoMesto = 0;
+	}
+	else
+	{
+		if (m_position.x == m_nasMestox && m_position.y == m_nasMestoy)
+		{
+			m_pravoMesto = 1;
+			m_framecount++;
+			if (m_framecount == 100)
+			{
+				m_nasMestox = rand() % 758 + 3;
+				m_nasMestoy = rand() % 520 + 3;//mesto gre spet na random
+
+				m_framecount = 0;
+			}
+		}
+		else
+			m_pravoMesto = 0;
+	}
 }
 
 Predmet::~Predmet() {}

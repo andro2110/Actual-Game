@@ -9,6 +9,8 @@ C:\Users\Andraž Pergar\Desktop\ActualGame\ActualGame\src\Map.cpp(121,15): warni
 C:\Users\Andraž Pergar\Desktop\ActualGame\ActualGame\src\Map.cpp(136,11): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
 C:\Users\Andraž Pergar\Desktop\ActualGame\ActualGame\src\Map.cpp(137,11): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
 C:\Users\Andraž Pergar\Desktop\ActualGame\ActualGame\src\Map.cpp(154,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Andraž Pergar\Desktop\ActualGame\ActualGame\src\Map.cpp(161,25): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\Andraž Pergar\Desktop\ActualGame\ActualGame\src\Map.cpp(162,25): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
 C:\Users\Andraž Pergar\Desktop\ActualGame\ActualGame\src\Map.cpp(164,13): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
 C:\Users\Andraž Pergar\Desktop\ActualGame\ActualGame\src\Map.cpp(165,13): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
   ActualGame.vcxproj -> C:\Users\Andraž Pergar\Desktop\ActualGame\Debug\ActualGame.exe

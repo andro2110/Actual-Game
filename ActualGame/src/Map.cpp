@@ -158,8 +158,8 @@ void Map::getStaroselec(std::vector<std::unique_ptr<Staroselec>>& a)
 		test = a[i]->pravoMesto();
 
 		Vec2 tmp;
-		tmp.x = (a[i]->gety() + 15 * 3.0f);
-		tmp.y = (a[i]->getx() + 5 * 3.0f);
+		tmp.x = (a[i]->gety() + 15);
+		tmp.y = (a[i]->getx() + 5);
 
 		x = tmp.x / 32;
 		y = tmp.y / 32; // pretvorba v indexe tabele
@@ -169,16 +169,15 @@ void Map::getStaroselec(std::vector<std::unique_ptr<Staroselec>>& a)
 			if (m_map[x][y + range] == 1)
 			{
 				a[i]->changePos((y + range) * 32, x * 32, 1); //ciljna pozicija
-				
-				if (a[i]->pravoMesto() == true)
-				{
-					m_map[y][x] = 3;
-				}
 			}
 			else
-				a[i]->premakni();
+			{
+				a[i]->premakni();//navadni premik
+			}
 		}
-		std::cout << "Map: " << a[i]->pravoMesto() << std::endl;
+		if (a[i]->pravoMesto())//èe je na pravem mestu 
+			if (m_map[x][y] == 1)//èe je požar 
+				m_map[x][y] = 3;
 	}
 }
 

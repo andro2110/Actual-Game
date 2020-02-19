@@ -77,7 +77,8 @@ private:
 	int m_nasMestox;
 	int m_nasMestoy;
 	bool m_pravoMesto;
-	bool m_naselOgenj;
+
+	bool m_zasedenost = 0;
 
 public:
 	Staroselec(const char* path, float scale);
@@ -87,9 +88,11 @@ public:
 	void posUpdate() override;
 	void getHudoba(int x, int y);
 	void premakni();
-	void changePos(int x, int y, bool og);
+	void changePos(int x, int y);
 
 	bool pravoMesto() { return m_pravoMesto; }
+	bool zasedenost() { return m_zasedenost; }
+	void getZasedenost(bool x) { m_zasedenost = x; }
 
 	void preveriPos();
 };

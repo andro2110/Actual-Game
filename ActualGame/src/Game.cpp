@@ -48,10 +48,10 @@ void Game::Init(const char* title, int x, int y, int w, int h, Uint32 flags)
 	//tuki pis kodo
 	map = new Map();
 
-	player = new Igralec("Assets/Player.png", 3.0f);
+	player = new Igralec("Assets/Player.png", 2.0f);
 	
 	//hudoba.push_back(std::unique_ptr<Hudoba>(std::make_unique<Hudoba>("Assets/Enemy.png", 3.0f)));
-	starina.push_back(std::unique_ptr<Staroselec>(std::make_unique<Staroselec>("Assets/Staroselec.png", 3.0f)));
+	starina.push_back(std::unique_ptr<Staroselec>(std::make_unique<Staroselec>("Assets/Staroselec.png", 2.0f)));
 }
 
 void Game::HandleEvents()
@@ -76,40 +76,33 @@ void Game::Update()
 	for (auto& h : hudoba)
 		h->update();
 
-	map->getStaroselec(starina);
+	map->pogasiPozar(player);
+	map->correctmap(hudoba);
 
-	/*if (m_Framecount % 200 == 0)
+
+	if (m_Framecount % 200 == 0)
 	{
-		hudoba.push_back(std::unique_ptr<Hudoba>(std::make_unique<Hudoba>("Assets/Enemy.png", 3.0f)));
-		starina.push_back(std::unique_ptr<Staroselec>(std::make_unique<Staroselec>("Assets/Staroselec.png", 3.0f)));
+		hudoba.push_back(std::unique_ptr<Hudoba>(std::make_unique<Hudoba>("Assets/Enemy.png", 2.0f)));
+		starina.push_back(std::unique_ptr<Staroselec>(std::make_unique<Staroselec>("Assets/Staroselec.png", 2.0f)));
 	}
 
-	if (hudoba.size() != 0)//preveri, èe so hudobe
+	if (hudoba.size() != 0)
 	{
-		
-
 		for (int i = 0; i < hudoba.size(); i++)
 		{
 			if (player->checkCollision(hudoba[i]->vrniDest(), hudoba[i]->vrniSrc()))//player x hudoba collision
-			{
-				hudoba.erase(hudoba.begin() + i);//zbriše hudobo
-			}
-		}
-		for (int i = 0; i < hudoba.size(); i++)
-		{
-			starina[i]->getHudoba(hudoba[i]->getx(), hudoba[i]->gety());//staroselci zacnejo slediti hudobam, ki so na njihovem indexu
-			starina[i]->changePos();
-
-			for (int j = 0; j < hudoba.size(); j++)
-				if (starina[i]->checkCollision(hudoba[j]->vrniDest(), hudoba[j]->vrniSrc()))//starina x hudoba collision
-					hudoba.erase(hudoba.begin() + j);
+				hudoba.erase(hudoba.begin() + i);//zbrise hudobo
 		}
 
-		if (hudoba.size() < starina.size())//èe je staroselcev veè kot hudob, se izbriše zadnji staroselec
-		{
-			starina.erase(starina.end() - 1);
-		}
-	}*/
+		for (int s = 0; s < starina.size(); s++)
+			for (int h = 0; h < hudoba.size(); h++)
+				if (starina[s]->checkCollision(hudoba[h]->vrniDest(), hudoba[h]->vrniSrc()))
+					hudoba.erase(hudoba.begin() + h);
+				
+
+	}
+	
+	map->getStaroselec(starina);
 
 	for (auto& s : starina)
 		s->update();
@@ -125,8 +118,6 @@ void Game::Render()
 	SDL_RenderClear(renderer);
 	/* Tuki se rendera: */
 	map->drawMap();
-	map->pogasiPozar(player);
-	map->correctmap(hudoba);
 
 	player->render();
 	

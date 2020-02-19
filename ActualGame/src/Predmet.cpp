@@ -83,28 +83,16 @@ void Predmet::premik()
 
 void Predmet::border()
 {
-	//za obj velikost 16x32
-	/*if (m_position.x >= 757)
-		m_position.x = 757;
-	else if (m_position.x <= -5)
-		m_position.x = -5;
-
-	if (m_position.y <= -1)
-		m_position.y = -1;
-	else if (m_position.y >= 543)
-		m_position.y = 543;
-	//za obj velikost 16x32*/
-
 	//za velikost 10x30
-	if (m_position.x <= 3)
-		m_position.x = 3;
-	else if (m_position.x >= 768)
-		m_position.x = 768;
+	if (m_position.x < -5)
+		m_position.x = -6;
+	else if (m_position.x >= 785)
+		m_position.x = 785;
 
-	if (m_position.y <= 3)
-		m_position.y = 3;
-	else if (m_position.y >= 550)
-		m_position.y = 550;
+	if (m_position.y < -50)
+		m_position.y = -50;
+	else if (m_position.y > 610)
+		m_position.y = 610;
 	//za velikost 10x30
 }
 
@@ -264,11 +252,11 @@ Staroselec::Staroselec(const char* path, float scale) : Predmet(path, scale)
 	m_srcRect.w = 10;
 	m_srcRect.h = 25;
 
-	m_position.x = rand() % 758 + 3;
-	m_position.y = rand() % 520 + 3;
+	m_position.x = rand() % 750 + 5;
+	m_position.y = rand() % 520 + 5;
 
-	m_nasMestox = rand() % 758 + 3;
-	m_nasMestoy = rand() % 520 + 3;
+	m_nasMestox = rand() % 750 + 5;
+	m_nasMestoy = rand() % 520 + 5;
 
 	m_scale = scale;
 }
@@ -309,26 +297,26 @@ void Staroselec::getHudoba(int x, int y)
 	m_huy = y;
 }
 
-void Staroselec::changePos(int x, int y, bool og)//og se prenese iz map.cpp, ko zazna ogenj 3 indexe desno
+void Staroselec::changePos(int x, int y)//og se prenese iz map.cpp, ko zazna ogenj 3 indexe desno
 {
 	m_nasMestox = x;
 	m_nasMestoy = y;
-	m_naselOgenj = og;
+	m_zasedenost = 1;
 }
 
 void Staroselec::preveriPos()
 {
-	if (m_naselOgenj == 1)//ogenj je v vidnem polju
+	if (m_zasedenost == 1)//ogenj je v vidnem polju
 	{
-
-		if (m_position.x == m_nasMestox && m_position.y == m_nasMestoy)
+		if (m_position.x == m_nasMestox && m_position.y == m_nasMestoy)//pride do tapravega mesta
 		{
 			m_pravoMesto = 1;
+			m_zasedenost = 0;
 			m_framecount++;
 			if (m_framecount == 100)
 			{
-				m_nasMestox = rand() % 758 + 3;
-				m_nasMestoy = rand() % 520 + 3;//mesto gre spet na random, ko pride do pozara
+				m_nasMestox = rand() % 750 + 5;
+				m_nasMestoy = rand() % 520 + 5;//mesto gre spet na random, ko pride do pozara
 
 				m_framecount = 0;
 			}
@@ -342,10 +330,11 @@ void Staroselec::preveriPos()
 		{
 			m_pravoMesto = 1;
 			m_framecount++;
+			m_zasedenost = 0;
 			if (m_framecount == 100)
 			{
-				m_nasMestox = rand() % 758 + 3;
-				m_nasMestoy = rand() % 520 + 3;//mesto gre spet na random
+				m_nasMestox = rand() % 750 + 5;
+				m_nasMestoy = rand() % 520 + 5;//mesto gre spet na random
 
 				m_framecount = 0;
 			}

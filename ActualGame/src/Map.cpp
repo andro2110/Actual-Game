@@ -133,8 +133,8 @@ void Map::randomFire()
 
 void Map::pogasiPozar(Igralec* igralec)
 {
-	int xpos = floor(igralec->getx() / 32);
-	int ypos = floor(igralec->gety() / 32) + 3;
+	int xpos = floor((igralec->getx() + 20) / 32);
+	int ypos = floor((igralec->gety() + 60) / 32);
 
 	if (m_map[ypos][xpos] == 1)
 	{
@@ -153,31 +153,48 @@ void Map::getStaroselec(std::vector<std::unique_ptr<Staroselec>>& a)
 {
 	for (int i = 0; i < a.size(); i++)
 	{
-		int x, y;
-		bool test;
-		test = a[i]->pravoMesto();
-
-		Vec2 tmp;
-		tmp.x = (a[i]->gety() + 15);
-		tmp.y = (a[i]->getx() + 5);
-
-		x = tmp.x / 32;
-		y = tmp.y / 32; // pretvorba v indexe tabele
-
-		for (int range = 0; range < 4; range++)
+		if (a[i]->zasedenost() == false)
 		{
-			if (m_map[x][y + range] == 1)
+			int x, y;
+
+			Vec2 tmp;
+			tmp.x = (a[i]->gety());
+			tmp.y = (a[i]->getx());
+
+			x = tmp.x / 32;
+			y = tmp.y / 32; // pretvorba v indexe tabele
+
+			for (int range = 0; range < 4; range++)
 			{
-				a[i]->changePos((y + range) * 32, x * 32, 1); //ciljna pozicija
+				if (m_map[x][y + range] == 1 && m_map[x][y + range] < 25)//desno
+				{
+					a[i]->changePos((y + range) * 32, x * 32); //ciljna pozicija
+				}
+
+				else if (m_map[x][y - range] == 1 && m_map[x][y - range] >= 0)//levo
+				{
+					a[i]->changePos((y - range) * 32, x * 32);
+				}
+
+				/*if (m_map[x + range][y] == 1)//dol
+				{
+					a[i]->changePos(y * 32, (x + range) * 32, 1);
+				}
+
+				else if (m_map[x - range][y] == 1)//gor
+				{
+					a[i]->changePos(y * 32, (x - range) * 32, 1);
+				}*/
+				else
+				{
+					a[i]->premakni();//navadni premik
+				}
 			}
-			else
-			{
-				a[i]->premakni();//navadni premik
-			}
+
+			if (a[i]->pravoMesto())//èe je na pravem mestu 
+				if (m_map[x][y] == 1)//èe je požar 
+					m_map[x][y] = 3;
 		}
-		if (a[i]->pravoMesto())//èe je na pravem mestu 
-			if (m_map[x][y] == 1)//èe je požar 
-				m_map[x][y] = 3;
 	}
 }
 

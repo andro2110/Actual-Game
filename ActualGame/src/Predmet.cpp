@@ -297,7 +297,7 @@ void Staroselec::getHudoba(int x, int y)
 	m_huy = y;
 }
 
-void Staroselec::changePos(int x, int y)//og se prenese iz map.cpp, ko zazna ogenj 3 indexe desno
+void Staroselec::changePos(int x, int y)//dobi koordinate, kam naj se naslednje premakne
 {
 	m_nasMestox = x;
 	m_nasMestoy = y;
@@ -342,6 +342,28 @@ void Staroselec::preveriPos()
 		else
 			m_pravoMesto = 0;
 	}
+}
+
+void Staroselec::slediHudobi(std::vector<std::unique_ptr<Hudoba>>& hudobe)
+{
+	if (hudobe.size() > 0)
+		for (int i = 0; i < hudobe.size(); i++)
+		{
+			int razdalja = 0;
+
+			int t1x = m_destRect.x;//sredinska x koordinata staroselca
+			int t1y = m_destRect.y;//sredinska y koordinata staroselca
+
+			int t2x = hudobe[i]->vrniDest().x;//sredinska x koordinata hudobe z indexom i
+			int t2y = hudobe[i]->vrniDest().y;//sredinska y koordinata hudobe z indexom i
+
+			razdalja = sqrt(pow((t2x - t1x), 2) + pow((t2y - t1y), 2));//racunanje razdalje
+
+			if (razdalja <= 100)
+			{
+				changePos(hudobe[i]->getx(), hudobe[i]->gety());//staroselec spremeni ciljne koordinate, èe je hudoba dovolj blizu
+			}
+		}
 }
 
 Predmet::~Predmet() {}

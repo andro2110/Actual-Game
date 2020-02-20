@@ -3,5 +3,31 @@ C:\Users\Andraž Pergar\Desktop\ActualGame\ActualGame\src\Predmet.h(31,32): warn
 C:\Users\Andraž Pergar\Desktop\ActualGame\ActualGame\src\Predmet.h(32,32): warning C4244: 'return': conversion from 'float' to 'int', possible loss of data
 C:\Users\Andraž Pergar\Desktop\ActualGame\ActualGame\src\Game.cpp(91,21): warning C4018: '<': signed/unsigned mismatch
 C:\Users\Andraž Pergar\Desktop\ActualGame\ActualGame\src\Game.cpp(97,21): warning C4018: '<': signed/unsigned mismatch
+  Predmet.cpp
 C:\Users\Andraž Pergar\Desktop\ActualGame\ActualGame\src\Game.cpp(98,22): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Andraž Pergar\Desktop\ActualGame\ActualGame\src\Predmet.h(31,32): warning C4244: 'return': conversion from 'float' to 'int', possible loss of data
+C:\Users\Andraž Pergar\Desktop\ActualGame\ActualGame\src\Predmet.h(32,32): warning C4244: 'return': conversion from 'float' to 'int', possible loss of data
+C:\Users\Andraž Pergar\Desktop\ActualGame\ActualGame\src\Predmet.cpp(34,27): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\Andraž Pergar\Desktop\ActualGame\ActualGame\src\Predmet.cpp(35,27): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\Andraž Pergar\Desktop\ActualGame\ActualGame\src\Predmet.cpp(37,29): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\Andraž Pergar\Desktop\ActualGame\ActualGame\src\Predmet.cpp(38,29): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\Andraž Pergar\Desktop\ActualGame\ActualGame\src\Predmet.cpp(162,27): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\Andraž Pergar\Desktop\ActualGame\ActualGame\src\Predmet.cpp(163,27): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\Andraž Pergar\Desktop\ActualGame\ActualGame\src\Predmet.cpp(167,29): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\Andraž Pergar\Desktop\ActualGame\ActualGame\src\Predmet.cpp(168,29): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\Andraž Pergar\Desktop\ActualGame\ActualGame\src\Predmet.cpp(178,30): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\Andraž Pergar\Desktop\ActualGame\ActualGame\src\Predmet.cpp(179,30): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\Andraž Pergar\Desktop\ActualGame\ActualGame\src\Predmet.cpp(197,27): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\Andraž Pergar\Desktop\ActualGame\ActualGame\src\Predmet.cpp(198,27): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\Andraž Pergar\Desktop\ActualGame\ActualGame\src\Predmet.cpp(200,29): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\Andraž Pergar\Desktop\ActualGame\ActualGame\src\Predmet.cpp(201,29): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\Andraž Pergar\Desktop\ActualGame\ActualGame\src\Predmet.cpp(255,30): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\Andraž Pergar\Desktop\ActualGame\ActualGame\src\Predmet.cpp(256,30): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\Andraž Pergar\Desktop\ActualGame\ActualGame\src\Predmet.cpp(274,27): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\Andraž Pergar\Desktop\ActualGame\ActualGame\src\Predmet.cpp(275,27): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\Andraž Pergar\Desktop\ActualGame\ActualGame\src\Predmet.cpp(277,29): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\Andraž Pergar\Desktop\ActualGame\ActualGame\src\Predmet.cpp(278,29): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\Andraž Pergar\Desktop\ActualGame\ActualGame\src\Predmet.cpp(350,21): warning C4018: '<': signed/unsigned mismatch
+  Generating Code...
+C:\Users\Andraž Pergar\Desktop\ActualGame\ActualGame\src\Predmet.cpp(360,19): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
   ActualGame.vcxproj -> C:\Users\Andraž Pergar\Desktop\ActualGame\Debug\ActualGame.exe

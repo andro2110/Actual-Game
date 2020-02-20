@@ -88,11 +88,11 @@ public:
 	void posUpdate() override;
 	void getHudoba(int x, int y);
 	void premakni();
+	void preveriPos();
 	void changePos(int x, int y);
+	void slediHudobi(std::vector<std::unique_ptr<Hudoba>>& a);
 
 	bool pravoMesto() { return m_pravoMesto; }
 	bool zasedenost() { return m_zasedenost; }
 	void getZasedenost(bool x) { m_zasedenost = x; }
-
-	void preveriPos();
 };

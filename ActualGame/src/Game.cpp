@@ -50,7 +50,7 @@ void Game::Init(const char* title, int x, int y, int w, int h, Uint32 flags)
 
 	player = new Igralec("Assets/Player.png", 2.0f);
 	
-	//hudoba.push_back(std::unique_ptr<Hudoba>(std::make_unique<Hudoba>("Assets/Enemy.png", 3.0f)));
+	hudoba.push_back(std::unique_ptr<Hudoba>(std::make_unique<Hudoba>("Assets/Enemy.png", 2.0f)));
 	starina.push_back(std::unique_ptr<Staroselec>(std::make_unique<Staroselec>("Assets/Staroselec.png", 2.0f)));
 }
 
@@ -80,11 +80,11 @@ void Game::Update()
 	map->correctmap(hudoba);
 
 
-	if (m_Framecount % 200 == 0)
+	/*if (m_Framecount % 200 == 0)
 	{
 		hudoba.push_back(std::unique_ptr<Hudoba>(std::make_unique<Hudoba>("Assets/Enemy.png", 2.0f)));
 		starina.push_back(std::unique_ptr<Staroselec>(std::make_unique<Staroselec>("Assets/Staroselec.png", 2.0f)));
-	}
+	}*/
 
 	if (hudoba.size() != 0)
 	{
@@ -96,10 +96,13 @@ void Game::Update()
 
 		for (int s = 0; s < starina.size(); s++)
 			for (int h = 0; h < hudoba.size(); h++)
-				if (starina[s]->checkCollision(hudoba[h]->vrniDest(), hudoba[h]->vrniSrc()))
+				if (starina[s]->checkCollision(hudoba[h]->vrniDest(), hudoba[h]->vrniSrc()))//staroselec x hudoba collison
 					hudoba.erase(hudoba.begin() + h);
 				
-
+		for (auto& s : starina)
+		{
+			s->slediHudobi(hudoba);//staroselec zacne slediti hudobi
+		}
 	}
 	
 	map->getStaroselec(starina);

@@ -94,15 +94,26 @@ void Game::Update()
 				hudoba.erase(hudoba.begin() + i);//zbrise hudobo
 		}
 
-		for (int s = 0; s < starina.size(); s++)
+		for (auto& s : starina)
 			for (int h = 0; h < hudoba.size(); h++)
-				if (starina[s]->checkCollision(hudoba[h]->vrniDest(), hudoba[h]->vrniSrc()))//staroselec x hudoba collison
+				if (s->checkCollision(hudoba[h]->vrniDest(), hudoba[h]->vrniSrc()))//staroselec x hudoba collison
 					hudoba.erase(hudoba.begin() + h);
 				
 		for (auto& s : starina)
 		{
 			s->slediHudobi(hudoba);//staroselec zacne slediti hudobi
 		}
+	}
+
+	if (starina.size() != 0)
+	{
+		for (int i = 0; i < starina.size(); i++)
+		{
+			std::cout << "lajf: " << starina[i]->getLife() << std::endl;
+			if (starina[i]->getLife() == 0)
+				starina.erase(starina.begin() + i);
+		}
+
 	}
 	
 	map->getStaroselec(starina);

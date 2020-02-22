@@ -80,6 +80,8 @@ private:
 
 	bool m_zasedenost = 0;
 
+	int m_life = 5;
+
 public:
 	Staroselec(const char* path, float scale);
 	~Staroselec();
@@ -95,4 +97,5 @@ public:
 	bool pravoMesto() { return m_pravoMesto; }
 	bool zasedenost() { return m_zasedenost; }
 	void getZasedenost(bool x) { m_zasedenost = x; }
+	int getLife() { return m_life; }
 };

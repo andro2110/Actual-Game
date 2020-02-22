@@ -318,6 +318,7 @@ void Staroselec::preveriPos()
 				m_nasMestox = rand() % 750 + 5;
 				m_nasMestoy = rand() % 520 + 5;//mesto gre spet na random, ko pride do pozara
 
+				m_life--;
 				m_framecount = 0;
 			}
 		}
@@ -336,12 +337,15 @@ void Staroselec::preveriPos()
 				m_nasMestox = rand() % 750 + 5;
 				m_nasMestoy = rand() % 520 + 5;//mesto gre spet na random
 
+				m_life--;
 				m_framecount = 0;
 			}
 		}
 		else
 			m_pravoMesto = 0;
 	}
+
+	//std::cout << "ziulenje: " << m_life << std::endl;
 }
 
 void Staroselec::slediHudobi(std::vector<std::unique_ptr<Hudoba>>& hudobe)

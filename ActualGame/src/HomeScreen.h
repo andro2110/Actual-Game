@@ -9,7 +9,7 @@ public:
 
 	void getVrsta(int v) { m_vrsta = v; }
 	void draw();
-	void pojdiNazaj();
+	
 
 private:
 	SDL_Texture* m_homeScreen;

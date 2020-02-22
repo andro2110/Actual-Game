@@ -49,19 +49,15 @@ void Game::Init(const char* title, int x, int y, int w, int h, Uint32 flags)
 	}
 
 	//tuki pis kodo
-	if(homesc)
-		game = new Homesc();
-	else
-	{
-		map = new Map();
+	game = new Homesc();
 
-		player = new Igralec("Assets/Player.png", 2.0f);
+	map = new Map();
 
-		/*hudoba.push_back(std::unique_ptr<Hudoba>(std::make_unique<Hudoba>("Assets/Enemy.png", 2.0f)));
-		starina.push_back(std::unique_ptr<Staroselec>(std::make_unique<Staroselec>("Assets/Staroselec.png", 2.0f)));*/
+	player = new Igralec("Assets/Player.png", 2.0f);
 
-	}
-	game->getVrsta(1);
+	/*hudoba.push_back(std::unique_ptr<Hudoba>(std::make_unique<Hudoba>("Assets/Enemy.png", 2.0f)));
+	starina.push_back(std::unique_ptr<Staroselec>(std::make_unique<Staroselec>("Assets/Staroselec.png", 2.0f)));*/
+
 }
 
 void Game::HandleEvents()
@@ -78,24 +74,30 @@ void Game::HandleEvents()
 		if ((event.button.x > 35 && event.button.x < 110) && (event.button.y > 400 && event.button.y < 430))//play pozicija
 		{
 			std::cout << "play" << std::endl;
+			homesc = 0;
 		}
 
 		else if ((event.button.x > 35 && event.button.x < 455) && (event.button.y > 455 && event.button.y < 485))//credits
 		{
 			std::cout << "credits" << std::endl;
 			game->getVrsta(2);
-			game->pojdiNazaj();
 		}
 
 		else if ((event.button.x > 35 && event.button.x < 235) && (event.button.y > 515 && event.button.y < 545))//how to play
 		{
 			std::cout << "howtoplay" << std::endl;
 			game->getVrsta(3);
-			game->pojdiNazaj();
+		}
+
+		else if ((event.button.x > 340 && event.button.x < 455) && (event.button.y > 555 && event.button.y < 580))//back
+		{
+			std::cout << "Back" << std::endl;
+			game->getVrsta(1);
 		}
 
 		else if ((event.button.x > 666 && event.button.x < 735) && (event.button.y > 515 && event.button.y < 545))//quit
 			m_IsRunning = false;
+		break;
 
 	default:
 		break;
@@ -115,11 +117,11 @@ void Game::Update()
 		map->correctmap(hudoba);
 
 
-		/*if (m_Framecount % 200 == 0)
+		if (m_Framecount % 200 == 0)
 		{
 			hudoba.push_back(std::unique_ptr<Hudoba>(std::make_unique<Hudoba>("Assets/Enemy.png", 2.0f)));
 			starina.push_back(std::unique_ptr<Staroselec>(std::make_unique<Staroselec>("Assets/Staroselec.png", 2.0f)));
-		}*/
+		}
 
 		if (hudoba.size() != 0)
 		{

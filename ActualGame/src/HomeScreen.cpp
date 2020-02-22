@@ -16,6 +16,8 @@ Homesc::Homesc()
 	m_destRect.w = 800;
 	m_destRect.x = 0;
 	m_destRect.y = 0;
+
+	m_vrsta = 1;
 }
 
 void Homesc::draw()
@@ -37,13 +39,6 @@ void Homesc::draw()
 	default:
 		break;
 	}
-}
-
-void Homesc::pojdiNazaj()
-{
-	if (Game::event.type == SDL_MOUSEMOTION && m_vrsta != 1)
-		if ((Game::event.button.x > 55 && Game::event.button.x < 175) && (Game::event.button.y > 510 && Game::event.button.y < 540))
-			getVrsta(1);
 }
 
 Homesc::~Homesc() {}

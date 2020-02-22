@@ -146,7 +146,7 @@ void Map::pogasiPozar(Igralec* igralec)
 void Map::izracun()
 {
 	int procent = (100 * m_uniceno) / 500;
-	std::cout << "Uniceno (%): " << procent << " Tocke: " << m_score << std::endl;
+	//std::cout << "Uniceno (%): " << procent << " Tocke: " << m_score << std::endl;
 }
 
 void Map::getStaroselec(std::vector<std::unique_ptr<Staroselec>>& a)

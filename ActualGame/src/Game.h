@@ -27,5 +27,4 @@ private:
 	SDL_Window* m_window;
 
 	bool homesc = 1;
-	int posx, posy;
 };

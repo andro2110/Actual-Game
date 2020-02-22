@@ -21,10 +21,9 @@ public:
 	static SDL_Renderer* renderer;
 	static SDL_Event event;
 	int m_Framecount;
+	static bool homesc;
 
 private:
 	bool m_IsRunning;
 	SDL_Window* m_window;
-
-	bool homesc = 1;
 };

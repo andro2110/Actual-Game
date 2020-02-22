@@ -6,6 +6,7 @@
 
 SDL_Renderer* Game::renderer = nullptr;
 SDL_Event Game::event;
+bool Game::homesc = 1;
 
 Game::Game() {}
 Game::~Game() {}
@@ -71,19 +72,10 @@ void Game::HandleEvents()
 		break;
 
 	case SDL_MOUSEBUTTONDOWN:
-		if ((event.button.x > 35 && event.button.x < 110) && (event.button.y > 400 && event.button.y < 430))//play pozicija
-			homesc = 0;
+		game->preveri();
+		std::cout << event.button.x << ", " << event.button.y << std::endl;
 
-		else if ((event.button.x > 35 && event.button.x < 455) && (event.button.y > 455 && event.button.y < 485))//credits
-			game->getVrsta(2);
-
-		else if ((event.button.x > 35 && event.button.x < 235) && (event.button.y > 515 && event.button.y < 545))//how to play
-			game->getVrsta(3);
-
-		else if ((event.button.x > 340 && event.button.x < 455) && (event.button.y > 555 && event.button.y < 580))//back
-			game->getVrsta(1);
-
-		else if ((event.button.x > 666 && event.button.x < 735) && (event.button.y > 515 && event.button.y < 545))//quit
+		if ((event.button.x > 666 && event.button.x < 735) && (event.button.y > 515 && event.button.y < 545))//quit
 			m_IsRunning = false;
 		break;
 
@@ -145,9 +137,7 @@ void Game::Update()
 		for (auto& s : starina)
 			s->update();
 	}
-	if (map->preveriProcente() >= 70)
-		homesc = 1;
-	std::cout << "Uniceno (%): " << map->preveriProcente() << std::endl;
+	//std::cout << "Uniceno (%): " << map->preveriProcente() << std::endl;
 
 	m_Framecount++;
 }
@@ -156,10 +146,17 @@ void Game::Render()
 {
 	SDL_RenderClear(renderer);
 	/* Tuki se rendera: */
-	if(homesc)
+	if (homesc)
+	{
 		game->draw();
+	}
 	else
 	{
+		if (map->preveriProcente() >= 10)
+		{
+			game->getVrsta(4);
+			homesc = 1;
+		}
 		map->drawMap();
 
 		player->render();

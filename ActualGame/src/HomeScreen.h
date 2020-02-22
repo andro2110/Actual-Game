@@ -8,6 +8,7 @@ public:
 	~Homesc();
 
 	void getVrsta(int v) { m_vrsta = v; }
+	void preveri();
 	void draw();
 	
 
@@ -15,6 +16,7 @@ private:
 	SDL_Texture* m_homeScreen;
 	SDL_Texture* m_credits;
 	SDL_Texture* m_howToPlay;
+	SDL_Texture* m_gameOver;
 
 	int m_vrsta;
 

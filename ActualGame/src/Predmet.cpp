@@ -313,6 +313,7 @@ void Staroselec::preveriPos()
 			m_pravoMesto = 1;
 			m_zasedenost = 0;
 			m_framecount++;
+
 			if (m_framecount == 100)
 			{
 				m_nasMestox = rand() % 750 + 5;
@@ -332,6 +333,7 @@ void Staroselec::preveriPos()
 			m_pravoMesto = 1;
 			m_framecount++;
 			m_zasedenost = 0;
+
 			if (m_framecount == 100)
 			{
 				m_nasMestox = rand() % 750 + 5;
@@ -344,8 +346,6 @@ void Staroselec::preveriPos()
 		else
 			m_pravoMesto = 0;
 	}
-
-	//std::cout << "ziulenje: " << m_life << std::endl;
 }
 
 void Staroselec::slediHudobi(std::vector<std::unique_ptr<Hudoba>>& hudobe)

@@ -26,5 +26,6 @@ private:
 	bool m_IsRunning;
 	SDL_Window* m_window;
 
+	bool homesc = 1;
 	int posx, posy;
 };

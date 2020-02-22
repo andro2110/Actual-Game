@@ -2,6 +2,7 @@
 #include "Map.h"
 #include <iostream>
 #include <vector>
+#include "HomeScreen.h"
 
 SDL_Renderer* Game::renderer = nullptr;
 SDL_Event Game::event;
@@ -11,6 +12,8 @@ Game::~Game() {}
 
 Map* map;
 Igralec* player;
+Homesc* game;
+
 
 std::vector<std::unique_ptr<Hudoba>> hudoba;
 std::vector<std::unique_ptr<Staroselec>> starina;
@@ -46,12 +49,19 @@ void Game::Init(const char* title, int x, int y, int w, int h, Uint32 flags)
 	}
 
 	//tuki pis kodo
-	map = new Map();
+	if(homesc)
+		game = new Homesc();
+	else
+	{
+		map = new Map();
 
-	player = new Igralec("Assets/Player.png", 2.0f);
-	
-	hudoba.push_back(std::unique_ptr<Hudoba>(std::make_unique<Hudoba>("Assets/Enemy.png", 2.0f)));
-	starina.push_back(std::unique_ptr<Staroselec>(std::make_unique<Staroselec>("Assets/Staroselec.png", 2.0f)));
+		player = new Igralec("Assets/Player.png", 2.0f);
+
+		/*hudoba.push_back(std::unique_ptr<Hudoba>(std::make_unique<Hudoba>("Assets/Enemy.png", 2.0f)));
+		starina.push_back(std::unique_ptr<Staroselec>(std::make_unique<Staroselec>("Assets/Staroselec.png", 2.0f)));*/
+
+	}
+	game->getVrsta(1);
 }
 
 void Game::HandleEvents()
@@ -64,6 +74,29 @@ void Game::HandleEvents()
 		m_IsRunning = false;
 		break;
 
+	case SDL_MOUSEBUTTONDOWN:
+		if ((event.button.x > 35 && event.button.x < 110) && (event.button.y > 400 && event.button.y < 430))//play pozicija
+		{
+			std::cout << "play" << std::endl;
+		}
+
+		else if ((event.button.x > 35 && event.button.x < 455) && (event.button.y > 455 && event.button.y < 485))//credits
+		{
+			std::cout << "credits" << std::endl;
+			game->getVrsta(2);
+			game->pojdiNazaj();
+		}
+
+		else if ((event.button.x > 35 && event.button.x < 235) && (event.button.y > 515 && event.button.y < 545))//how to play
+		{
+			std::cout << "howtoplay" << std::endl;
+			game->getVrsta(3);
+			game->pojdiNazaj();
+		}
+
+		else if ((event.button.x > 666 && event.button.x < 735) && (event.button.y > 515 && event.button.y < 545))//quit
+			m_IsRunning = false;
+
 	default:
 		break;
 	}
@@ -71,58 +104,60 @@ void Game::HandleEvents()
 
 void Game::Update()
 {
-	player->update();
-
-	for (auto& h : hudoba)
-		h->update();
-
-	map->pogasiPozar(player);
-	map->correctmap(hudoba);
-
-
-	/*if (m_Framecount % 200 == 0)
+	if (homesc == false)
 	{
-		hudoba.push_back(std::unique_ptr<Hudoba>(std::make_unique<Hudoba>("Assets/Enemy.png", 2.0f)));
-		starina.push_back(std::unique_ptr<Staroselec>(std::make_unique<Staroselec>("Assets/Staroselec.png", 2.0f)));
-	}*/
+		player->update();
 
-	if (hudoba.size() != 0)
-	{
-		for (int i = 0; i < hudoba.size(); i++)
+		for (auto& h : hudoba)
+			h->update();
+
+		map->pogasiPozar(player);
+		map->correctmap(hudoba);
+
+
+		/*if (m_Framecount % 200 == 0)
 		{
-			if (player->checkCollision(hudoba[i]->vrniDest(), hudoba[i]->vrniSrc()))//player x hudoba collision
-				hudoba.erase(hudoba.begin() + i);//zbrise hudobo
+			hudoba.push_back(std::unique_ptr<Hudoba>(std::make_unique<Hudoba>("Assets/Enemy.png", 2.0f)));
+			starina.push_back(std::unique_ptr<Staroselec>(std::make_unique<Staroselec>("Assets/Staroselec.png", 2.0f)));
+		}*/
+
+		if (hudoba.size() != 0)
+		{
+			for (int i = 0; i < hudoba.size(); i++)
+			{
+				if (player->checkCollision(hudoba[i]->vrniDest(), hudoba[i]->vrniSrc()))//player x hudoba collision
+					hudoba.erase(hudoba.begin() + i);//zbrise hudobo
+			}
+
+			for (auto& s : starina)
+				for (int h = 0; h < hudoba.size(); h++)
+					if (s->checkCollision(hudoba[h]->vrniDest(), hudoba[h]->vrniSrc()))//staroselec x hudoba collison
+						hudoba.erase(hudoba.begin() + h);
+
+			for (auto& s : starina)
+			{
+				s->slediHudobi(hudoba);//staroselec zacne slediti hudobi
+			}
 		}
+
+		if (starina.size() != 0)
+		{
+			for (int i = 0; i < starina.size(); i++)
+			{
+				if (starina[i]->getLife() == 0)
+					starina.erase(starina.begin() + i);
+			}
+
+		}
+
+		map->getStaroselec(starina);
 
 		for (auto& s : starina)
-			for (int h = 0; h < hudoba.size(); h++)
-				if (s->checkCollision(hudoba[h]->vrniDest(), hudoba[h]->vrniSrc()))//staroselec x hudoba collison
-					hudoba.erase(hudoba.begin() + h);
-				
-		for (auto& s : starina)
-		{
-			s->slediHudobi(hudoba);//staroselec zacne slediti hudobi
-		}
+			s->update();
+
+		/*if (map->preveriProcente() >= 70)
+			m_IsRunning = false;*/
 	}
-
-	if (starina.size() != 0)
-	{
-		for (int i = 0; i < starina.size(); i++)
-		{
-			std::cout << "lajf: " << starina[i]->getLife() << std::endl;
-			if (starina[i]->getLife() == 0)
-				starina.erase(starina.begin() + i);
-		}
-
-	}
-	
-	map->getStaroselec(starina);
-
-	for (auto& s : starina)
-		s->update();
-
-	/*if (map->preveriProcente() >= 70)
-		m_IsRunning = false;*/
 
 	m_Framecount++;
 }
@@ -131,15 +166,20 @@ void Game::Render()
 {
 	SDL_RenderClear(renderer);
 	/* Tuki se rendera: */
-	map->drawMap();
+	if(homesc)
+		game->draw();
+	else
+	{
+		map->drawMap();
 
-	player->render();
-	
-	for (auto& h : hudoba)
-		h->render();
+		player->render();
 
-	for (auto& s : starina)
-		s->render();
+		for (auto& h : hudoba)
+			h->render();
+
+		for (auto& s : starina)
+			s->render();
+	}
 
 	SDL_RenderPresent(Game::renderer);
 }

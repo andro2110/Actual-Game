@@ -1,0 +1,12 @@
+﻿  Game.cpp
+C:\Users\Andraž Pergar\Desktop\ActualGame\ActualGame\src\Predmet.h(31,32): warning C4244: 'return': conversion from 'float' to 'int', possible loss of data
+C:\Users\Andraž Pergar\Desktop\ActualGame\ActualGame\src\Predmet.h(32,32): warning C4244: 'return': conversion from 'float' to 'int', possible loss of data
+C:\Users\Andraž Pergar\Desktop\ActualGame\ActualGame\src\Game.cpp(143,22): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Andraž Pergar\Desktop\ActualGame\ActualGame\src\Game.cpp(150,23): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Andraž Pergar\Desktop\ActualGame\ActualGame\src\Game.cpp(162,22): warning C4018: '<': signed/unsigned mismatch
+  Generating code
+  2 of 585 functions ( 0.3%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    2 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  ActualGame.vcxproj -> C:\Users\Andraž Pergar\Desktop\ActualGame\Release\ActualGame.exe

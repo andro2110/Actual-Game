@@ -94,6 +94,8 @@ void Game::Update()
 			game->getVrsta(5);//lvl2 slika
 		else if (lvl == 3)
 			game->getVrsta(7);//lvl3 slika
+		else if (lvl == 4)
+			game->getVrsta(8);
 		else if(lvl == 2)
 			game->getVrsta(6);//pojavi se lvl1 slika
 
@@ -106,7 +108,7 @@ void Game::Update()
 	}
 	else if(homesc == false)//preverja med igro
 	{
-		if (m_Framecount % 1200 == 0)//level traja 20 sekund
+		if (m_Framecount % 1800 == 0)//level traja 20 sekund
 		{
 			lvl++;
 

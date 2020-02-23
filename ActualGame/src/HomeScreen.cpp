@@ -65,7 +65,6 @@ void Homesc::preveri()
 		if ((Game::event.button.x > 210 && Game::event.button.x < 590) && (Game::event.button.y > 255 && Game::event.button.y < 580))
 		{
 			getVrsta(1);
-			std::cout << "tuki: " << m_vrsta << std::endl;
 		}
 	}
 }

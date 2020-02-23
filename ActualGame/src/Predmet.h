@@ -80,7 +80,7 @@ private:
 
 	bool m_zasedenost = 0;
 
-	int m_life = 5;
+	int m_life = 3;
 
 public:
 	Staroselec(const char* path, float scale);

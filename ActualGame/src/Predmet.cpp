@@ -220,7 +220,7 @@ void Hudoba::preveriPos()
 	{
 		m_pravoMesto = 1;
 		m_framecount++;
-		if (m_framecount == 100)
+		if (m_framecount == 120)
 		{
 			m_randx = rand() % 758 + 3;
 			m_randy = rand() % 520 + 3;
@@ -314,7 +314,7 @@ void Staroselec::preveriPos()
 			m_zasedenost = 0;
 			m_framecount++;
 
-			if (m_framecount == 100)
+			if (m_framecount == 120)//dve sekundi
 			{
 				m_nasMestox = rand() % 750 + 5;
 				m_nasMestoy = rand() % 520 + 5;//mesto gre spet na random, ko pride do pozara

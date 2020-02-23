@@ -28,10 +28,8 @@ private:
 	SDL_Texture* m_stor;
 	SDL_Texture* m_zazgan;
 
-	bool m_test;
 	int m_spawnFire = 0;
-	int m_counterIgralec = 0;
-	int m_delay = 100;
+	int m_delay = 120;
 	int m_razsiri = 0;
 	int m_razsiriDelay = 300;
 	

@@ -73,7 +73,6 @@ void Game::HandleEvents()
 
 	case SDL_MOUSEBUTTONDOWN:
 		game->preveri();
-		std::cout << event.button.x << ", " << event.button.y << std::endl;
 
 		if ((event.button.x > 666 && event.button.x < 735) && (event.button.y > 515 && event.button.y < 545))//quit
 			m_IsRunning = false;
@@ -137,7 +136,6 @@ void Game::Update()
 		for (auto& s : starina)
 			s->update();
 	}
-	//std::cout << "Uniceno (%): " << map->preveriProcente() << std::endl;
 
 	m_Framecount++;
 }
@@ -152,7 +150,7 @@ void Game::Render()
 	}
 	else
 	{
-		if (map->preveriProcente() >= 10)
+		if (map->preveriProcente() >= 10)//dej na 70
 		{
 			game->getVrsta(4);
 			homesc = 1;

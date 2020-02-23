@@ -9,6 +9,8 @@ Homesc::Homesc()
 	m_gameOver = TextureManager::LoadTexture("Assets/GameOver.png");
 	m_lvl1 = TextureManager::LoadTexture("Assets/lvl1.png");
 	m_lvl2 = TextureManager::LoadTexture("Assets/lvl2.png");
+	m_lvl3 = TextureManager::LoadTexture("Assets/lvl3.png");
+	m_congrats = TextureManager::LoadTexture("Assets/Congrats.png");
 
 	m_srcRect.x = 0;
 	m_srcRect.y = 0;
@@ -49,6 +51,14 @@ void Homesc::draw()
 
 	case 6:
 		TextureManager::Draw(m_lvl2, m_srcRect, m_destRect);//lvl2
+		break;
+
+	case 7:
+		TextureManager::Draw(m_lvl3, m_srcRect, m_destRect);//lvl3
+		break;
+
+	case 8:
+		TextureManager::Draw(m_congrats, m_srcRect, m_destRect);//congrats
 
 	default:
 		break;

@@ -14,7 +14,7 @@ int main(int argc, char* argv[])
 
 	Game* game = new Game();
 
-	game->Init("Naslov", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 640, SDL_WINDOW_RESIZABLE);
+	game->Init("Resi amazonski pragozd!", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 640, SDL_WINDOW_RESIZABLE);
 
 	while (game->IsRunning()) {
 

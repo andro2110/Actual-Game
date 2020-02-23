@@ -41,6 +41,9 @@ Map::Map()
 	m_destRect.w = 32;
 	m_destRect.x = 0;
 	m_destRect.y = 0;
+
+	m_delay = 240;//4 sekunde zamika pri vžigu ognja
+	m_razsiriDelay = 300;//5 sekund zamika pri razsiritvi ognja
 }
 
 Map::~Map() {}
@@ -141,12 +144,6 @@ void Map::pogasiPozar(Igralec* igralec)
 		m_map[ypos][xpos] = 3;
 		m_score++;
 	}
-}
-
-void Map::izracun()
-{
-	int procent = (100 * m_uniceno) / 500;
-	//std::cout << "Uniceno (%): " << procent << " Tocke: " << m_score << std::endl;
 }
 
 void Map::getStaroselec(std::vector<std::unique_ptr<Staroselec>>& a)
@@ -279,22 +276,48 @@ void Map::razsiriOgenj()
 		}
 	}
 	m_razsiri++;
+	std::cout << m_razsiri << std::endl;
 }
 
 int Map::preveriProcente()
 {
 	int procent = (100 * m_uniceno) / 500;
-
 	return procent;
 }
 
-void Map::nextlvl()
+void Map::nextlvl(int l)
 {
-	for (int i = 0; i < 25; i++)
+	for (int i = 0; i < 20; i++)
 	{
-		for (int j = 0; j < 20; j++)
+		for (int j = 0; j < 25; j++)
 		{
 			m_map[i][j] = 0;
 		}
+	}
+
+	switch (l)
+	{
+	case 2:
+		m_delay = 120;
+		m_spawnFire = 0;
+
+		m_razsiriDelay = 150;
+		m_razsiri = 0;
+
+		m_uniceno = 0;
+		break;
+
+	case 3:
+		m_delay = 90;
+		m_spawnFire = 0;
+		
+		m_razsiriDelay = 110;
+		m_razsiri = 0;
+
+		m_uniceno = 0;
+		break;
+
+	default:
+		break;
 	}
 }

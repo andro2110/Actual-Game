@@ -16,10 +16,9 @@ public:
 	void randomFire();
 	void pogasiPozar(Igralec *igralec);
 	void razsiriOgenj();
-	void izracun();
 	void getStaroselec(std::vector<std::unique_ptr<Staroselec>> &a);
 	int vrniScore() { return m_score; }
-	void nextlvl();
+	void nextlvl(int l);
 	
 	int preveriProcente();
 
@@ -31,9 +30,9 @@ private:
 	SDL_Texture* m_zazgan;
 
 	int m_spawnFire = 0;
-	int m_delay = 120;
+	int m_delay;
 	int m_razsiri = 0;
-	int m_razsiriDelay = 300;
+	int m_razsiriDelay;
 	
 	int m_score = 0;
 	int m_uniceno = 0;

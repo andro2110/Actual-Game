@@ -22,6 +22,7 @@ public:
 	static SDL_Event event;
 	int m_Framecount;
 	static bool homesc;
+	int lvl = 1;
 
 private:
 	bool m_play = false;

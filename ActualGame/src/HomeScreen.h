@@ -19,6 +19,8 @@ private:
 	SDL_Texture* m_gameOver;
 	SDL_Texture* m_lvl1;
 	SDL_Texture* m_lvl2;
+	SDL_Texture* m_lvl3;
+	SDL_Texture* m_congrats;
 
 	int m_vrsta;
 	int m_framecnt = 0;

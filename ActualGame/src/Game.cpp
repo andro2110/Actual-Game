@@ -15,8 +15,6 @@ Map* map;
 Igralec* player;
 Homesc* game;
 
-bool level = 0;
-
 std::vector<std::unique_ptr<Hudoba>> hudoba;
 std::vector<std::unique_ptr<Staroselec>> starina;
 
@@ -89,11 +87,13 @@ void Game::HandleEvents()
 
 void Game::Update()
 {
-	if (m_play == true)//preverja, ce je bil klik na play koordinate
+	if (m_play == true)//preverja
 	{
 		stej++;
-		if (map->vrniScore() > 0)
+		if (lvl == 2)
 			game->getVrsta(6);//lvl2 slika
+		else if (lvl == 4)
+			game->getVrsta(7);//lvl3 slika
 		else
 			game->getVrsta(5);//pojavi se lvl1 slika
 
@@ -108,14 +108,23 @@ void Game::Update()
 	{
 		if (m_Framecount % 1200 == 0)//level traja 20 sekund
 		{
+			lvl++;
+
 			m_play = 1;
 			homesc = true;
 			m_Framecount = 0;
 
 			hudoba.clear();
 			starina.clear();
-			map->nextlvl();
+			map->nextlvl(lvl);
 		}
+	}
+
+	if (lvl == 3)
+	{
+		game->getVrsta(8);
+		m_play = true;
+		homesc = true;
 	}
 
 	if (homesc == false)
@@ -182,10 +191,12 @@ void Game::Render()
 	}
 	else
 	{
-		if (map->preveriProcente() >= 10)//dej na 70
+		if (map->preveriProcente() >= 70)//dej na 70 ||game over
 		{
 			game->getVrsta(4);
 			homesc = 1;
+
+			std::cout << "Tocke: " << map->vrniScore() << std::endl;
 		}
 		map->drawMap();
 

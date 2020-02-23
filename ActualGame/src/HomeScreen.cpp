@@ -84,6 +84,9 @@ void Homesc::preveri()
 			getVrsta(1);
 		}
 	}
+	if (m_vrsta == 8)
+		if ((Game::event.button.x > 210 && Game::event.button.x < 590) && (Game::event.button.y > 255 && Game::event.button.y < 580))//back to home screen, congrats
+			getVrsta(1);
 }
 
 Homesc::~Homesc() {}

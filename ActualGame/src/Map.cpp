@@ -103,7 +103,7 @@ void Map::correctmap(std::vector<std::unique_ptr<Hudoba>> &a)
 	for (int i = 0; i < a.size(); i++)
 	{
 		int xpos = floor(a[i]->getx() / 32);
-		int ypos = floor(a[i]->gety() / 32) + 3;
+		int ypos = floor(a[i]->gety() / 32) + 2;
 
 		if (a[i]->pravoMesto() == true && m_map[ypos][xpos] != 1 && m_map[ypos][xpos] != 2 && m_map[ypos][xpos] != 3)
 		{
@@ -276,7 +276,6 @@ void Map::razsiriOgenj()
 		}
 	}
 	m_razsiri++;
-	std::cout << m_razsiri << std::endl;
 }
 
 int Map::preveriProcente()

@@ -90,12 +90,12 @@ void Game::Update()
 	if (m_play == true)//preverja
 	{
 		stej++;
-		if (lvl == 2)
-			game->getVrsta(6);//lvl2 slika
-		else if (lvl == 4)
+		if (lvl == 1)
+			game->getVrsta(5);//lvl2 slika
+		else if (lvl == 3)
 			game->getVrsta(7);//lvl3 slika
-		else
-			game->getVrsta(5);//pojavi se lvl1 slika
+		else if(lvl == 2)
+			game->getVrsta(6);//pojavi se lvl1 slika
 
 		if (stej % 120 == 0)//po dveh sekundah se zacne igra
 		{
@@ -118,13 +118,6 @@ void Game::Update()
 			starina.clear();
 			map->nextlvl(lvl);
 		}
-	}
-
-	if (lvl == 3)
-	{
-		game->getVrsta(8);
-		m_play = true;
-		homesc = true;
 	}
 
 	if (homesc == false)
@@ -197,6 +190,12 @@ void Game::Render()
 			homesc = 1;
 
 			std::cout << "Tocke: " << map->vrniScore() << std::endl;
+		}
+
+		else if (lvl == 4)
+		{
+			game->getVrsta(8);
+			homesc = true;
 		}
 		map->drawMap();
 

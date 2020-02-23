@@ -19,8 +19,6 @@ Homesc* game;
 std::vector<std::unique_ptr<Hudoba>> hudoba;
 std::vector<std::unique_ptr<Staroselec>> starina;
 
-std::vector<int> test;
-
 void Game::Init(const char* title, int x, int y, int w, int h, Uint32 flags)
 {
 	m_Framecount = 0;
@@ -49,7 +47,7 @@ void Game::Init(const char* title, int x, int y, int w, int h, Uint32 flags)
 		std::cout << "Failed to inicialize" << std::endl;
 	}
 
-	//tuki pis kodo
+	//od tukej naprej pisi kodo
 	game = new Homesc();
 
 	map = new Map();
@@ -72,10 +70,15 @@ void Game::HandleEvents()
 		break;
 
 	case SDL_MOUSEBUTTONDOWN:
-		game->preveri();
+		if ((Game::event.button.x > 35 && Game::event.button.x < 110) && (Game::event.button.y > 400 && Game::event.button.y < 430))//play pozicija
+		{
+			m_play = 1;
+		}
 
-		if ((event.button.x > 666 && event.button.x < 735) && (event.button.y > 515 && event.button.y < 545))//quit
+		else if ((event.button.x > 666 && event.button.x < 735) && (event.button.y > 515 && event.button.y < 545))//quit
 			m_IsRunning = false;
+
+		game->preveri();
 		break;
 
 	default:
@@ -85,6 +88,18 @@ void Game::HandleEvents()
 
 void Game::Update()
 {
+	if (m_play)//preverja, ce je bil klik na play koordinate
+	{
+		stej++;
+		game->getVrsta(5);//pojavi se lvl1 slika
+		if (stej % 120 == 0)//po dveh sekundah se zacne igra
+		{
+			stej = 0;
+			m_play = 0;
+			homesc = false;
+		}
+	}
+
 	if (homesc == false)
 	{
 		player->update();

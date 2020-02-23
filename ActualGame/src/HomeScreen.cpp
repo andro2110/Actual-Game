@@ -7,6 +7,8 @@ Homesc::Homesc()
 	m_credits = TextureManager::LoadTexture("Assets/Credits.png");
 	m_howToPlay = TextureManager::LoadTexture("Assets/HowToPlay.png");
 	m_gameOver = TextureManager::LoadTexture("Assets/GameOver.png");
+	m_lvl1 = TextureManager::LoadTexture("Assets/lvl1.png");
+	m_lvl2 = TextureManager::LoadTexture("Assets/lvl2.png");
 
 	m_srcRect.x = 0;
 	m_srcRect.y = 0;
@@ -41,6 +43,9 @@ void Homesc::draw()
 		TextureManager::Draw(m_gameOver, m_srcRect, m_destRect);//game over
 		break;
 
+	case 5:
+		TextureManager::Draw(m_lvl1, m_srcRect, m_srcRect);//lvl1 slika
+
 	default:
 		break;
 	}
@@ -48,10 +53,8 @@ void Homesc::draw()
 
 void Homesc::preveri()
 {
-	if ((Game::event.button.x > 35 && Game::event.button.x < 110) && (Game::event.button.y > 400 && Game::event.button.y < 430))//play pozicija
-		Game::homesc = 0;
 
-	else if ((Game::event.button.x > 35 && Game::event.button.x < 455) && (Game::event.button.y > 455 && Game::event.button.y < 485))//credits
+	if ((Game::event.button.x > 35 && Game::event.button.x < 455) && (Game::event.button.y > 455 && Game::event.button.y < 485))//credits
 		m_vrsta = 2;
 
 	else if ((Game::event.button.x > 35 && Game::event.button.x < 235) && (Game::event.button.y > 515 && Game::event.button.y < 545))//how to play
@@ -62,10 +65,25 @@ void Homesc::preveri()
 
 	if (m_vrsta == 4)
 	{
-		if ((Game::event.button.x > 210 && Game::event.button.x < 590) && (Game::event.button.y > 255 && Game::event.button.y < 580))
+		if ((Game::event.button.x > 210 && Game::event.button.x < 590) && (Game::event.button.y > 255 && Game::event.button.y < 580))//back to home screen, game over
 		{
 			getVrsta(1);
 		}
+	}
+}
+
+void Homesc::pocakaj()
+{
+	if (m_framecnt == 180)
+	{
+		Game::homesc = 0;
+		//std::cout << "Cakam: " << m_framecnt << std::endl;
+	}
+	else
+	{
+		m_vrsta = 5;
+		m_framecnt++;
+		//std::cout << "Cakam: " << m_framecnt << std::endl;
 	}
 }
 

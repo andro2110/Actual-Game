@@ -24,6 +24,8 @@ public:
 	static bool homesc;
 
 private:
+	bool m_play = false;
+	int stej = 0;
 	bool m_IsRunning;
 	SDL_Window* m_window;
 };

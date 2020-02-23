@@ -10,7 +10,6 @@ public:
 	void getVrsta(int v) { m_vrsta = v; }
 	void preveri();
 	void draw();
-	void pocakaj();
 	
 
 private:

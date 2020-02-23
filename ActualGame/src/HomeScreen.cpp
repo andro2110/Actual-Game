@@ -45,6 +45,10 @@ void Homesc::draw()
 
 	case 5:
 		TextureManager::Draw(m_lvl1, m_srcRect, m_srcRect);//lvl1 slika
+		break;
+
+	case 6:
+		TextureManager::Draw(m_lvl2, m_srcRect, m_destRect);//lvl2
 
 	default:
 		break;
@@ -69,21 +73,6 @@ void Homesc::preveri()
 		{
 			getVrsta(1);
 		}
-	}
-}
-
-void Homesc::pocakaj()
-{
-	if (m_framecnt == 180)
-	{
-		Game::homesc = 0;
-		//std::cout << "Cakam: " << m_framecnt << std::endl;
-	}
-	else
-	{
-		m_vrsta = 5;
-		m_framecnt++;
-		//std::cout << "Cakam: " << m_framecnt << std::endl;
 	}
 }
 

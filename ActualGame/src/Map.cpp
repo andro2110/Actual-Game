@@ -287,3 +287,14 @@ int Map::preveriProcente()
 
 	return procent;
 }
+
+void Map::nextlvl()
+{
+	for (int i = 0; i < 25; i++)
+	{
+		for (int j = 0; j < 20; j++)
+		{
+			m_map[i][j] = 0;
+		}
+	}
+}

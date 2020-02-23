@@ -18,6 +18,8 @@ public:
 	void razsiriOgenj();
 	void izracun();
 	void getStaroselec(std::vector<std::unique_ptr<Staroselec>> &a);
+	int vrniScore() { return m_score; }
+	void nextlvl();
 	
 	int preveriProcente();
 

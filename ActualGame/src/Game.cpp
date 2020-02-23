@@ -15,6 +15,7 @@ Map* map;
 Igralec* player;
 Homesc* game;
 
+bool level = 0;
 
 std::vector<std::unique_ptr<Hudoba>> hudoba;
 std::vector<std::unique_ptr<Staroselec>> starina;
@@ -88,15 +89,32 @@ void Game::HandleEvents()
 
 void Game::Update()
 {
-	if (m_play)//preverja, ce je bil klik na play koordinate
+	if (m_play == true)//preverja, ce je bil klik na play koordinate
 	{
 		stej++;
-		game->getVrsta(5);//pojavi se lvl1 slika
+		if (map->vrniScore() > 0)
+			game->getVrsta(6);//lvl2 slika
+		else
+			game->getVrsta(5);//pojavi se lvl1 slika
+
 		if (stej % 120 == 0)//po dveh sekundah se zacne igra
 		{
 			stej = 0;
 			m_play = 0;
 			homesc = false;
+		}
+	}
+	else if(homesc == false)//preverja med igro
+	{
+		if (m_Framecount % 1200 == 0)//level traja 20 sekund
+		{
+			m_play = 1;
+			homesc = true;
+			m_Framecount = 0;
+
+			hudoba.clear();
+			starina.clear();
+			map->nextlvl();
 		}
 	}
 
@@ -110,8 +128,7 @@ void Game::Update()
 		map->pogasiPozar(player);
 		map->correctmap(hudoba);
 
-
-		if (m_Framecount % 200 == 0)
+		if (m_Framecount % 300 == 0)//hudobe & staroselci se spawnajo na 5 sekund
 		{
 			hudoba.push_back(std::unique_ptr<Hudoba>(std::make_unique<Hudoba>("Assets/Enemy.png", 2.0f)));
 			starina.push_back(std::unique_ptr<Staroselec>(std::make_unique<Staroselec>("Assets/Staroselec.png", 2.0f)));
@@ -140,7 +157,7 @@ void Game::Update()
 		{
 			for (int i = 0; i < starina.size(); i++)
 			{
-				if (starina[i]->getLife() == 0)
+				if (starina[i]->getLife() == 0)//preverja kdaj zbrise hudobo
 					starina.erase(starina.begin() + i);
 			}
 
@@ -150,9 +167,9 @@ void Game::Update()
 
 		for (auto& s : starina)
 			s->update();
-	}
 
-	m_Framecount++;
+		m_Framecount++;
+	}
 }
 
 void Game::Render()

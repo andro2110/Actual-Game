@@ -3,6 +3,7 @@
 #include <iostream>
 #include <vector>
 #include "HomeScreen.h"
+#include "Text.h"
 
 SDL_Renderer* Game::renderer = nullptr;
 SDL_Event Game::event;
@@ -14,7 +15,6 @@ Game::~Game() {}
 Map* map;
 Igralec* player;
 Homesc* game;
-
 std::vector<std::unique_ptr<Hudoba>> hudoba;
 std::vector<std::unique_ptr<Staroselec>> starina;
 
@@ -22,40 +22,33 @@ void Game::Init(const char* title, int x, int y, int w, int h, Uint32 flags)
 {
 	m_Framecount = 0;
 
+	TTF_Init();
 	SDL_Init(SDL_INIT_EVERYTHING);
 	if (SDL_Init(SDL_INIT_EVERYTHING) == false) {
-		std::cout << "SubSystems Initialized" << std::endl;
 
 		m_window = SDL_CreateWindow(title, x, y, w, h, flags);
 
-		if (m_window != NULL)
-			std::cout << "Window initialized" << std::endl;
-
 		Game::renderer = SDL_CreateRenderer(m_window, -1, 0);
-
-		if (Game::renderer) {
-			SDL_SetRenderDrawColor(Game::renderer, 33, 110, 54, 255);
-			std::cout << "Renderer initialized" << std::endl;
-		}
+		SDL_SetRenderDrawColor(Game::renderer, 33, 110, 54, 255);
 
 		m_IsRunning = true;
-		std::cout << "Is running" << std::endl;
 	}
 	else {
 		m_IsRunning = false;
-		std::cout << "Failed to inicialize" << std::endl;
+		std::cout << "Failed to run" << std::endl;
 	}
+
 
 	//od tukej naprej pisi kodo
 	game = new Homesc();
 
 	map = new Map();
 
-	player = new Igralec("Assets/Player.png", 2.0f);
+	player = new Igralec("Assets/Plup.png", 2.0f);
 
-	/*hudoba.push_back(std::unique_ptr<Hudoba>(std::make_unique<Hudoba>("Assets/Enemy.png", 2.0f)));
-	starina.push_back(std::unique_ptr<Staroselec>(std::make_unique<Staroselec>("Assets/Staroselec.png", 2.0f)));*/
+	SDL_Color white{ 255, 255, 255, 255 };
 
+	//test->pripraviText(10, 10, "Test", white);
 }
 
 void Game::HandleEvents()
@@ -96,7 +89,7 @@ void Game::Update()
 			game->getVrsta(7);//lvl3 slika
 		else if (lvl == 4)
 			game->getVrsta(8);
-		else if(lvl == 2)
+		else if (lvl == 2)
 			game->getVrsta(6);//pojavi se lvl1 slika
 
 		if (stej % 120 == 0)//po dveh sekundah se zacne igra
@@ -106,7 +99,7 @@ void Game::Update()
 			homesc = false;
 		}
 	}
-	else if(homesc == false)//preverja med igro
+	else if (homesc == false)//preverja med igro
 	{
 		if (m_Framecount % 1800 == 0)//level traja 20 sekund
 		{
@@ -209,6 +202,8 @@ void Game::Render()
 		for (auto& s : starina)
 			s->render();
 	}
+
+//	test->draw();
 
 	SDL_RenderPresent(Game::renderer);
 }

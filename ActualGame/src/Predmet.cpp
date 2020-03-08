@@ -46,14 +46,18 @@ void Predmet::premik()
 		{
 		case SDLK_a:
 			m_smer.x = -1;
+			setTex("Assets/Plleft.png");
 			break;
 		case SDLK_w:
+			setTex("Assets/Plup.png");
 			m_smer.y = -1;
 			break;
 		case SDLK_s:
+			setTex("Assets/Pldown.png");
 			m_smer.y = 1;
 			break;
 		case SDLK_d:
+			setTex("Assets/Plright.png");
 			m_smer.x = 1;
 		default:
 			break;
@@ -66,14 +70,18 @@ void Predmet::premik()
 		{
 		case SDLK_a:
 			m_smer.x = 0;
+			setTex("Assets/Plidle.png");
 			break;
 		case SDLK_w:
+			setTex("Assets/Plidle.png");
 			m_smer.y = 0;
 			break;
 		case SDLK_s:
+			setTex("Assets/Plidle.png");
 			m_smer.y = 0;
 			break;
 		case SDLK_d:
+			setTex("Assets/Plidle.png");
 			m_smer.x = 0;
 		default:
 			break;
@@ -134,8 +142,8 @@ Igralec::Igralec(const char* path, float scale) : Predmet(path, scale)
 {
 	m_texture = TextureManager::LoadTexture(path);
 
-	m_srcRect.w = 10;
-	m_srcRect.h = 30;
+	m_srcRect.w = 23;
+	m_srcRect.h = 28;
 
 	m_position.x = 0;
 	m_position.y = 0;
@@ -153,7 +161,7 @@ void Igralec::update()
 
 void Igralec::posUpdate()
 {
-	m_srcRect.x = 0;
+	m_srcRect.x = m_srcRect.w * static_cast<int>((SDL_GetTicks() / 200) % 4);
 	m_srcRect.y = 0;
 
 	m_position.x += m_smer.x * m_speed;
@@ -161,8 +169,6 @@ void Igralec::posUpdate()
 
 	m_destRect.x = m_position.x;
 	m_destRect.y = m_position.y;
-
-	//std::cout << m_position.x << ", " << m_position.y << std::endl;
 
 	m_destRect.w = m_srcRect.w * m_scale;
 	m_destRect.h = m_srcRect.h * m_scale;

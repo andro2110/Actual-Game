@@ -25,13 +25,14 @@ public:
 	virtual ~Predmet();
 
 	virtual void update();
-	void premik();
 	virtual void border();
 	virtual void posUpdate();
 	int getx() { return m_position.x; }
 	int gety() { return m_position.y; }
+	void premik();
 	void render();
 	bool checkCollision(SDL_Rect dest, SDL_Rect src);
+	void setTex(const char* path) { m_texture = TextureManager::LoadTexture(path); }
 
 	SDL_Rect vrniSrc() { return m_srcRect; }
 	SDL_Rect vrniDest() { return m_destRect; }

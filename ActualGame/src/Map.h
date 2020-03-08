@@ -10,7 +10,7 @@ public:
 	Map();
 	~Map();
 
-	void loadMap(int array[20][25]);
+	void loadMap(int array[10][16]);
 	void drawMap();
 	void correctmap(std::vector<std::unique_ptr<Hudoba>> &a);
 	void randomFire();

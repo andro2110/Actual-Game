@@ -4,11 +4,11 @@ Predmet::Predmet(const char* path, float scale)
 {
 	m_texture = TextureManager::LoadTexture(path);
 
-	m_srcRect.w = 10;
-	m_srcRect.h = 30;
+	m_srcRect.w;
+	m_srcRect.h ;
 
-	m_position.x = 0;
-	m_position.y = 0;
+	m_position.x;
+	m_position.y;
 
 	m_smer.x = 0;
 	m_smer.y = 0;

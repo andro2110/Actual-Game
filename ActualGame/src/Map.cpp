@@ -1,32 +1,22 @@
  #include "Map.h"
 
-int lvl[20][25] = { 
-	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+int lvl[10][16] = { 
+	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 };
 
 Map::Map()
 {
-	m_normalTree = TextureManager::LoadTexture("Assets/Drevo.png");
-	m_fireTree = TextureManager::LoadTexture("Assets/Ogenj.png");
+	m_normalTree = TextureManager::LoadTexture("Assets/Tree.png");
+	m_fireTree = TextureManager::LoadTexture("Assets/Firetree.png");
 	m_stor = TextureManager::LoadTexture("Assets/Stor.png");
 	m_zazgan = TextureManager::LoadTexture("Assets/Zazgano.png");
 
@@ -34,11 +24,11 @@ Map::Map()
 
 	m_srcRect.x = 0;
 	m_srcRect.y = 0;
-	m_srcRect.h = 32;
-	m_srcRect.w = 32;
+	m_srcRect.h = 64;
+	m_srcRect.w = 50;
 
-	m_destRect.h = 32;
-	m_destRect.w = 32;
+	m_destRect.h = 64;
+	m_destRect.w = 50;
 	m_destRect.x = 0;
 	m_destRect.y = 0;
 
@@ -48,11 +38,11 @@ Map::Map()
 
 Map::~Map() {}
 
-void Map::loadMap(int arr[20][25])
+void Map::loadMap(int arr[10][16])
 {
-	for (int vrstica = 0; vrstica < 20; vrstica++)
+	for (int vrstica = 0; vrstica < 10; vrstica++)
 	{
-		for (int stolpec = 0; stolpec < 25; stolpec++)
+		for (int stolpec = 0; stolpec < 16; stolpec++)
 		{
 			m_map[vrstica][stolpec] = arr[vrstica][stolpec];
 		}
@@ -63,14 +53,14 @@ void Map::drawMap()
 {
 	int type = 0;
 		
-	for (int vrstica = 0; vrstica < 20; vrstica++)
+	for (int vrstica = 0; vrstica < 10; vrstica++)
 	{
-		for (int stolpec = 0; stolpec < 25; stolpec++)
+		for (int stolpec = 0; stolpec < 16; stolpec++)
 		{
 			type = m_map[vrstica][stolpec];
 
-			m_destRect.x = stolpec * 32;
-			m_destRect.y = vrstica * 32;
+			m_destRect.x = stolpec * 50;
+			m_destRect.y = vrstica * 64;
 
 			switch (type)
 			{
@@ -102,8 +92,8 @@ void Map::correctmap(std::vector<std::unique_ptr<Hudoba>> &a)
 {
 	for (int i = 0; i < a.size(); i++)
 	{
-		int xpos = floor(a[i]->getx() / 32);
-		int ypos = floor(a[i]->gety() / 32) + 2;
+		int xpos = floor(a[i]->getx() / 50);
+		int ypos = floor(a[i]->gety() / 64);
 
 		if (a[i]->pravoMesto() == true && m_map[ypos][xpos] != 1 && m_map[ypos][xpos] != 2 && m_map[ypos][xpos] != 3)
 		{
@@ -120,8 +110,8 @@ void Map::randomFire()
 
 	if (m_spawnFire == m_delay)
 	{
-		xpos = floor((rand() % 640 + 0) / 32);
-		ypos = floor((rand() % 800 + 0) / 32);
+		xpos = rand() % 10 + 0;
+		ypos = rand() % 16 + 0;
 
 		if (m_map[xpos][ypos] != 2)
 		{
@@ -136,8 +126,8 @@ void Map::randomFire()
 
 void Map::pogasiPozar(Igralec* igralec)
 {
-	int xpos = floor((igralec->getx() + 20) / 32);
-	int ypos = floor((igralec->gety() + 60) / 32);
+	int xpos = floor((igralec->getx() + igralec->vrniSrc().w * 2) / 50);
+	int ypos = floor((igralec->gety() + igralec->vrniSrc().h  * 2) / 64);
 
 	if (m_map[ypos][xpos] == 1)
 	{
@@ -158,19 +148,19 @@ void Map::getStaroselec(std::vector<std::unique_ptr<Staroselec>>& a)
 			tmp.x = (a[i]->gety());
 			tmp.y = (a[i]->getx());
 
-			x = tmp.x / 32;
-			y = tmp.y / 32; // pretvorba v indexe tabele
+			x = tmp.x / 50;
+			y = tmp.y / 64; // pretvorba v indexe tabele
 
 			for (int range = 0; range < 4; range++)
 			{
 				if (m_map[x][y + range] == 1 && m_map[x][y + range] < 25)//desno
 				{
-					a[i]->changePos((y + range) * 32, x * 32); //ciljna pozicija
+					a[i]->changePos((y + range) * 50, x * 64); //ciljna pozicija
 				}
 
 				else if (m_map[x][y - range] == 1 && m_map[x][y - range] >= 0)//levo
 				{
-					a[i]->changePos((y - range) * 32, x * 32);
+					a[i]->changePos((y - range) * 50, x * 64);
 				}
 
 				/*if (m_map[x + range][y] == 1)//dol
@@ -199,9 +189,9 @@ void Map::razsiriOgenj()
 {
 	if (m_razsiri == m_razsiriDelay)
 	{
-		for (int i = 0; i < 20; i++)
+		for (int i = 0; i < 10; i++)
 		{
-			for (int j = 0; j < 25; j++)
+			for (int j = 0; j < 16; j++)
 			{
 				if (m_map[i][j] == 1)
 				{
@@ -216,7 +206,7 @@ void Map::razsiriOgenj()
 							m_map[i][j + 1] = 1;
 							m_uniceno++;
 
-							if (j + 1 >= 24)
+							if (j + 1 >= 15)
 								break;
 							else
 								j += 1;
@@ -229,7 +219,7 @@ void Map::razsiriOgenj()
 							m_map[i + 1][j] = 1;
 							m_uniceno++;
 
-							if (i + 1 >= 19)
+							if (i + 1 >= 9)
 								break;
 							else
 								i += 1;
@@ -286,9 +276,9 @@ int Map::preveriProcente()
 
 void Map::nextlvl(int l)
 {
-	for (int i = 0; i < 20; i++)
+	for (int i = 0; i < 10; i++)
 	{
-		for (int j = 0; j < 25; j++)
+		for (int j = 0; j < 16; j++)
 		{
 			m_map[i][j] = 0;
 		}

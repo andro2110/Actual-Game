@@ -29,7 +29,7 @@ public:
 	virtual void posUpdate();
 	int getx() { return m_position.x; }
 	int gety() { return m_position.y; }
-	void premik();
+	//void premik();
 	void render();
 	bool checkCollision(SDL_Rect dest, SDL_Rect src);
 	void setTex(const char* path) { m_texture = TextureManager::LoadTexture(path); }
@@ -41,12 +41,13 @@ public:
 class Igralec : public Predmet
 {
 private:
-
+	int m_zamik = 0;
 public:
 	Igralec(const char* path, float scale);
 	~Igralec();
 
 	void update() override;
+	void premik();
 	void posUpdate() override;
 };
 

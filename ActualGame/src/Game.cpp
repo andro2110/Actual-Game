@@ -44,9 +44,7 @@ void Game::Init(const char* title, int x, int y, int w, int h, Uint32 flags)
 
 	map = new Map();
 
-	player = new Igralec("Assets/Plup.png", 2.0f);
-
-	SDL_Color white{ 255, 255, 255, 255 };
+	player = new Igralec("Assets/Sprites.png", 2.0f);
 
 	//test->pripraviText(10, 10, "Test", white);
 }

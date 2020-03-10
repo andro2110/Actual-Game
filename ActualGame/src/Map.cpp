@@ -126,8 +126,8 @@ void Map::randomFire()
 
 void Map::pogasiPozar(Igralec* igralec)
 {
-	int xpos = floor((igralec->getx() + igralec->vrniSrc().w * 2) / 50);
-	int ypos = floor((igralec->gety() + igralec->vrniSrc().h  * 2) / 64);
+	int xpos = floor((igralec->getx() + igralec->vrniSrc().w) / 50);
+	int ypos = floor((igralec->gety() + igralec->vrniSrc().h) / 64);
 
 	if (m_map[ypos][xpos] == 1)
 	{

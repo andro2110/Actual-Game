@@ -38,57 +38,6 @@ void Predmet::posUpdate()
 	m_destRect.h = m_srcRect.h * m_scale;
 }
 
-void Predmet::premik()
-{
-	if (Game::event.type == SDL_KEYDOWN)
-	{
-		switch (Game::event.key.keysym.sym)
-		{
-		case SDLK_a:
-			m_smer.x = -1;
-			setTex("Assets/Plleft.png");
-			break;
-		case SDLK_w:
-			setTex("Assets/Plup.png");
-			m_smer.y = -1;
-			break;
-		case SDLK_s:
-			setTex("Assets/Pldown.png");
-			m_smer.y = 1;
-			break;
-		case SDLK_d:
-			setTex("Assets/Plright.png");
-			m_smer.x = 1;
-		default:
-			break;
-		}
-	}
-
-	if (Game::event.type == SDL_KEYUP)
-	{
-		switch (Game::event.key.keysym.sym)
-		{
-		case SDLK_a:
-			m_smer.x = 0;
-			setTex("Assets/Plidle.png");
-			break;
-		case SDLK_w:
-			setTex("Assets/Plidle.png");
-			m_smer.y = 0;
-			break;
-		case SDLK_s:
-			setTex("Assets/Plidle.png");
-			m_smer.y = 0;
-			break;
-		case SDLK_d:
-			setTex("Assets/Plidle.png");
-			m_smer.x = 0;
-		default:
-			break;
-		}
-	}
-}
-
 void Predmet::border()
 {
 	//za velikost 10x30
@@ -142,8 +91,10 @@ Igralec::Igralec(const char* path, float scale) : Predmet(path, scale)
 {
 	m_texture = TextureManager::LoadTexture(path);
 
-	m_srcRect.w = 23;
+	m_srcRect.w = 24;
 	m_srcRect.h = 28;
+
+	
 
 	m_position.x = 0;
 	m_position.y = 0;
@@ -153,16 +104,67 @@ Igralec::Igralec(const char* path, float scale) : Predmet(path, scale)
 
 void Igralec::update()
 {
-	Predmet::premik();
+	premik();
 	Predmet::border();
 
 	posUpdate();
 }
 
+void Igralec::premik()
+{
+	if (Game::event.type == SDL_KEYDOWN)
+	{
+		switch (Game::event.key.keysym.sym)
+		{
+		case SDLK_a:
+			m_smer.x = -1;
+			m_zamik = 128;
+			break;
+		case SDLK_w:
+			m_smer.y = -1;
+			m_zamik = 64;
+			break;
+		case SDLK_s:
+			m_zamik = 32;
+			m_smer.y = 1;
+			break;
+		case SDLK_d:
+			m_zamik = 96;
+			m_smer.x = 1;
+		default:
+			break;
+		}
+	}
+
+	if (Game::event.type == SDL_KEYUP && Game::event.type != SDL_KEYDOWN)
+	{
+		switch (Game::event.key.keysym.sym)
+		{
+		case SDLK_a:
+			m_smer.x = 0;
+			m_zamik = 0;
+			break;
+		case SDLK_w:
+			m_zamik = 0;
+			m_smer.y = 0;
+			break;
+		case SDLK_s:
+			m_zamik = 0;
+			m_smer.y = 0;
+			break;
+		case SDLK_d:
+			m_zamik = 0;
+			m_smer.x = 0;
+		default:
+			break;
+		}
+	}
+}
+
 void Igralec::posUpdate()
 {
 	m_srcRect.x = m_srcRect.w * static_cast<int>((SDL_GetTicks() / 200) % 4);
-	m_srcRect.y = 0;
+	m_srcRect.y = m_zamik;
 
 	m_position.x += m_smer.x * m_speed;
 	m_position.y += m_smer.y * m_speed;

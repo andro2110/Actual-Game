@@ -153,7 +153,7 @@ void Map::getStaroselec(std::vector<std::unique_ptr<Staroselec>>& a)
 
 			for (int range = 0; range < 4; range++)
 			{
-				if (m_map[x][y + range] == 1 && m_map[x][y + range] < 25)//desno
+				if (m_map[x][y + range] == 1 && m_map[x][y + range] < 16)//desno
 				{
 					a[i]->changePos((y + range) * 50, x * 64); //ciljna pozicija
 				}

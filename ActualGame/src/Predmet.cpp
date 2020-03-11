@@ -289,14 +289,14 @@ void Staroselec::posUpdate()
 void Staroselec::premakni()
 {
 	if (m_position.x > m_nasMestox)
-		m_position.x -= 0.5;
+		m_position.x -= 1;
 	else if (m_position.x < m_nasMestox)
-		m_position.x += 0.5;
+		m_position.x += 1;
 
 	if (m_position.y < m_nasMestoy)
-		m_position.y += 0.5;
+		m_position.y += 1;
 	else if (m_position.y > m_nasMestoy)
-		m_position.y -= 0.5;
+		m_position.y -= 1;
 }
 
 void Staroselec::getHudoba(int x, int y)
@@ -342,7 +342,7 @@ void Staroselec::preveriPos()
 			m_framecount++;
 			m_zasedenost = 0;
 
-			if (m_framecount == 100)
+			if (m_framecount == 60)
 			{
 				m_nasMestox = rand() % 750 + 5;
 				m_nasMestoy = rand() % 520 + 5;//mesto gre spet na random

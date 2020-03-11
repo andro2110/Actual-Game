@@ -113,7 +113,7 @@ void Map::randomFire()
 		xpos = rand() % 10 + 0;
 		ypos = rand() % 16 + 0;
 
-		if (m_map[xpos][ypos] != 2)
+		if (m_map[xpos][ypos] != 2 && m_map[xpos][ypos] != 3)
 		{
 			m_map[xpos][ypos] = 1;
 			m_uniceno++;
@@ -126,61 +126,45 @@ void Map::randomFire()
 
 void Map::pogasiPozar(Igralec* igralec)
 {
-	int xpos = floor((igralec->getx() + igralec->vrniSrc().w) / 50);
-	int ypos = floor((igralec->gety() + igralec->vrniSrc().h) / 64);
+	int vrstica = floor((igralec->getx() + igralec->vrniSrc().w) / 50);
+	int stolpec = floor((igralec->gety() + igralec->vrniSrc().h + igralec->vrniSrc().w) / 64);
 
-	if (m_map[ypos][xpos] == 1)
+	if (m_map[stolpec][vrstica] == 1)
 	{
-		m_map[ypos][xpos] = 3;
+		m_map[stolpec][vrstica] = 3;
 		m_score++;
 	}
 }
 
-void Map::getStaroselec(std::vector<std::unique_ptr<Staroselec>>& a)
+void Map::getStaroselec(std::vector<std::unique_ptr<Staroselec>>& starina)
 {
-	for (int i = 0; i < a.size(); i++)
+	for (int i = 0; i < starina.size(); i++)
 	{
-		if (a[i]->zasedenost() == false)
+		if (starina[i]->zasedenost() == false)
 		{
-			int x, y;
+			int stolpec;//y
+			int vrstica;//x
 
-			Vec2 tmp;
-			tmp.x = (a[i]->gety());
-			tmp.y = (a[i]->getx());
+			stolpec = (starina[i]->gety() + starina[i]->vrniSrc().h) / 64;
+			vrstica = (starina[i]->getx() + (starina[i]->vrniSrc().w / 2)) / 50;
 
-			x = tmp.x / 50;
-			y = tmp.y / 64; // pretvorba v indexe tabele
-
-			for (int range = 0; range < 4; range++)
+			for (int zamik = 1; zamik < 3; zamik++)
 			{
-				if (m_map[x][y + range] == 1 && m_map[x][y + range] < 16)//desno
-				{
-					a[i]->changePos((y + range) * 50, x * 64); //ciljna pozicija
-				}
+				if (m_map[stolpec][vrstica + zamik] == 1)//desno
+					starina[i]->changePos(((vrstica + zamik) * 50) + 25, (stolpec * 64) + 32);//pošlje staroselca na sredino odmaknjega gorecega drevesa
 
-				else if (m_map[x][y - range] == 1 && m_map[x][y - range] >= 0)//levo
-				{
-					a[i]->changePos((y - range) * 50, x * 64);
-				}
+				else if (m_map[stolpec][vrstica - zamik] == 1)//levo
+					starina[i]->changePos(((vrstica - zamik) * 50) + 25, (stolpec * 64) + 32);
 
-				/*if (m_map[x + range][y] == 1)//dol
-				{
-					a[i]->changePos(y * 32, (x + range) * 32, 1);
-				}
+				else if (m_map[stolpec + zamik][vrstica] == 1)//dol
+					starina[i]->changePos((vrstica * 50) + 25, ((stolpec + zamik)* 64) + 32);
 
-				else if (m_map[x - range][y] == 1)//gor
-				{
-					a[i]->changePos(y * 32, (x - range) * 32, 1);
-				}*/
-				else
-				{
-					a[i]->premakni();//navadni premik
-				}
+				else if (m_map[stolpec - zamik][vrstica] == 1)//gor
+					starina[i]->changePos((vrstica * 50) + 25, ((stolpec - zamik) * 64) + 32);
 			}
 
-			if (a[i]->pravoMesto())//èe je na pravem mestu 
-				if (m_map[x][y] == 1)//èe je požar 
-					m_map[x][y] = 3;
+			if (starina[i]->pravoMesto() && m_map[stolpec][vrstica] == 1)
+				m_map[stolpec][vrstica] = 3;
 		}
 	}
 }

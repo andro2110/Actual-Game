@@ -45,6 +45,7 @@ void Game::Init(const char* title, int x, int y, int w, int h, Uint32 flags)
 	map = new Map();
 
 	player = new Igralec("Assets/Sprites.png", 2.0f);
+	starina.push_back(std::unique_ptr<Staroselec>(std::make_unique<Staroselec>("Assets/Staroselec.png", 2.0f)));
 
 	//test->pripraviText(10, 10, "Test", white);
 }
@@ -123,11 +124,11 @@ void Game::Update()
 		map->pogasiPozar(player);
 		map->correctmap(hudoba);
 
-		if (m_Framecount % 300 == 0)//hudobe & staroselci se spawnajo na 5 sekund
+		/*if (m_Framecount % 300 == 0)//hudobe & staroselci se spawnajo na 5 sekund
 		{
 			hudoba.push_back(std::unique_ptr<Hudoba>(std::make_unique<Hudoba>("Assets/Enemy.png", 2.0f)));
 			starina.push_back(std::unique_ptr<Staroselec>(std::make_unique<Staroselec>("Assets/Staroselec.png", 2.0f)));
-		}
+		}*/
 
 		if (hudoba.size() != 0)
 		{
@@ -148,7 +149,7 @@ void Game::Update()
 			}
 		}
 
-		if (starina.size() != 0)
+		/*if (starina.size() != 0)
 		{
 			for (int i = 0; i < starina.size(); i++)
 			{
@@ -156,7 +157,7 @@ void Game::Update()
 					starina.erase(starina.begin() + i);
 			}
 
-		}
+		}*/
 
 		map->getStaroselec(starina);
 

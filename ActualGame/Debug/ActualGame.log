@@ -1,14 +1,16 @@
-﻿  Map.cpp
+﻿  Game.cpp
+C:\Users\Andraž Pergar\Desktop\ActualGame\ActualGame\src\Predmet.h(30,32): warning C4244: 'return': conversion from 'float' to 'int', possible loss of data
+C:\Users\Andraž Pergar\Desktop\ActualGame\ActualGame\src\Predmet.h(31,32): warning C4244: 'return': conversion from 'float' to 'int', possible loss of data
+C:\Users\Andraž Pergar\Desktop\ActualGame\ActualGame\src\Game.cpp(135,22): warning C4018: '<': signed/unsigned mismatch
+  Map.cpp
+C:\Users\Andraž Pergar\Desktop\ActualGame\ActualGame\src\Game.cpp(142,23): warning C4018: '<': signed/unsigned mismatch
 C:\Users\Andraž Pergar\Desktop\ActualGame\ActualGame\src\Predmet.h(30,32): warning C4244: 'return': conversion from 'float' to 'int', possible loss of data
 C:\Users\Andraž Pergar\Desktop\ActualGame\ActualGame\src\Predmet.h(31,32): warning C4244: 'return': conversion from 'float' to 'int', possible loss of data
 C:\Users\Andraž Pergar\Desktop\ActualGame\ActualGame\src\Map.cpp(93,20): warning C4018: '<': signed/unsigned mismatch
 C:\Users\Andraž Pergar\Desktop\ActualGame\ActualGame\src\Map.cpp(95,12): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
 C:\Users\Andraž Pergar\Desktop\ActualGame\ActualGame\src\Map.cpp(96,12): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-C:\Users\Andraž Pergar\Desktop\ActualGame\ActualGame\src\Map.cpp(129,11): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-C:\Users\Andraž Pergar\Desktop\ActualGame\ActualGame\src\Map.cpp(130,11): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\Andraž Pergar\Desktop\ActualGame\ActualGame\src\Map.cpp(129,14): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\Andraž Pergar\Desktop\ActualGame\ActualGame\src\Map.cpp(130,14): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+  Generating Code...
 C:\Users\Andraž Pergar\Desktop\ActualGame\ActualGame\src\Map.cpp(141,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Andraž Pergar\Desktop\ActualGame\ActualGame\src\Map.cpp(148,23): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\Andraž Pergar\Desktop\ActualGame\ActualGame\src\Map.cpp(149,23): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\Andraž Pergar\Desktop\ActualGame\ActualGame\src\Map.cpp(151,14): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\Andraž Pergar\Desktop\ActualGame\ActualGame\src\Map.cpp(152,14): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
   ActualGame.vcxproj -> C:\Users\Andraž Pergar\Desktop\ActualGame\Debug\ActualGame.exe

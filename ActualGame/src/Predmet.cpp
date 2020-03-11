@@ -43,8 +43,8 @@ void Predmet::border()
 	//za velikost 10x30
 	if (m_position.x < -5)
 		m_position.x = -6;
-	else if (m_position.x >= 785)
-		m_position.x = 785;
+	else if (m_position.x > 750)
+		m_position.x = 750;
 
 	if (m_position.y < -50)
 		m_position.y = -50;
@@ -94,7 +94,7 @@ Igralec::Igralec(const char* path, float scale) : Predmet(path, scale)
 	m_srcRect.w = 24;
 	m_srcRect.h = 28;
 
-	
+	m_speed = 3;
 
 	m_position.x = 0;
 	m_position.y = 0;
@@ -176,7 +176,7 @@ void Igralec::posUpdate()
 	m_destRect.h = m_srcRect.h * m_scale;
 }
 
-Hudoba::Hudoba(const char* path, float scale) : Predmet(path, scale)
+Hudoba::Hudoba(const char* path, float scale, int lvl) : Predmet(path, scale)
 {
 	m_texture = TextureManager::LoadTexture(path);
 
@@ -188,6 +188,20 @@ Hudoba::Hudoba(const char* path, float scale) : Predmet(path, scale)
 
 	m_randx = rand() % 758 + 3;
 	m_randy = rand() % 520 + 3;
+
+	/*switch (lvl)
+	{
+	case 1:
+		m_speed = 1.25;
+		break;
+	case 2:
+		m_speed = 3.25;
+		break;
+	default:
+		break;
+	}*/
+
+	std::cout << lvl<< std::endl;
 
 	m_scale = scale;
 }
@@ -202,6 +216,9 @@ void Hudoba::update()
 
 void Hudoba::posUpdate()
 {
+	m_position.x += m_smer.x * m_speed;
+	m_position.y += m_smer.y * m_speed;
+
 	m_destRect.x = m_position.x;
 	m_destRect.y = m_position.y;
 
@@ -211,15 +228,15 @@ void Hudoba::posUpdate()
 
 void Hudoba::premakni()
 {
-	if (m_position.x > m_randx)
-		m_position.x--;
-	else if (m_position.x < m_randx)
-		m_position.x++;
+	if (m_position.x >= m_randx)
+		m_smer.x = -1;
+	else if (m_position.x <= m_randx)
+		m_smer.x = 1;
 
-	if (m_position.y > m_randy)
-		m_position.y--;
-	else if (m_position.y < m_randy)
-		m_position.y++;
+	if (m_position.y >= m_randy)
+		m_smer.y = -1;
+	else if (m_position.y <= m_randy)
+		m_smer.y = 1;
 }
 
 void Hudoba::preveriPos()

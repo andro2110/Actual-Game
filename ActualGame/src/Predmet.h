@@ -13,7 +13,7 @@ protected:
 	Vec2 m_position;
 	Vec2 m_smer;
 
-	int m_speed = 3;
+	int m_speed;
 	int m_framecount;
 
 	SDL_Texture* m_texture;
@@ -57,9 +57,10 @@ private:
 	int m_randx;
 	int m_randy;
 	bool m_pravoMesto;
+	int m_lvl = 1;
 
 public:
-	Hudoba(const char* path, float scale);
+	Hudoba(const char* path, float scale, int lvl);
 	~Hudoba();
 
 	void update() override;
@@ -68,6 +69,7 @@ public:
 	void preveriPos();
 	void changePos(int x, int y);
 	bool pravoMesto() { return m_pravoMesto; }
+	void nextLvl(int lvl) { m_lvl = lvl; };
 };
 
 class Staroselec : public Predmet

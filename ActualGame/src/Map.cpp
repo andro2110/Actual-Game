@@ -256,7 +256,7 @@ int Map::preveriProcente()
 {
 	int procent = (100 * m_uniceno) / 160;
 
-	std::cout << procent << std::endl;
+	//std::cout << procent << std::endl;
 	return procent;
 }
 

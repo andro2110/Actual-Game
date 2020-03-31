@@ -58,6 +58,7 @@ private:
 	int m_randy;
 	bool m_pravoMesto;
 	int m_lvl = 1;
+	int m_zamik;
 
 public:
 	Hudoba(const char* path, float scale, int lvl);
@@ -67,7 +68,6 @@ public:
 	void premakni();
 	void posUpdate() override;
 	void preveriPos();
-	void changePos(int x, int y);
 	bool pravoMesto() { return m_pravoMesto; }
 	void nextLvl(int lvl) { m_lvl = lvl; };
 };
@@ -75,14 +75,13 @@ public:
 class Staroselec : public Predmet
 {
 private:
-	int m_hux;
-	int m_huy;
 
 	int m_nasMestox;
 	int m_nasMestoy;
 	bool m_pravoMesto;
 
 	bool m_zasedenost = 0;
+	int m_zamik;
 
 	int m_life = 3;
 

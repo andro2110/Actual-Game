@@ -180,14 +180,16 @@ Hudoba::Hudoba(const char* path, float scale, int lvl) : Predmet(path, scale)
 {
 	m_texture = TextureManager::LoadTexture(path);
 
-	m_srcRect.w = 10;
-	m_srcRect.h = 30;
+	m_srcRect.w = 32;
+	m_srcRect.h = 32;
 
 	m_position.x = rand() % 758 + 3;
 	m_position.y = rand() % 520 + 3;
 
 	m_randx = rand() % 758 + 3;
 	m_randy = rand() % 520 + 3;
+	
+	m_speed = 1;
 
 	/*switch (lvl)
 	{
@@ -200,8 +202,6 @@ Hudoba::Hudoba(const char* path, float scale, int lvl) : Predmet(path, scale)
 	default:
 		break;
 	}*/
-
-	std::cout << lvl<< std::endl;
 
 	m_scale = scale;
 }
@@ -216,8 +216,15 @@ void Hudoba::update()
 
 void Hudoba::posUpdate()
 {
-	m_position.x += m_smer.x * m_speed;
-	m_position.y += m_smer.y * m_speed;
+	/*m_position.x += m_smer.x * m_speed;
+	m_position.y += m_smer.y * m_speed;*/
+
+	m_srcRect.x = m_srcRect.w * static_cast<int>((SDL_GetTicks() / 180) % 3);
+
+	if(m_pravoMesto == 1)//ce je na pravem mestu ni vec animiran
+		m_srcRect.x = m_srcRect.w;
+	
+	m_srcRect.y = m_zamik;
 
 	m_destRect.x = m_position.x;
 	m_destRect.y = m_position.y;
@@ -228,15 +235,27 @@ void Hudoba::posUpdate()
 
 void Hudoba::premakni()
 {
-	if (m_position.x >= m_randx)
-		m_smer.x = -1;
-	else if (m_position.x <= m_randx)
-		m_smer.x = 1;
+	if (m_position.x > m_randx)
+	{
+		m_zamik = 32;
+		m_position.x--;
+	}
+	else if (m_position.x < m_randx)
+	{
+		m_zamik = 64;
+		m_position.x++;
+	}
 
-	if (m_position.y >= m_randy)
-		m_smer.y = -1;
-	else if (m_position.y <= m_randy)
-		m_smer.y = 1;
+	if (m_position.y > m_randy)
+	{
+		m_zamik = 96;
+		m_position.y--;
+	}
+	else if (m_position.y < m_randy)
+	{
+		m_zamik = 0;
+		m_position.y++;
+	}
 }
 
 void Hudoba::preveriPos()
@@ -257,25 +276,12 @@ void Hudoba::preveriPos()
 		m_pravoMesto = 0;
 }
 
-void Hudoba::changePos(int x, int y)
-{
-	if (m_position.x > x)
-		m_position.x--;
-	else if (m_position.x < x)
-		m_position.x++;
-
-	if (m_position.y > y)
-		m_position.y--;
-	else if (m_position.y < y)
-		m_position.y++;
-}
-
 Staroselec::Staroselec(const char* path, float scale) : Predmet(path, scale)
 {
 	m_texture = TextureManager::LoadTexture(path);
 
-	m_srcRect.w = 10;
-	m_srcRect.h = 25;
+	m_srcRect.w = 32;
+	m_srcRect.h = 32;
 
 	m_position.x = rand() % 750 + 5;
 	m_position.y = rand() % 520 + 5;
@@ -296,6 +302,12 @@ void Staroselec::update()
 
 void Staroselec::posUpdate()
 {
+	m_srcRect.x = m_srcRect.w * static_cast<int>((SDL_GetTicks() / 180) % 3);
+
+	if (m_pravoMesto == 1)
+		m_srcRect.x = m_srcRect.w;
+	m_srcRect.y = m_zamik;
+
 	m_destRect.x = m_position.x;
 	m_destRect.y = m_position.y;
 
@@ -306,20 +318,32 @@ void Staroselec::posUpdate()
 void Staroselec::premakni()
 {
 	if (m_position.x > m_nasMestox)
-		m_position.x -= 1;
+	{
+		m_zamik = 32;
+		m_position.x--;
+	}
 	else if (m_position.x < m_nasMestox)
-		m_position.x += 1;
+	{
+		m_zamik = 64;
+		m_position.x++;
+	}
 
 	if (m_position.y < m_nasMestoy)
-		m_position.y += 1;
+	{
+		m_zamik = 0;
+		m_position.y++;
+	}
 	else if (m_position.y > m_nasMestoy)
-		m_position.y -= 1;
+	{
+		m_zamik = 96;
+		m_position.y--;
+	}
 }
 
 void Staroselec::getHudoba(int x, int y)
 {
-	m_hux = x;
-	m_huy = y;
+	m_nasMestox = x;
+	m_nasMestoy = y;
 }
 
 void Staroselec::changePos(int x, int y)//dobi koordinate, kam naj se naslednje premakne

@@ -44,7 +44,9 @@ void Game::Init(const char* title, int x, int y, int w, int h, Uint32 flags)
 
 	map = new Map();
 
-	player = new Igralec("Assets/Sprites.png", 2.0f);
+	player = new Igralec("Assets/PlayerSprite.png", 2.0f);
+	/*hudoba.push_back(std::unique_ptr<Hudoba>(std::make_unique<Hudoba>("Assets/EnemySprite.png", 1.5f, lvl)));
+	starina.push_back(std::unique_ptr<Staroselec>(std::make_unique<Staroselec>("Assets/StaroselecSprite.png", 1.5f)));*/
 
 	//test->pripraviText(10, 10, "Test", white);
 }
@@ -83,11 +85,11 @@ void Game::Update()
 		stej++;
 		if (lvl == 1)
 		{
-			game->getVrsta(5);//lvl2 slika
+			game->getVrsta(5);//lvl1 slika
 		}
 		else if (lvl == 2)
 		{
-			game->getVrsta(6);//lvl1 slika
+			game->getVrsta(6);//lvl2 slika
 		}
 		else if (lvl == 3)
 		{
@@ -131,11 +133,26 @@ void Game::Update()
 		map->pogasiPozar(player);
 		map->correctmap(hudoba);
 
-		if (m_Framecount % 300 == 0)//hudobe & staroselci se spawnajo na 5 sekund
+		switch (lvl)
 		{
-			hudoba.push_back(std::unique_ptr<Hudoba>(std::make_unique<Hudoba>("Assets/Enemy.png", 2.0f, lvl)));
-			starina.push_back(std::unique_ptr<Staroselec>(std::make_unique<Staroselec>("Assets/Staroselec.png", 2.0f)));
+		case 2:
+			m_delayHudoba = 120;
+			m_delayStarina = 200;
+			break;
+
+		case 3:
+			m_delayHudoba = 90;
+			m_delayStarina = 240;
+
+		default:
+			break;
 		}
+
+		if (m_Framecount % m_delayHudoba == 0)//spawn hudobe
+			hudoba.push_back(std::unique_ptr<Hudoba>(std::make_unique<Hudoba>("Assets/EnemySprite.png", 1.5f, lvl)));
+
+		if(m_Framecount % m_delayStarina == 0)//spawn staroselcev
+			starina.push_back(std::unique_ptr<Staroselec>(std::make_unique<Staroselec>("Assets/StaroselecSprite.png", 1.5)));
 
 		if (hudoba.size() != 0)
 		{

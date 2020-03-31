@@ -254,7 +254,9 @@ void Map::razsiriOgenj()
 
 int Map::preveriProcente()
 {
-	int procent = (100 * m_uniceno) / 500;
+	int procent = (100 * m_uniceno) / 160;
+
+	std::cout << procent << std::endl;
 	return procent;
 }
 

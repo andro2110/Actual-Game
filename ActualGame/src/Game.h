@@ -31,6 +31,6 @@ private:
 	bool m_IsRunning;
 	SDL_Window* m_window;
 
-	int m_delayHudoba = 180;
-	int m_delayStarina = 180;
+	int m_delayHudoba;
+	int m_delayStarina;
 };

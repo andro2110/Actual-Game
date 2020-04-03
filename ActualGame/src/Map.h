@@ -19,6 +19,7 @@ public:
 	void getStaroselec(std::vector<std::unique_ptr<Staroselec>> &a);
 	int vrniScore() { return m_score; }
 	void nextlvl(int l);
+	void clear();
 	
 	int preveriProcente();
 

@@ -272,6 +272,14 @@ void Map::nextlvl(int l)
 
 	switch (l)
 	{
+	case 1:
+		m_delay = 240;
+		m_spawnFire = 0;
+
+		m_razsiriDelay = 300;
+		m_razsiri = 0;
+
+		m_uniceno = 0;
 	case 2:
 		m_delay = 120;
 		m_spawnFire = 0;
@@ -295,4 +303,13 @@ void Map::nextlvl(int l)
 	default:
 		break;
 	}
+}
+
+void Map::clear()
+{
+	for (int i = 0; i < 10; i++)
+		for (int j = 0; j < 16; j++)
+			m_map[i][j] = 0;
+
+	m_uniceno = 0;
 }

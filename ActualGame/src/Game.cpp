@@ -80,10 +80,11 @@ void Game::HandleEvents()
 
 void Game::Update()
 {
+	
 	if (m_play == true)//preverja
 	{
 		stej++;
-		if (lvl == 1)
+		if (lvl == 1)//preverja kdaj je konec igre
 		{
 			game->getVrsta(5);//lvl1 slika
 		}
@@ -95,8 +96,6 @@ void Game::Update()
 		{
 			game->getVrsta(7);//lvl3 slika
 		}
-		else if (lvl == 4)
-			game->getVrsta(8);
 
 		if (stej % 120 == 0)//po dveh sekundah se zacne igra
 		{
@@ -107,7 +106,7 @@ void Game::Update()
 	}
 	else if (homesc == false)//preverja med igro
 	{
-		if (m_Framecount % 1800 == 0)//level traja 20 sekund
+		if (m_Framecount % 1200 == 0)//level traja 20 sekund
 		{
 			lvl++;
 
@@ -117,7 +116,9 @@ void Game::Update()
 
 			hudoba.clear();
 			starina.clear();
+			map->clear();
 			map->nextlvl(lvl);
+
 		}
 	}
 
@@ -135,6 +136,11 @@ void Game::Update()
 
 		switch (lvl)
 		{
+		case 1:
+			m_delayHudoba = 180;
+			m_delayStarina = 180;
+			break;
+			
 		case 2:
 			m_delayHudoba = 120;
 			m_delayStarina = 200;
@@ -143,6 +149,7 @@ void Game::Update()
 		case 3:
 			m_delayHudoba = 90;
 			m_delayStarina = 240;
+			break;
 
 		default:
 			break;
@@ -152,7 +159,7 @@ void Game::Update()
 			hudoba.push_back(std::unique_ptr<Hudoba>(std::make_unique<Hudoba>("Assets/EnemySprite.png", 1.5f, lvl)));
 
 		if(m_Framecount % m_delayStarina == 0)//spawn staroselcev
-			starina.push_back(std::unique_ptr<Staroselec>(std::make_unique<Staroselec>("Assets/StaroselecSprite.png", 1.5)));
+			starina.push_back(std::unique_ptr<Staroselec>(std::make_unique<Staroselec>("Assets/StaroselecSprite.png", 1.5f)));
 
 		if (hudoba.size() != 0)
 		{
@@ -188,6 +195,35 @@ void Game::Update()
 		for (auto& s : starina)
 			s->update();
 
+		if (lvl == 4)//konec igre
+		{
+			game->getVrsta(8);
+			homesc = 1;
+			lvl = 1;
+			m_play = 0;
+
+			hudoba.clear();
+			starina.clear();
+			map->clear();
+			std::cout << "Tocke: " << map->vrniScore() << std::endl;
+
+			m_Framecount = 0;
+		}
+		else if (map->preveriProcente() >= 70)//prevec pozara
+		{
+			game->getVrsta(4);
+			homesc = 1;
+			lvl = 1;
+			m_play = 0;
+
+			hudoba.clear();
+			starina.clear();
+			map->clear();
+			std::cout << "Tocke: " << map->vrniScore() << std::endl;
+
+			m_Framecount = 0;
+		}
+
 		m_Framecount++;
 	}
 }
@@ -202,10 +238,18 @@ void Game::Render()
 	}
 	else
 	{
-		if (map->preveriProcente() >= 70)//dej na 70 ||game over
+		/*if (map->preveriProcente() >= 70)//dej na 70 game over
 		{
 			game->getVrsta(4);
-			homesc = 1;
+			homesc = true;
+			lvl = 1;
+			m_play = 1;
+
+			map->clear();
+			hudoba.clear();
+			starina.clear();
+			m_Framecount = 1;
+			map->nextlvl(1);
 
 			std::cout << "Tocke: " << map->vrniScore() << std::endl;
 		}
@@ -214,7 +258,18 @@ void Game::Render()
 		{
 			game->getVrsta(8);
 			homesc = true;
-		}
+			lvl = 1;
+			m_play = 1;
+
+			map->clear();
+			hudoba.clear();
+			starina.clear();
+			m_Framecount = 1;
+			map->nextlvl(1);
+
+			std::cout << "Tocke: " << map->vrniScore() << std::endl;
+		}*/
+
 		map->drawMap();
 
 		player->render();

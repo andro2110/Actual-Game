@@ -88,16 +88,16 @@ void Map::drawMap()
 	razsiriOgenj();
 }
 
-void Map::correctmap(std::vector<std::unique_ptr<Hudoba>> &a)
+void Map::correctmap(std::vector<std::unique_ptr<Hudoba>>& a)
 {
 	for (int i = 0; i < a.size(); i++)
 	{
-		int xpos = floor(a[i]->getx() / 50);
-		int ypos = floor(a[i]->gety() / 64);
+		int s = floor((a[i]->getx() + a[i]->vrniSrc().w / 2) / 50);
+		int v = floor((a[i]->gety() + a[i]->vrniSrc().h) / 64);
 
-		if (a[i]->pravoMesto() == true && m_map[ypos][xpos] != 1 && m_map[ypos][xpos] != 2 && m_map[ypos][xpos] != 3)
+		if (a[i]->pravoMesto() == true && m_map[v][s] != 1 && m_map[v][s] != 2 && m_map[v][s] != 3)
 		{
-			m_map[ypos][xpos] = 2;
+			m_map[v][s] = 2;
 			m_uniceno++;
 		}
 	}
@@ -108,7 +108,7 @@ void Map::randomFire()
 	int xpos;
 	int ypos;
 
-	if (m_spawnFire == m_delay)
+	if (m_spawnFire == m_delay && p == 0)
 	{
 		xpos = rand() % 10 + 0;
 		ypos = rand() % 16 + 0;
@@ -121,13 +121,15 @@ void Map::randomFire()
 
 		m_spawnFire = 0;
 	}
-	m_spawnFire++;
+	std::cout << m_spawnFire << std::endl;
+	if(p == 0)
+		m_spawnFire++;
 }
 
 void Map::pogasiPozar(Igralec* igralec)
 {
 	int vrstica = floor((igralec->getx() + igralec->vrniSrc().w) / 50);
-	int stolpec = floor((igralec->gety() + igralec->vrniSrc().h + igralec->vrniSrc().w) / 64);
+	int stolpec = floor((igralec->gety() + igralec->vrniSrc().h) / 64);
 
 	if (m_map[stolpec][vrstica] == 1)
 	{
@@ -171,7 +173,7 @@ void Map::getStaroselec(std::vector<std::unique_ptr<Staroselec>>& starina)
 
 void Map::razsiriOgenj()
 {
-	if (m_razsiri == m_razsiriDelay)
+	if (m_razsiri == m_razsiriDelay && p == 0)
 	{
 		for (int i = 0; i < 10; i++)
 		{
@@ -249,7 +251,8 @@ void Map::razsiriOgenj()
 			}
 		}
 	}
-	m_razsiri++;
+	if(p == 0)
+		m_razsiri++;
 }
 
 int Map::preveriProcente()

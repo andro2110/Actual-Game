@@ -12,6 +12,7 @@ class Predmet
 protected:
 	Vec2 m_position;
 	Vec2 m_smer;
+	Vec2 m_lastpos;
 
 	int m_speed;
 	int m_framecount;
@@ -19,6 +20,8 @@ protected:
 	SDL_Texture* m_texture;
 	SDL_Rect m_srcRect, m_destRect;
 	float m_scale;
+
+	bool p;
 
 public:
 	Predmet(const char* path, float scale);
@@ -33,6 +36,7 @@ public:
 	void render();
 	bool checkCollision(SDL_Rect dest, SDL_Rect src);
 	void setTex(const char* path) { m_texture = TextureManager::LoadTexture(path); }
+	void pavza(bool p);
 
 	SDL_Rect vrniSrc() { return m_srcRect; }
 	SDL_Rect vrniDest() { return m_destRect; }

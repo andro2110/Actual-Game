@@ -2,18 +2,6 @@
 
 Predmet::Predmet(const char* path, float scale)
 {
-	m_texture = TextureManager::LoadTexture(path);
-
-	m_srcRect.w;
-	m_srcRect.h ;
-
-	m_position.x;
-	m_position.y;
-
-	m_smer.x = 0;
-	m_smer.y = 0;
-
-	m_scale = scale;
 }
 
 void Predmet::update()
@@ -28,29 +16,19 @@ void Predmet::render()
 
 void Predmet::posUpdate()
 {
-	m_srcRect.x = 0;
-	m_srcRect.y = 0;
-
-	m_destRect.x = m_position.x;
-	m_destRect.y = m_position.y;
-
-	m_destRect.w = m_srcRect.w * m_scale;
-	m_destRect.h = m_srcRect.h * m_scale;
 }
 
 void Predmet::border()
 {
-	//za velikost 10x30
-	if (m_position.x < -5)
-		m_position.x = -6;
-	else if (m_position.x > 750)
-		m_position.x = 750;
+	if (m_position.x < -m_srcRect.w)
+		m_position.x = -m_srcRect.w;
+	else if (m_position.x > (800 - m_srcRect.w))
+		m_position.x = 800 - m_srcRect.w;
 
-	if (m_position.y < -50)
-		m_position.y = -50;
-	else if (m_position.y > 610)
-		m_position.y = 610;
-	//za velikost 10x30
+	if (m_position.y < -m_srcRect.h)
+		m_position.y = -m_srcRect.h;
+	else if (m_position.y > (640 - m_srcRect.h))
+		m_position.y = 640 - m_srcRect.h;
 }
 
 bool Predmet::checkCollision(SDL_Rect dest, SDL_Rect src)
@@ -87,6 +65,11 @@ bool Predmet::checkCollision(SDL_Rect dest, SDL_Rect src)
 		return false;
 }
 
+void Predmet::pavza(bool pavza)
+{
+	p = pavza;
+}
+
 Igralec::Igralec(const char* path, float scale) : Predmet(path, scale)
 {
 	m_texture = TextureManager::LoadTexture(path);
@@ -98,6 +81,9 @@ Igralec::Igralec(const char* path, float scale) : Predmet(path, scale)
 
 	m_position.x = 0;
 	m_position.y = 0;
+	
+	m_lastpos.x = m_position.x;
+	m_lastpos.y = m_position.y;
 
 	m_scale = scale;
 }
@@ -112,7 +98,7 @@ void Igralec::update()
 
 void Igralec::premik()
 {
-	if (Game::event.type == SDL_KEYDOWN)
+	if (Game::event.type == SDL_KEYDOWN && p != 1)
 	{
 		switch (Game::event.key.keysym.sym)
 		{
@@ -136,7 +122,7 @@ void Igralec::premik()
 		}
 	}
 
-	if (Game::event.type == SDL_KEYUP && Game::event.type != SDL_KEYDOWN)
+	if (Game::event.type == SDL_KEYUP && p != 1)
 	{
 		switch (Game::event.key.keysym.sym)
 		{
@@ -174,6 +160,9 @@ void Igralec::posUpdate()
 
 	m_destRect.w = m_srcRect.w * m_scale;
 	m_destRect.h = m_srcRect.h * m_scale;
+
+	m_lastpos.x = m_position.x;
+	m_lastpos.y = m_position.y;
 }
 
 Hudoba::Hudoba(const char* path, float scale, int lvl) : Predmet(path, scale)
@@ -183,11 +172,11 @@ Hudoba::Hudoba(const char* path, float scale, int lvl) : Predmet(path, scale)
 	m_srcRect.w = 32;
 	m_srcRect.h = 32;
 
-	m_position.x = rand() % 758 + 3;
-	m_position.y = rand() % 520 + 3;
+	m_position.x = rand() % 768 + 33;
+	m_position.y = rand() % 608 + 33;
 
-	m_randx = rand() % 758 + 3;
-	m_randy = rand() % 520 + 3;
+	m_randx = rand() % 768 + 33;
+	m_randy = rand() % 608 + 33;
 	
 	m_speed = 1;
 
@@ -235,23 +224,23 @@ void Hudoba::posUpdate()
 
 void Hudoba::premakni()
 {
-	if (m_position.x > m_randx)
+	if (m_position.x > m_randx && p != 1)
 	{
 		m_zamik = 32;
 		m_position.x--;
 	}
-	else if (m_position.x < m_randx)
+	else if (m_position.x < m_randx && p != 1)
 	{
 		m_zamik = 64;
 		m_position.x++;
 	}
 
-	if (m_position.y > m_randy)
+	if (m_position.y > m_randy && p != 1)
 	{
 		m_zamik = 96;
 		m_position.y--;
 	}
-	else if (m_position.y < m_randy)
+	else if (m_position.y < m_randy && p != 1)
 	{
 		m_zamik = 0;
 		m_position.y++;
@@ -266,8 +255,8 @@ void Hudoba::preveriPos()
 		m_framecount++;
 		if (m_framecount == 120)
 		{
-			m_randx = rand() % 758 + 3;
-			m_randy = rand() % 520 + 3;
+			m_randx = rand() % 768 + 33;
+			m_randy = rand() % 608 + 33;
 
 			m_framecount = 0;
 		}
@@ -283,11 +272,11 @@ Staroselec::Staroselec(const char* path, float scale) : Predmet(path, scale)
 	m_srcRect.w = 32;
 	m_srcRect.h = 32;
 
-	m_position.x = rand() % 750 + 5;
-	m_position.y = rand() % 520 + 5;
+	m_position.x = rand() % 768 + 33;
+	m_position.y = rand() % 608 + 33;
 
-	m_nasMestox = rand() % 750 + 5;
-	m_nasMestoy = rand() % 520 + 5;
+	m_nasMestox = rand() % 768 + 33;
+	m_nasMestoy = rand() % 608 + 33;
 
 	m_scale = scale;
 }
@@ -317,23 +306,23 @@ void Staroselec::posUpdate()
 
 void Staroselec::premakni()
 {
-	if (m_position.x > m_nasMestox)
+	if (m_position.x > m_nasMestox && p != 1)
 	{
 		m_zamik = 32;
 		m_position.x--;
 	}
-	else if (m_position.x < m_nasMestox)
+	else if (m_position.x < m_nasMestox && p != 1)
 	{
 		m_zamik = 64;
 		m_position.x++;
 	}
 
-	if (m_position.y < m_nasMestoy)
+	if (m_position.y < m_nasMestoy && p != 1)
 	{
 		m_zamik = 0;
 		m_position.y++;
 	}
-	else if (m_position.y > m_nasMestoy)
+	else if (m_position.y > m_nasMestoy&& p != 1)
 	{
 		m_zamik = 96;
 		m_position.y--;
@@ -365,8 +354,8 @@ void Staroselec::preveriPos()
 
 			if (m_framecount == 120)//dve sekundi
 			{
-				m_nasMestox = rand() % 750 + 5;
-				m_nasMestoy = rand() % 520 + 5;//mesto gre spet na random, ko pride do pozara
+				m_nasMestox = rand() % 768 + 33;
+				m_nasMestoy = rand() % 608 + 33;//mesto gre spet na random, ko pride do pozara
 
 				m_life--;
 				m_framecount = 0;
@@ -385,8 +374,8 @@ void Staroselec::preveriPos()
 
 			if (m_framecount == 60)
 			{
-				m_nasMestox = rand() % 750 + 5;
-				m_nasMestoy = rand() % 520 + 5;//mesto gre spet na random
+				m_nasMestox = rand() % 758 + 33;
+				m_nasMestoy = rand() % 598 + 33;//mesto gre spet na random
 
 				m_life--;
 				m_framecount = 0;

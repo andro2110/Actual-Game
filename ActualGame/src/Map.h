@@ -22,6 +22,7 @@ public:
 	void clear();
 	
 	int preveriProcente();
+	void pavza(bool p) { this->p = p; }
 
 private:
 	SDL_Rect m_srcRect, m_destRect;
@@ -39,4 +40,6 @@ private:
 	int m_uniceno = 0;
 
 	int m_map[20][25];
+
+	bool p;
 };

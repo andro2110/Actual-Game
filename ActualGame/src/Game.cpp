@@ -4,6 +4,7 @@
 #include <vector>
 #include "HomeScreen.h"
 #include "Text.h"
+#include "Predmet.h"
 
 SDL_Renderer* Game::renderer = nullptr;
 SDL_Event Game::event;
@@ -63,15 +64,42 @@ void Game::HandleEvents()
 
 	case SDL_MOUSEBUTTONDOWN:
 		if ((Game::event.button.x > 35 && Game::event.button.x < 110) && (Game::event.button.y > 400 && Game::event.button.y < 430))//play pozicija
-		{
 			m_play = 1;
-		}
 
 		else if ((event.button.x > 666 && event.button.x < 735) && (event.button.y > 515 && event.button.y < 545))//quit
 			m_IsRunning = false;
 
 		game->preveri();
 		break;
+
+	case SDL_KEYDOWN:
+		switch (event.key.keysym.sym)//preverja tipke za pavzo
+		{
+		case SDLK_ESCAPE:
+		case SDLK_p:
+			if (p == 0)
+			{
+				player->pavza(1);
+				for (auto& h : hudoba)
+					h->pavza(1);
+				for (auto& s : starina)
+					s->pavza(1);
+				map->pavza(1);
+				p = 1;
+			}
+			else if (p == 1)
+			{
+				player->pavza(0);
+				for (auto& h : hudoba)
+					h->pavza(0);
+				for (auto& s : starina)
+					s->pavza(0);
+				map->pavza(0);
+				p = 0;
+			}
+		default:
+			break;
+		}
 
 	default:
 		break;
@@ -80,7 +108,6 @@ void Game::HandleEvents()
 
 void Game::Update()
 {
-	
 	if (m_play == true)//preverja
 	{
 		stej++;
@@ -96,6 +123,8 @@ void Game::Update()
 		{
 			game->getVrsta(7);//lvl3 slika
 		}
+		else
+			lvl = 4;
 
 		if (stej % 120 == 0)//po dveh sekundah se zacne igra
 		{
@@ -155,10 +184,10 @@ void Game::Update()
 			break;
 		}
 
-		if (m_Framecount % m_delayHudoba == 0)//spawn hudobe
+		if (m_Framecount % m_delayHudoba == 0 && p == 0)//spawn hudobe
 			hudoba.push_back(std::unique_ptr<Hudoba>(std::make_unique<Hudoba>("Assets/EnemySprite.png", 1.5f, lvl)));
 
-		if(m_Framecount % m_delayStarina == 0)//spawn staroselcev
+		if(m_Framecount % m_delayStarina == 0 && p == 0)//spawn staroselcev
 			starina.push_back(std::unique_ptr<Staroselec>(std::make_unique<Staroselec>("Assets/StaroselecSprite.png", 1.5f)));
 
 		if (hudoba.size() != 0)
@@ -224,7 +253,8 @@ void Game::Update()
 			m_Framecount = 0;
 		}
 
-		m_Framecount++;
+		if (p == 0)
+			m_Framecount++;
 	}
 }
 

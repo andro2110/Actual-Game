@@ -20,7 +20,7 @@ Homesc* game;
 Datoteka* dat;
 std::vector<std::unique_ptr<Hudoba>> hudoba;
 std::vector<std::unique_ptr<Staroselec>> starina;
-char ime[21];
+bool fl = 0;
 
 void Game::Init(const char* title, int x, int y, int w, int h, Uint32 flags)
 {
@@ -127,7 +127,26 @@ void Game::Update()
 			game->getVrsta(7);//lvl3 slika
 		}
 		else
-			lvl = 4;
+		{
+			if (lvl == 4)
+				game->getVrsta(8);
+			else if(map->preveriProcente() >= 70)
+				game->getVrsta(4);
+
+			hudoba.clear();
+			starina.clear();
+			map->clear();
+			dat->vpisiPod(map->vrniScore());
+			dat->preberi();
+			dat->sortiraj();
+			dat->brisi();
+			dat->topPet();
+
+			homesc = 1;
+			lvl = 1;
+			m_play = 0;
+			m_Framecount = 0;
+		}
 
 		if (stej % 120 == 0)//po dveh sekundah se zacne igra
 		{
@@ -138,7 +157,7 @@ void Game::Update()
 	}
 	else if (homesc == false)//preverja med igro
 	{
-		if (m_Framecount % 300 == 0)//level traja 20 sekund
+		if (m_Framecount % 120 == 0)//level traja 20 sekund
 		{
 			lvl++;
 
@@ -219,52 +238,12 @@ void Game::Update()
 				if (starina[i]->getLife() == 0)//preverja kdaj zbrise hudobo
 					starina.erase(starina.begin() + i);
 			}
-
 		}
 
 		map->getStaroselec(starina);
 
 		for (auto& s : starina)
 			s->update();
-
-		if (lvl == 4)//konec igre
-		{
-			game->getVrsta(8);
-			homesc = 1;
-			lvl = 1;
-			m_play = 0;
-
-			hudoba.clear();
-			starina.clear();
-			map->clear();
-			std::cout << "Tocke: " << map->vrniScore() << std::endl;
-			//dat->vpisiPod(map->vrniScore());
-			dat->preberi();
-			dat->sortiraj();
-			dat->brisi();
-			dat->topPet();
-			//dat->izpis();
-
-			m_Framecount = 0;
-		}
-		else if (map->preveriProcente() >= 70)//prevec pozara
-		{
-			game->getVrsta(4);
-			homesc = 1;
-			lvl = 1;
-			m_play = 0;
-
-			hudoba.clear();
-			starina.clear();
-			map->clear();
-			std::cout << "Tocke: " << map->vrniScore() << std::endl;
-			dat->vpisiPod(map->vrniScore());
-			dat->sortiraj();
-			dat->brisi();
-			//dat->topPet();
-			
-			m_Framecount = 0;
-		}
 
 		if (p == 0)
 			m_Framecount++;

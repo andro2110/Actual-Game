@@ -1,4 +1,4 @@
 ﻿  Files.cpp
-C:\Users\Andraž Pergar\Desktop\Actual-Game\ActualGame\src\Files.cpp(40,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Andraž Pergar\Desktop\Actual-Game\ActualGame\src\Files.cpp(49,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Andraž Pergar\Desktop\Actual-Game\ActualGame\src\Files.cpp(35,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Andraž Pergar\Desktop\Actual-Game\ActualGame\src\Files.cpp(44,20): warning C4018: '<': signed/unsigned mismatch
   ActualGame.vcxproj -> C:\Users\Andraž Pergar\Desktop\Actual-Game\Debug\ActualGame.exe

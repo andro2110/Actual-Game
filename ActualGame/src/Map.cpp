@@ -121,7 +121,6 @@ void Map::randomFire()
 
 		m_spawnFire = 0;
 	}
-	std::cout << m_spawnFire << std::endl;
 	if(p == 0)
 		m_spawnFire++;
 }

@@ -5,6 +5,7 @@
 #include "HomeScreen.h"
 #include "Text.h"
 #include "Predmet.h"
+#include "Files.h"
 
 SDL_Renderer* Game::renderer = nullptr;
 SDL_Event Game::event;
@@ -16,8 +17,10 @@ Game::~Game() {}
 Map* map;
 Igralec* player;
 Homesc* game;
+Datoteka* dat;
 std::vector<std::unique_ptr<Hudoba>> hudoba;
 std::vector<std::unique_ptr<Staroselec>> starina;
+char ime[21];
 
 void Game::Init(const char* title, int x, int y, int w, int h, Uint32 flags)
 {
@@ -48,8 +51,8 @@ void Game::Init(const char* title, int x, int y, int w, int h, Uint32 flags)
 	player = new Igralec("Assets/PlayerSprite.png", 2.0f);
 	/*hudoba.push_back(std::unique_ptr<Hudoba>(std::make_unique<Hudoba>("Assets/EnemySprite.png", 1.5f, lvl)));
 	starina.push_back(std::unique_ptr<Staroselec>(std::make_unique<Staroselec>("Assets/StaroselecSprite.png", 1.5f)));*/
-
-	//test->pripraviText(10, 10, "Test", white);
+	
+	dat = new Datoteka;
 }
 
 void Game::HandleEvents()
@@ -135,7 +138,7 @@ void Game::Update()
 	}
 	else if (homesc == false)//preverja med igro
 	{
-		if (m_Framecount % 1200 == 0)//level traja 20 sekund
+		if (m_Framecount % 300 == 0)//level traja 20 sekund
 		{
 			lvl++;
 
@@ -235,6 +238,12 @@ void Game::Update()
 			starina.clear();
 			map->clear();
 			std::cout << "Tocke: " << map->vrniScore() << std::endl;
+			//dat->vpisiPod(map->vrniScore());
+			dat->preberi();
+			dat->sortiraj();
+			dat->brisi();
+			dat->topPet();
+			//dat->izpis();
 
 			m_Framecount = 0;
 		}
@@ -249,7 +258,11 @@ void Game::Update()
 			starina.clear();
 			map->clear();
 			std::cout << "Tocke: " << map->vrniScore() << std::endl;
-
+			dat->vpisiPod(map->vrniScore());
+			dat->sortiraj();
+			dat->brisi();
+			//dat->topPet();
+			
 			m_Framecount = 0;
 		}
 
@@ -268,38 +281,6 @@ void Game::Render()
 	}
 	else
 	{
-		/*if (map->preveriProcente() >= 70)//dej na 70 game over
-		{
-			game->getVrsta(4);
-			homesc = true;
-			lvl = 1;
-			m_play = 1;
-
-			map->clear();
-			hudoba.clear();
-			starina.clear();
-			m_Framecount = 1;
-			map->nextlvl(1);
-
-			std::cout << "Tocke: " << map->vrniScore() << std::endl;
-		}
-
-		else if (lvl == 4)
-		{
-			game->getVrsta(8);
-			homesc = true;
-			lvl = 1;
-			m_play = 1;
-
-			map->clear();
-			hudoba.clear();
-			starina.clear();
-			m_Framecount = 1;
-			map->nextlvl(1);
-
-			std::cout << "Tocke: " << map->vrniScore() << std::endl;
-		}*/
-
 		map->drawMap();
 
 		player->render();

@@ -10,8 +10,9 @@ class Text
 public:
 	Text() {}
 	Text(int size);
-	void podatki(int xpos, int ypos, std::string besedilo, SDL_Color barva);
-	void drawText();
+	void podatki(int x, int y, std::string besedilo, SDL_Color barva, SDL_Color bgcolor);
+	void drawText(int xpos, int ypos, std::string besedilo, SDL_Color barva);
+	void draw();
 
 private:
 	SDL_Texture* m_texture;

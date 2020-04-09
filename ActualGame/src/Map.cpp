@@ -258,7 +258,6 @@ int Map::preveriProcente()
 {
 	int procent = (100 * m_uniceno) / 160;
 
-	//std::cout << procent << std::endl;
 	return procent;
 }
 
@@ -282,6 +281,7 @@ void Map::nextlvl(int l)
 		m_razsiri = 0;
 
 		m_uniceno = 0;
+		m_score = 0;
 	case 2:
 		m_delay = 120;
 		m_spawnFire = 0;

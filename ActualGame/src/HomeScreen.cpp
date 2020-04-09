@@ -3,28 +3,14 @@
 
 Homesc::Homesc()
 {
-	m_homeScreen = TextureManager::LoadTexture("Assets/HomescreenSolid.png");
-	m_credits = TextureManager::LoadTexture("Assets/Credits.png");
-	m_howToPlay = TextureManager::LoadTexture("Assets/HowToPlay.png");
-	m_gameOver = TextureManager::LoadTexture("Assets/GameOver.png");
-	m_lvl1 = TextureManager::LoadTexture("Assets/lvl1.png");
-	m_lvl2 = TextureManager::LoadTexture("Assets/lvl2.png");
-	m_lvl3 = TextureManager::LoadTexture("Assets/lvl3.png");
-	m_congrats = TextureManager::LoadTexture("Assets/Congrats.png");
-
 	play = new Text(35);
 	quit = new Text(35);
 	htp = new Text(35);
-
-	m_srcRect.x = 0;
-	m_srcRect.y = 0;
-	m_srcRect.h = 640;
-	m_srcRect.w = 800;
-
-	m_destRect.h = 640;
-	m_destRect.w = 800;
-	m_destRect.x = 0;
-	m_destRect.y = 0;
+	naslov = new Text(35);
+	lvl = new Text(50);
+	congrats = new Text(50);
+	go = new Text(50);
+	nazaj = new Text(40);
 
 	m_vrsta = 1;
 }
@@ -34,41 +20,38 @@ void Homesc::draw()
 	switch (m_vrsta)
 	{
 	case 1://Home screen
-		//play->drawText(35, 400, "PLAY", { 255, 255, 255 });
-		//quit->drawText(666, 515, "QUIT", { 255, 255, 255 });
-		//htp->drawText(35, 515, "HOW TO PLAY", { 255, 255, 255 });
-		break;
-
-	case 2:
-		TextureManager::Draw(m_credits, m_srcRect, m_destRect);//credits
+		naslov->drawText(200, 100, "RESI DEZEVNI PRAGOZD", { 231, 116, 39 });
+		play->drawText(35, 400, "PLAY", { 255, 255, 255 });
+		quit->drawText(666, 515, "QUIT", { 255, 255, 255 });
+		htp->drawText(35, 455, "HOW TO PLAY", { 255, 255, 255 });
 		break;
 
 	case 3:
-		TextureManager::Draw(m_howToPlay, m_srcRect, m_destRect);//how to play
+		naslov->drawText(280, 100, "HOW TO PLAY", { 231, 116, 39 });//how to play
+		nazaj->drawText(350, 515, "Nazaj", { 255, 255, 255 });
 		break;
 
 	case 4:
-		TextureManager::Draw(m_gameOver, m_srcRect, m_destRect);//game over
+		go->drawText(310, 280, "GAME OVER!", { 255, 255, 255 });//konec igre
 		break;
 
 	case 5:
-		TextureManager::Draw(m_lvl1, m_srcRect, m_srcRect);//lvl1 slika
+		lvl->drawText(310, 280, "Level 1", { 255, 255, 255 });//lvl1
 		break;
 
 	case 6:
-		TextureManager::Draw(m_lvl2, m_srcRect, m_destRect);//lvl2
+		lvl->drawText(310, 280, "Level 2", { 255, 255, 255 });//lvl2
 		break;
 
 	case 7:
-		TextureManager::Draw(m_lvl3, m_srcRect, m_destRect);//lvl3
+		lvl->drawText(310, 280, "Level 3", { 255, 255, 255 });//lvl3
 		break;
 
 	case 8:
-		TextureManager::Draw(m_congrats, m_srcRect, m_destRect);//congrats
+		congrats->drawText(300, 280, "Cestitke!!!", { 255, 255, 255 }); //congrats
+		quit->drawText(666, 515, "QUIT", { 255, 255, 255 });
+		nazaj->drawText(350, 515, "Nazaj", { 255, 255, 255 });
 		break;
-
-	case 9:
-		SDL_SetRenderDrawColor(Game::renderer, 234, 44, 123, 255);
 	default:
 		break;
 	}
@@ -76,14 +59,10 @@ void Homesc::draw()
 
 void Homesc::preveri()
 {
-
-	if ((Game::event.button.x > 35 && Game::event.button.x < 455) && (Game::event.button.y > 455 && Game::event.button.y < 485))//credits
-		m_vrsta = 2;
-
-	else if ((Game::event.button.x > 35 && Game::event.button.x < 235) && (Game::event.button.y > 515 && Game::event.button.y < 545))//how to play
+	if ((Game::event.button.x > 35 && Game::event.button.x < 280) && (Game::event.button.y > 460 && Game::event.button.y < 495))//how to play
 		m_vrsta = 3;
 
-	else if ((Game::event.button.x > 340 && Game::event.button.x < 455) && (Game::event.button.y > 555 && Game::event.button.y < 580))//back
+	else if ((Game::event.button.x > 350 && Game::event.button.x < 460) && (Game::event.button.y > 525 && Game::event.button.y < 560))//back
 		m_vrsta = 1;
 
 	if (m_vrsta == 4)

@@ -10,6 +10,7 @@
 
 SDL_Renderer* Game::renderer = nullptr;
 SDL_Event Game::event;
+
 bool Game::homesc = 1;
 
 Game::Game() {}
@@ -19,7 +20,7 @@ Map* map;
 Igralec* player;
 Homesc* game;
 Datoteka* dat;
-Text* test;
+Text* tocke;
 std::vector<std::unique_ptr<Hudoba>> hudoba;
 std::vector<std::unique_ptr<Staroselec>> starina;
 std::string str;
@@ -55,7 +56,7 @@ void Game::Init(const char* title, int x, int y, int w, int h, Uint32 flags)
 	starina.push_back(std::unique_ptr<Staroselec>(std::make_unique<Staroselec>("Assets/StaroselecSprite.png", 1.5f)));*/
 	
 	dat = new Datoteka;
-	test = new Text(25);
+	tocke = new Text(40);
 }
 
 void Game::HandleEvents()
@@ -69,10 +70,10 @@ void Game::HandleEvents()
 		break;
 
 	case SDL_MOUSEBUTTONDOWN:
-		if ((Game::event.button.x > 35 && Game::event.button.x < 110) && (Game::event.button.y > 400 && Game::event.button.y < 430))//play pozicija
+		if ((Game::event.button.x > 35 && Game::event.button.x < 120) && (Game::event.button.y > 410 && Game::event.button.y < 440))//play pozicija
 			m_play = 1;
 
-		else if ((event.button.x > 666 && event.button.x < 735) && (event.button.y > 515 && event.button.y < 545))//quit
+		else if ((event.button.x > 660 && event.button.x < 765) && (event.button.y > 520 && event.button.y < 555))//quit
 			m_IsRunning = false;
 
 		game->preveri();
@@ -110,6 +111,9 @@ void Game::HandleEvents()
 			break;
 		}
 
+	/*case SDL_MOUSEMOTION:
+		std::cout << event.motion.x << " " << event.motion.y << std::endl;
+		break;*/
 	default:
 		break;
 	}
@@ -117,29 +121,22 @@ void Game::HandleEvents()
 
 void Game::Update()
 {
-	if (m_play == true)//preverja
+	if (m_play == true)
 	{
-		test->podatki(0, 0, "BEsedilo", { 255, 255, 255 });
 		stej++;
-		if (lvl == 1)//preverja kdaj je konec igre
-		{
-			game->getVrsta(5);//lvl1 slika
-		}
-		else if (lvl == 2)
-		{
-			game->getVrsta(6);//lvl2 slika
-		}
-		else if (lvl == 3)
-		{
-			game->getVrsta(7);//lvl3 slika
-		}
-		else
-		{
-			if (lvl == 4)
-				game->getVrsta(8);
-			else if(map->preveriProcente() >= 70)
-				game->getVrsta(4);
 
+		switch (lvl)
+		{
+		case 1:
+			game->getVrsta(5);
+			break;
+		case 2:
+			game->getVrsta(6);
+			break;
+		case 3:
+			game->getVrsta(7);
+			break;
+		default:
 			hudoba.clear();
 			starina.clear();
 			map->clear();
@@ -148,11 +145,13 @@ void Game::Update()
 			dat->sortiraj();
 			dat->brisi();
 			dat->topPet();
+			map->nextlvl(1);
 
 			homesc = 1;
 			lvl = 1;
 			m_play = 0;
 			m_Framecount = 0;
+			break;
 		}
 
 		if (stej % 120 == 0)//po dveh sekundah se zacne igra
@@ -176,18 +175,16 @@ void Game::Update()
 			starina.clear();
 			map->clear();
 			map->nextlvl(lvl);
-
 		}
 	}
 
 	if (homesc == false)
 	{
+		tocke->podatki(380, 0, std::to_string(map->vrniScore()), { 255, 255, 255, 220 }, { 171, 205, 56, 175 });
 		player->update();
 
 		for (auto& h : hudoba)
-		{
 			h->update();
-		}
 
 		map->pogasiPozar(player);
 		map->correctmap(hudoba);
@@ -261,9 +258,13 @@ void Game::Render()
 {
 	SDL_RenderClear(renderer);
 	/* Tuki se rendera: */
-	test->drawText();
 	if (homesc)
 	{
+		if (lvl == 4)
+		{
+			game->getVrsta(8);
+		}
+
 		game->draw();
 	}
 	else
@@ -277,8 +278,8 @@ void Game::Render()
 
 		for (auto& s : starina)
 			s->render();
+		tocke->draw();
 	}
-
 	SDL_RenderPresent(Game::renderer);
 }
 

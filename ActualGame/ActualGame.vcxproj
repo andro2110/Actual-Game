@@ -137,6 +137,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Besedilo.cpp" />
     <ClCompile Include="src\Files.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\HomeScreen.cpp" />
@@ -147,6 +148,7 @@
     <ClCompile Include="src\TextureManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Besedilo.h" />
     <ClInclude Include="src\Files.h" />
     <ClInclude Include="src\Game.h" />
     <ClInclude Include="src\HomeScreen.h" />

@@ -1,5 +1,6 @@
 #pragma once
 #include "TextureManager.h"
+#include "Besedilo.h"
 
 class Homesc
 {
@@ -9,6 +10,7 @@ public:
 
 	void getVrsta(int v) { m_vrsta = v; }
 	void preveri();
+	void izbira();
 	void draw();
 	
 
@@ -21,6 +23,9 @@ private:
 	SDL_Texture* m_lvl2;
 	SDL_Texture* m_lvl3;
 	SDL_Texture* m_congrats;
+	Text* play;
+	Text* quit;
+	Text* htp;
 
 	int m_vrsta;
 	int m_framecnt = 0;

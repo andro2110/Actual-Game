@@ -12,6 +12,10 @@ Homesc::Homesc()
 	m_lvl3 = TextureManager::LoadTexture("Assets/lvl3.png");
 	m_congrats = TextureManager::LoadTexture("Assets/Congrats.png");
 
+	play = new Text(35);
+	quit = new Text(35);
+	htp = new Text(35);
+
 	m_srcRect.x = 0;
 	m_srcRect.y = 0;
 	m_srcRect.h = 640;
@@ -29,8 +33,10 @@ void Homesc::draw()
 {
 	switch (m_vrsta)
 	{
-	case 1:
-		TextureManager::Draw(m_homeScreen, m_srcRect, m_destRect);//navadni homescreen
+	case 1://Home screen
+		//play->drawText(35, 400, "PLAY", { 255, 255, 255 });
+		//quit->drawText(666, 515, "QUIT", { 255, 255, 255 });
+		//htp->drawText(35, 515, "HOW TO PLAY", { 255, 255, 255 });
 		break;
 
 	case 2:
@@ -59,7 +65,10 @@ void Homesc::draw()
 
 	case 8:
 		TextureManager::Draw(m_congrats, m_srcRect, m_destRect);//congrats
+		break;
 
+	case 9:
+		SDL_SetRenderDrawColor(Game::renderer, 234, 44, 123, 255);
 	default:
 		break;
 	}

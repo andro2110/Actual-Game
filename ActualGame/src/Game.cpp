@@ -6,6 +6,7 @@
 #include "Text.h"
 #include "Predmet.h"
 #include "Files.h"
+#include "Besedilo.h"
 
 SDL_Renderer* Game::renderer = nullptr;
 SDL_Event Game::event;
@@ -18,9 +19,10 @@ Map* map;
 Igralec* player;
 Homesc* game;
 Datoteka* dat;
+Text* test;
 std::vector<std::unique_ptr<Hudoba>> hudoba;
 std::vector<std::unique_ptr<Staroselec>> starina;
-bool fl = 0;
+std::string str;
 
 void Game::Init(const char* title, int x, int y, int w, int h, Uint32 flags)
 {
@@ -53,6 +55,7 @@ void Game::Init(const char* title, int x, int y, int w, int h, Uint32 flags)
 	starina.push_back(std::unique_ptr<Staroselec>(std::make_unique<Staroselec>("Assets/StaroselecSprite.png", 1.5f)));*/
 	
 	dat = new Datoteka;
+	test = new Text(25);
 }
 
 void Game::HandleEvents()
@@ -88,6 +91,8 @@ void Game::HandleEvents()
 				for (auto& s : starina)
 					s->pavza(1);
 				map->pavza(1);
+				game->getVrsta(9);
+				SDL_SetRenderDrawColor(renderer, 234, 44, 123, 255);
 				p = 1;
 			}
 			else if (p == 1)
@@ -98,6 +103,7 @@ void Game::HandleEvents()
 				for (auto& s : starina)
 					s->pavza(0);
 				map->pavza(0);
+				SDL_SetRenderDrawColor(Game::renderer, 33, 110, 54, 255);
 				p = 0;
 			}
 		default:
@@ -113,6 +119,7 @@ void Game::Update()
 {
 	if (m_play == true)//preverja
 	{
+		test->podatki(0, 0, "BEsedilo", { 255, 255, 255 });
 		stej++;
 		if (lvl == 1)//preverja kdaj je konec igre
 		{
@@ -157,7 +164,7 @@ void Game::Update()
 	}
 	else if (homesc == false)//preverja med igro
 	{
-		if (m_Framecount % 120 == 0)//level traja 20 sekund
+		if (m_Framecount % 1200 == 0)//level traja 20 sekund
 		{
 			lvl++;
 
@@ -254,6 +261,7 @@ void Game::Render()
 {
 	SDL_RenderClear(renderer);
 	/* Tuki se rendera: */
+	test->drawText();
 	if (homesc)
 	{
 		game->draw();
@@ -270,8 +278,6 @@ void Game::Render()
 		for (auto& s : starina)
 			s->render();
 	}
-
-//	test->draw();
 
 	SDL_RenderPresent(Game::renderer);
 }

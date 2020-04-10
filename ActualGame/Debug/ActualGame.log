@@ -1,7 +1,2 @@
-﻿  Game.cpp
-C:\Users\Andraž Pergar\Desktop\Actual-Game\ActualGame\src\Predmet.h(33,32): warning C4244: 'return': conversion from 'float' to 'int', possible loss of data
-C:\Users\Andraž Pergar\Desktop\Actual-Game\ActualGame\src\Predmet.h(34,32): warning C4244: 'return': conversion from 'float' to 'int', possible loss of data
-C:\Users\Andraž Pergar\Desktop\Actual-Game\ActualGame\src\Game.cpp(221,22): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Andraž Pergar\Desktop\Actual-Game\ActualGame\src\Game.cpp(228,23): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Andraž Pergar\Desktop\Actual-Game\ActualGame\src\Game.cpp(240,22): warning C4018: '<': signed/unsigned mismatch
+﻿  HomeScreen.cpp
   ActualGame.vcxproj -> C:\Users\Andraž Pergar\Desktop\Actual-Game\Debug\ActualGame.exe

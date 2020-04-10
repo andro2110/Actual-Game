@@ -52,8 +52,8 @@ void Game::Init(const char* title, int x, int y, int w, int h, Uint32 flags)
 	map = new Map();
 
 	player = new Igralec("Assets/PlayerSprite.png", 2.0f);
-	/*hudoba.push_back(std::unique_ptr<Hudoba>(std::make_unique<Hudoba>("Assets/EnemySprite.png", 1.5f, lvl)));
-	starina.push_back(std::unique_ptr<Staroselec>(std::make_unique<Staroselec>("Assets/StaroselecSprite.png", 1.5f)));*/
+	//hudoba.push_back(std::unique_ptr<Hudoba>(std::make_unique<Hudoba>("Assets/EnemySprite.png", 1.5f, lvl)));
+	//starina.push_back(std::unique_ptr<Staroselec>(std::make_unique<Staroselec>("Assets/StaroselecSprite.png", 1.5f)));
 	
 	dat = new Datoteka;
 	tocke = new Text(40);
@@ -136,21 +136,11 @@ void Game::Update()
 		case 3:
 			game->getVrsta(7);
 			break;
+		case 4:
+			game->getVrsta(8);
+			break;
 		default:
-			hudoba.clear();
-			starina.clear();
-			map->clear();
-			dat->vpisiPod(map->vrniScore());
-			dat->preberi();
-			dat->sortiraj();
-			dat->brisi();
-			dat->topPet();
-			map->nextlvl(1);
-
-			homesc = 1;
-			lvl = 1;
-			m_play = 0;
-			m_Framecount = 0;
+			game->getVrsta(4);
 			break;
 		}
 
@@ -249,6 +239,9 @@ void Game::Update()
 		for (auto& s : starina)
 			s->update();
 
+		if (map->preveriProcente() >= 70)
+			game->getVrsta(4);
+
 		if (p == 0)
 			m_Framecount++;
 	}
@@ -260,15 +253,46 @@ void Game::Render()
 	/* Tuki se rendera: */
 	if (homesc)
 	{
-		if (lvl == 4)
-		{
-			game->getVrsta(8);
-		}
-
 		game->draw();
 	}
 	else
 	{
+		if (lvl == 4)
+		{
+			game->getVrsta(8);
+			hudoba.clear();
+			starina.clear();
+			map->clear();
+			dat->vpisiPod(map->vrniScore());
+			dat->preberi();
+			dat->sortiraj();
+			dat->brisi();
+			dat->topPet();
+			map->nextlvl(1);
+
+			homesc = 1;
+			lvl = 1;
+			m_play = 0;
+			m_Framecount = 0;
+		}
+		else if (map->preveriProcente() >= 70)
+		{
+			game->getVrsta(4);
+			hudoba.clear();
+			starina.clear();
+			map->clear();
+			dat->vpisiPod(map->vrniScore());
+			dat->preberi();
+			dat->sortiraj();
+			dat->brisi();
+			dat->topPet();
+			map->nextlvl(1);
+
+			homesc = 1;
+			lvl = 1;
+			m_play = 0;
+			m_Framecount = 0;
+		}
 		map->drawMap();
 
 		player->render();

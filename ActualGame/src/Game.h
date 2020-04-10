@@ -34,4 +34,5 @@ private:
 	int m_delayHudoba;
 	int m_delayStarina;
 	int p = 0;
+	int m_gameOver;
 };

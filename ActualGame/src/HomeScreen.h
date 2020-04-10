@@ -15,14 +15,15 @@ public:
 
 private:
 
-	Text* naslov;
-	Text* play;
-	Text* quit;
-	Text* htp;
+
+
+	Text* bes1;
+	Text* bes2;
+	Text* bes3; 
+	Text* bes4;
+	Text* konec;
 	Text* lvl;
-	Text* congrats;
 	Text* go;
-	Text* nazaj;
 
 
 	int m_vrsta;

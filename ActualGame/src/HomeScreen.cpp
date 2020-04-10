@@ -3,14 +3,13 @@
 
 Homesc::Homesc()
 {
-	play = new Text(35);
-	quit = new Text(35);
-	htp = new Text(35);
-	naslov = new Text(35);
+	bes1 = new Text(35);
+	bes2 = new Text(35);
+	bes3 = new Text(35);
+	bes4 = new Text(35);
 	lvl = new Text(50);
-	congrats = new Text(50);
+	konec = new Text(50);
 	go = new Text(50);
-	nazaj = new Text(40);
 
 	m_vrsta = 1;
 }
@@ -20,19 +19,22 @@ void Homesc::draw()
 	switch (m_vrsta)
 	{
 	case 1://Home screen
-		naslov->drawText(200, 100, "RESI DEZEVNI PRAGOZD", { 231, 116, 39 });
-		play->drawText(35, 400, "PLAY", { 255, 255, 255 });
-		quit->drawText(666, 515, "QUIT", { 255, 255, 255 });
-		htp->drawText(35, 455, "HOW TO PLAY", { 255, 255, 255 });
+		bes1->drawText(200, 100, "RESI DEZEVNI PRAGOZD", { 231, 116, 39 });
+		bes2->drawText(35, 400, "PLAY", { 255, 255, 255 });
+		bes3->drawText(666, 515, "QUIT", { 255, 255, 255 });
+		bes4->drawText(35, 455, "HOW TO PLAY", { 255, 255, 255 });
 		break;
 
 	case 3:
-		naslov->drawText(280, 100, "HOW TO PLAY", { 231, 116, 39 });//how to play
-		nazaj->drawText(350, 515, "Nazaj", { 255, 255, 255 });
+		bes1->drawText(280, 100, "HOW TO PLAY", { 231, 116, 39 });//how to play
+		bes1->drawText(350, 515, "Nazaj", { 255, 255, 255 });
 		break;
 
 	case 4:
-		go->drawText(310, 280, "GAME OVER!", { 255, 255, 255 });//konec igre
+		konec->drawText(300, 280, "GAME OVER!", { 255, 255, 255 });//konec igre
+		bes2->drawText(666, 515, "QUIT", { 255, 255, 255 });
+		bes1->drawText(350, 515, "Nazaj", { 255, 255, 255 });
+		bes3->drawText(254, 340, "Klikni na konzolo in vpiši ime", { 255, 255, 255 });
 		break;
 
 	case 5:
@@ -48,9 +50,10 @@ void Homesc::draw()
 		break;
 
 	case 8:
-		congrats->drawText(300, 280, "Cestitke!!!", { 255, 255, 255 }); //congrats
-		quit->drawText(666, 515, "QUIT", { 255, 255, 255 });
-		nazaj->drawText(350, 515, "Nazaj", { 255, 255, 255 });
+		konec->drawText(300, 250, "Cestitke!!!", { 255, 255, 255 }); //congrats
+		bes2->drawText(666, 515, "QUIT", { 255, 255, 255 });
+		bes1->drawText(350, 515, "Nazaj", { 255, 255, 255 });
+		bes3->drawText(254, 340, "Klikni na konzolo in vpisi ime", { 255, 255, 255 });
 		break;
 	default:
 		break;
@@ -67,7 +70,7 @@ void Homesc::preveri()
 
 	if (m_vrsta == 4)
 	{
-		if ((Game::event.button.x > 210 && Game::event.button.x < 590) && (Game::event.button.y > 255 && Game::event.button.y < 580))//back to home screen, game over
+		if ((Game::event.button.x > 350 && Game::event.button.x < 460) && (Game::event.button.y > 525 && Game::event.button.y < 560))//back to home screen, game over
 		{
 			getVrsta(1);
 		}

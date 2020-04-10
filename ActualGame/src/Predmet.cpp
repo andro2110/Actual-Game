@@ -1,22 +1,15 @@
 #include "Predmet.h"
 
-Predmet::Predmet(const char* path, float scale)
-{
-}
+Predmet::Predmet(const char* path, float scale) {}
 
-void Predmet::update()
-{
-	
-}
+void Predmet::update() {}
 
 void Predmet::render()
 {
 	SDL_RenderCopy(Game::renderer, m_texture, &m_srcRect, &m_destRect);
 }
 
-void Predmet::posUpdate()
-{
-}
+void Predmet::posUpdate() {}
 
 void Predmet::border()
 {
@@ -59,7 +52,7 @@ bool Predmet::checkCollision(SDL_Rect dest, SDL_Rect src)
 
 	return false;*/
 
-	if ((m_position.x + m_srcRect.w) >= dest.x && m_position.x <= dest.x + src.w && m_position.y + m_srcRect.h >= dest.y && m_position.y <= dest.y + src.h)
+	if ((m_position.x + m_srcRect.w) > dest.x && m_position.x < dest.x + src.w && m_position.y + m_srcRect.h > dest.y && m_position.y < dest.y + src.h)
 		return true;
 	else
 		return false;

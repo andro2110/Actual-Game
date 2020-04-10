@@ -17,7 +17,7 @@ public:
 	void pogasiPozar(Igralec *igralec);
 	void razsiriOgenj();
 	void getStaroselec(std::vector<std::unique_ptr<Staroselec>> &a);
-	int vrniScore() { std::cout << m_score << std::endl; return m_score; }
+	int vrniScore() { return m_score; }
 	void nextlvl(int l);
 	void clear();
 	

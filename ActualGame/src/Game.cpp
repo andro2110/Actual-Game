@@ -19,8 +19,16 @@ Game::~Game() {}
 Map* map;
 Igralec* player;
 Homesc* game;
+
 Datoteka* dat;
+Datoteka* rep;
+
 Text* tocke;
+Text* procenti;
+Text* pt1;
+Text* pt2;
+Text* pt3;
+
 std::vector<std::unique_ptr<Hudoba>> hudoba;
 std::vector<std::unique_ptr<Staroselec>> starina;
 std::string str;
@@ -56,7 +64,13 @@ void Game::Init(const char* title, int x, int y, int w, int h, Uint32 flags)
 	//starina.push_back(std::unique_ptr<Staroselec>(std::make_unique<Staroselec>("Assets/StaroselecSprite.png", 1.5f)));
 	
 	dat = new Datoteka;
+	rep = new Datoteka;
+
 	tocke = new Text(40);
+	procenti = new Text(40);
+	pt1 = new Text(60);
+	pt2 = new Text(40);
+	pt3 = new Text(40);
 }
 
 void Game::HandleEvents()
@@ -93,7 +107,6 @@ void Game::HandleEvents()
 					s->pavza(1);
 				map->pavza(1);
 				game->getVrsta(9);
-				SDL_SetRenderDrawColor(renderer, 234, 44, 123, 255);
 				p = 1;
 			}
 			else if (p == 1)
@@ -104,9 +117,12 @@ void Game::HandleEvents()
 				for (auto& s : starina)
 					s->pavza(0);
 				map->pavza(0);
-				SDL_SetRenderDrawColor(Game::renderer, 33, 110, 54, 255);
 				p = 0;
 			}
+		case SDLK_r:
+			if (p == 1)
+				player->replay();
+			break;
 		default:
 			break;
 		}
@@ -171,6 +187,7 @@ void Game::Update()
 	if (homesc == false)
 	{
 		tocke->podatki(380, 0, std::to_string(map->vrniScore()), { 255, 255, 255, 220 }, { 171, 205, 56, 175 });
+		procenti->podatki(0, 0, std::to_string(map->preveriProcente()), { 255, 255, 255, 175 }, { 216, 113, 65 , 215 });
 		player->update();
 
 		for (auto& h : hudoba)
@@ -242,6 +259,8 @@ void Game::Update()
 		if (map->preveriProcente() >= 70)
 			game->getVrsta(4);
 
+		rep->replay(player->getx(), player->gety());//zapisuje koordinate v Replay.bin
+
 		if (p == 0)
 			m_Framecount++;
 	}
@@ -293,6 +312,8 @@ void Game::Render()
 			m_play = 0;
 			m_Framecount = 0;
 		}
+
+
 		map->drawMap();
 
 		player->render();
@@ -303,6 +324,10 @@ void Game::Render()
 		for (auto& s : starina)
 			s->render();
 		tocke->draw();
+		procenti->draw();
+		if (p == 1)
+			pt1->shadedText(305, 230, "Pavza", { 255, 255, 255, 255 }, { 0, 0, 0, 255 });
+
 	}
 	SDL_RenderPresent(Game::renderer);
 }

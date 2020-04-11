@@ -86,12 +86,24 @@ void Datoteka::topPet()//izpise top 5 rezultatov
 void Datoteka::izpis()
 {
 	std::cout << std::endl;
-	struct Podatki p;
-	std::ifstream odpri("Highscore.bin");
+	struct Pozicija p;
+	std::ifstream odpri("Replay.bin");
 
 	if (odpri.is_open())
 		while (odpri.read((char*)&p, sizeof(p)))
-			std::cout << p.ime << " " << p.tocke << std::endl;
+			std::cout << p.x << " " << p.y << std::endl;
 	
 	odpri.close();
+}
+
+void Datoteka::replay(int x, int y)
+{
+	std::ofstream pisi("Replay.bin", std::ios::binary | std::ios::app);
+
+	m_pos.x = x;
+	m_pos.y = y;
+
+	pisi.write((char*)&m_pos, sizeof(m_pos));
+
+	pisi.close();
 }

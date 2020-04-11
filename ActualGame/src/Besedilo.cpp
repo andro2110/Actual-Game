@@ -38,3 +38,18 @@ void Text::draw()
 	SDL_RenderCopy(Game::renderer, m_texture, nullptr, &m_rect);
 	SDL_DestroyTexture(m_texture);
 }
+
+void Text::shadedText(int x, int y, std::string besedilo, SDL_Color barva, SDL_Color bgcolor)
+{
+	m_rect.x = x;
+	m_rect.y = y;
+
+	SDL_Surface* surf = TTF_RenderText_Shaded(m_font, besedilo.c_str(), barva, bgcolor);
+	m_texture = SDL_CreateTextureFromSurface(Game::renderer, surf);
+	SDL_FreeSurface(surf);
+
+	SDL_QueryTexture(m_texture, nullptr, nullptr, &m_rect.w, &m_rect.h);
+
+	SDL_RenderCopy(Game::renderer, m_texture, nullptr, &m_rect);
+	SDL_DestroyTexture(m_texture);//unic texturo, da ni memory leaka k se skos dela
+}

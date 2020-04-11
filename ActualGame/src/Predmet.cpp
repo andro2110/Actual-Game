@@ -158,6 +158,18 @@ void Igralec::posUpdate()
 	m_lastpos.y = m_position.y;
 }
 
+void Igralec::replay()
+{
+	std::ifstream beri("Replay.bin");
+	struct Pozicija pos;
+
+	if (beri.is_open())
+		while (beri.read((char*)&pos, sizeof(pos)))
+			std::cout << pos.x << " " << pos.y << std::endl;
+
+	beri.close();
+}
+
 Hudoba::Hudoba(const char* path, float scale, int lvl) : Predmet(path, scale)
 {
 	m_texture = TextureManager::LoadTexture(path);

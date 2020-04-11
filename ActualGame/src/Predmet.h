@@ -6,6 +6,7 @@
 #include <math.h>
 #include <vector>
 #include <memory>
+#include "Files.h"
 
 class Predmet
 {
@@ -53,6 +54,7 @@ public:
 	void update() override;
 	void premik();
 	void posUpdate() override;
+	void replay();
 };
 
 class Hudoba : public Predmet

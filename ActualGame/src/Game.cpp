@@ -30,6 +30,7 @@ Text* pt1;
 Text* pt2;
 Text* pt3;
 bool r = 0;
+bool resumed = 0;
 
 std::vector<std::unique_ptr<Hudoba>> hudoba;
 std::vector<std::unique_ptr<Staroselec>> starina;
@@ -150,7 +151,14 @@ void Game::HandleEvents()
 
 void Game::Update()
 {
-	if (m_play == true)
+	if (dat->preveriDatoteke() == 1 && resumed == 0)
+	{
+		player->resume(dat->vrniPos());
+		lvl = dat->vrniLvl();
+		map->resume();
+		resumed = 1;
+	}
+	if (m_play == true && resumed == 1)
 	{
 		stej++;
 
@@ -197,8 +205,10 @@ void Game::Update()
 		}
 	}
 
-	if (homesc == false)
+	if (homesc == false && resumed == 1)//main game loop
 	{
+		//std::cout << save->preveriDatoteke() << std::endl;
+
 		tocke->podatki(380, 0, std::to_string(map->vrniScore()), { 255, 255, 255, 220 }, { 171, 205, 56, 175 });
 		procenti->podatki(0, 0, std::to_string(map->preveriProcente()), { 255, 255, 255, 175 }, { 216, 113, 65 , 215 });
 		player->update();

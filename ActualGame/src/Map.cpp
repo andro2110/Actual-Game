@@ -332,3 +332,19 @@ void Map::shrani()
 
 	pisi.close();
 }
+
+void Map::resume()
+{
+	std::ifstream beri("ShraniMap.bin");
+	if(beri.is_open())
+		while (beri.read((char*)&m_shrani, sizeof(m_shrani)))
+		{
+			for (int i = 0; i < 10; i++)
+				for (int j = 0; j < 16; j++)
+					m_map[i][j] = m_shrani.tab[i][j];
+
+			m_uniceno = m_shrani.uniceno;
+			m_score = m_shrani.tocke;
+		}
+	beri.close();
+}

@@ -3,26 +3,12 @@
 #include <iostream>
 #include <cstring>
 #include <vector>
+#include "Vec2D.h"
 
 struct Podatki//highscore
 {
 	char ime[21];
 	int tocke;
-};
-
-struct Pozicija//replay
-{
-	int x, y;
-};
-
-struct Shrani
-{
-	int x, y, lvl;// tab[10][16], uniceno, tocke;
-};
-
-struct shraniMap
-{
-	int tab[10][16], uniceno, tocke;
 };
 
 class Datoteka
@@ -38,12 +24,14 @@ public:
 	void izpis();
 	void replay(int x, int y);//replay//
 	void shrani(int playerx, int playery, int lvl);//save & quit//
+	bool preveriDatoteke();//preveri ali so datoteke prazne
+	int vrniLvl();
+	Vec2 vrniPos();
 
 	~Datoteka() {}
 
 private:
 	struct Podatki m_pod;
 	std::vector<Podatki> m_vec;
-	struct Pozicija m_pos;
-	struct Shrani m_shrani;
+	Vec2 m_pos;
 };

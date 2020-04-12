@@ -157,7 +157,7 @@ void Igralec::posUpdate()
 void Igralec::replay()
 {
 	std::ifstream beri("Replay.bin");
-	struct Pozicija pos;
+	Vec2 pos;
 	int count = 0;
 
 	if (beri.is_open())
@@ -170,6 +170,12 @@ void Igralec::replay()
 	}
 
 	beri.close();
+}
+
+void Igralec::resume(Vec2 pos)
+{
+	m_position.x = pos.x;
+	m_position.y = pos.y;
 }
 
 Hudoba::Hudoba(const char* path, float scale, int lvl) : Predmet(path, scale)

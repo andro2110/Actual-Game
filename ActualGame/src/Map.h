@@ -24,8 +24,8 @@ public:
 	int vrniScore() { return m_score; }
 	void nextlvl(int l);
 	void clear();
-	void sendMap();
 	void shrani();
+	void resume();
 
 	
 	int preveriProcente();

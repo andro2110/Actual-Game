@@ -85,17 +85,13 @@ void Datoteka::topPet()//izpise top 5 rezultatov
 
 void Datoteka::izpis()
 {
-	std::cout << std::endl;
-	struct Pozicija p;
-	std::ifstream odpri("Shranjeno.bin");
+	std::ifstream beri("Shranjeno.bin");
+	Vec2 p;
 
-	if (odpri.is_open())
-		while (odpri.read((char*)&p, sizeof(p)))
-		{
-			std::cout << (m_pos.x += p.x * 3) << " " << (m_pos.y +=  p.y * 3) << std::endl;
-		}
-	
-	odpri.close();
+	if (beri.is_open())
+		while (beri.read((char*)&p, sizeof(p)))
+			std::cout << p.x << " " << p.y << std::endl;
+	beri.close();
 }
 
 void Datoteka::replay(int x, int y)
@@ -113,12 +109,52 @@ void Datoteka::replay(int x, int y)
 void Datoteka::shrani(int playerx, int playery, int lvl)
 {
 	std::ofstream pisi("Shranjeno.bin", std::ios::binary | std::ios::trunc);
+	std::ofstream pisi1("Lvl.bin", std::ios::binary | std::ios::trunc);
 
-	m_shrani.x = playerx;
-	m_shrani.y = playery;
-	m_shrani.lvl = lvl;
+	m_pos.x = playerx;
+	m_pos.y = playery;
 
-	pisi.write((char*)&m_shrani, sizeof(m_shrani));
+	pisi.write((char*)&m_pos, sizeof(m_pos));
+	pisi1.write((char*)&lvl, sizeof(lvl));
 
 	pisi.close();
+	pisi1.close();
+}
+
+bool Datoteka::preveriDatoteke()
+{
+	std::ifstream dat("Shranjeno.bin");
+	std::ifstream dat1("ShraniMap.bin");
+
+	if (dat.peek() == std::ifstream::traits_type::eof())//preverja ce so datoteke prazne
+		return 0;
+	if (dat1.peek() == std::ifstream::traits_type::eof())
+		return 0;
+
+	dat.close();
+	dat1.close();
+
+	return 1;
+}
+
+int Datoteka::vrniLvl()
+{
+	int lvl;
+	std::ifstream beri("Lvl.bin");
+
+	if (beri.is_open())
+		while (beri.read((char*)&lvl, sizeof(lvl)))
+			return lvl;
+
+	beri.close();
+}
+
+Vec2 Datoteka::vrniPos()
+{
+	std::ifstream beri("Shranjeno.bin");
+
+	if (beri.is_open())
+		while (beri.read((char*)&m_pos, sizeof(m_pos)))
+			return m_pos;
+	beri.close();
 }

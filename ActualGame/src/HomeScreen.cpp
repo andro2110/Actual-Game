@@ -7,6 +7,7 @@ Homesc::Homesc()
 	bes2 = new Text(35);
 	bes3 = new Text(35);
 	bes4 = new Text(35);
+	bes5 = new Text(35);
 	lvl = new Text(50);
 	konec = new Text(50);
 	go = new Text(50);

@@ -47,6 +47,7 @@ class Igralec : public Predmet
 {
 private:
 	int m_zamik = 0;
+	bool m_shranjeno = 0;
 public:
 	Igralec(const char* path, float scale);
 	~Igralec();
@@ -55,6 +56,7 @@ public:
 	void premik();
 	void posUpdate() override;
 	void replay();
+	void resume(Vec2 pos);
 };
 
 class Hudoba : public Predmet

@@ -27,13 +27,13 @@ void Homesc::draw()
 
 	case 3:
 		bes1->drawText(280, 100, "HOW TO PLAY", { 231, 116, 39 });//how to play
-		bes1->drawText(350, 515, "Nazaj", { 255, 255, 255 });
+		bes1->drawText(350, 515, "Back", { 255, 255, 255 });
 		break;
 
 	case 4:
 		konec->drawText(300, 280, "GAME OVER!", { 255, 255, 255 });//konec igre
 		bes2->drawText(666, 515, "QUIT", { 255, 255, 255 });
-		bes1->drawText(350, 515, "Nazaj", { 255, 255, 255 });
+		bes1->drawText(350, 515, "Back", { 255, 255, 255 });
 		bes3->drawText(254, 340, "Klikni na konzolo in vpiši ime", { 255, 255, 255 });
 		break;
 
@@ -52,8 +52,14 @@ void Homesc::draw()
 	case 8:
 		konec->drawText(300, 250, "Cestitke!!!", { 255, 255, 255 }); //congrats
 		bes2->drawText(666, 515, "QUIT", { 255, 255, 255 });
-		bes1->drawText(350, 515, "Nazaj", { 255, 255, 255 });
+		bes1->drawText(350, 515, "Back", { 255, 255, 255 });
 		bes3->drawText(254, 340, "Klikni na konzolo in vpisi ime", { 255, 255, 255 });
+		break;
+
+	case 9:
+		konec->shadedText(305, 230, "Pause", { 255, 255, 255, 255 }, { 0, 0, 0, 255 });//pavza
+		bes1->shadedText(666, 515, "Quit", { 255, 255, 255, 255 }, { 0, 0, 0, 255 });
+		bes2->shadedText(280, 400, "Save & quit", { 255, 255, 255, 255 }, { 0, 0, 0, 255 });
 		break;
 	default:
 		break;
@@ -68,16 +74,18 @@ void Homesc::preveri()
 	else if ((Game::event.button.x > 350 && Game::event.button.x < 460) && (Game::event.button.y > 525 && Game::event.button.y < 560))//back
 		m_vrsta = 1;
 
-	if (m_vrsta == 4)
+	else if (m_vrsta == 4)
 	{
 		if ((Game::event.button.x > 350 && Game::event.button.x < 460) && (Game::event.button.y > 525 && Game::event.button.y < 560))//back to home screen, game over
 		{
 			getVrsta(1);
 		}
 	}
-	if (m_vrsta == 8)
+	else if (m_vrsta == 8)
+	{
 		if ((Game::event.button.x > 210 && Game::event.button.x < 590) && (Game::event.button.y > 255 && Game::event.button.y < 580))//back to home screen, congrats
 			getVrsta(1);
+	}
 }
 
 Homesc::~Homesc() {}

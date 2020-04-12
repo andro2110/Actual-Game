@@ -22,12 +22,14 @@ Homesc* game;
 
 Datoteka* dat;
 Datoteka* rep;
+Datoteka* save;
 
 Text* tocke;
 Text* procenti;
 Text* pt1;
 Text* pt2;
 Text* pt3;
+bool r = 0;
 
 std::vector<std::unique_ptr<Hudoba>> hudoba;
 std::vector<std::unique_ptr<Staroselec>> starina;
@@ -65,6 +67,7 @@ void Game::Init(const char* title, int x, int y, int w, int h, Uint32 flags)
 	
 	dat = new Datoteka;
 	rep = new Datoteka;
+	save = new Datoteka;
 
 	tocke = new Text(40);
 	procenti = new Text(40);
@@ -87,8 +90,15 @@ void Game::HandleEvents()
 		if ((Game::event.button.x > 35 && Game::event.button.x < 120) && (Game::event.button.y > 410 && Game::event.button.y < 440))//play pozicija
 			m_play = 1;
 
-		else if ((event.button.x > 660 && event.button.x < 765) && (event.button.y > 520 && event.button.y < 555))//quit
+		if (homesc == true && (event.button.x > 660 && event.button.x < 765) && (event.button.y > 520 && event.button.y < 555))//quit
 			m_IsRunning = false;
+
+		else if (homesc == true && (Game::event.button.x > 280 && Game::event.button.x < 460) && (Game::event.button.y > 400 && Game::event.button.y < 450)) //save & quit
+		{
+			save->shrani(player->getx(), player->gety(), lvl);//shrani podatke od igralca in lvl
+			map->shrani();//shrani podatke o mapi (indexe, uniceno, tocke)
+			m_IsRunning = false;
+		}
 
 		game->preveri();
 		break;
@@ -108,6 +118,7 @@ void Game::HandleEvents()
 				map->pavza(1);
 				game->getVrsta(9);
 				p = 1;
+				homesc = true;
 			}
 			else if (p == 1)
 			{
@@ -118,12 +129,14 @@ void Game::HandleEvents()
 					s->pavza(0);
 				map->pavza(0);
 				p = 0;
+				homesc = false;
 			}
 		case SDLK_r:
-			if (p == 1)
-				player->replay();
+				/*player->replay();
+				r = 1;*/
 			break;
 		default:
+			r = 0;
 			break;
 		}
 
@@ -259,7 +272,8 @@ void Game::Update()
 		if (map->preveriProcente() >= 70)
 			game->getVrsta(4);
 
-		rep->replay(player->getx(), player->gety());//zapisuje koordinate v Replay.bin
+		//if (r == 0)
+			//rep->replay(player->vrniSmerx(), player->vrniSmery());//zapisuje koordinate v Replay.bin
 
 		if (p == 0)
 			m_Framecount++;
@@ -325,8 +339,6 @@ void Game::Render()
 			s->render();
 		tocke->draw();
 		procenti->draw();
-		if (p == 1)
-			pt1->shadedText(305, 230, "Pavza", { 255, 255, 255, 255 }, { 0, 0, 0, 255 });
 
 	}
 	SDL_RenderPresent(Game::renderer);

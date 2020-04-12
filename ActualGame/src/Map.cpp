@@ -316,3 +316,19 @@ void Map::clear()
 
 	m_uniceno = 0;
 }
+
+void Map::shrani()
+{
+	std::ofstream pisi("ShraniMap.bin", std::ios::binary | std::ios::trunc);
+
+	for (int i = 0; i < 10; i++)
+		for (int j = 0; j < 16; j++)
+			m_shrani.tab[i][j] = m_map[i][j];
+
+	m_shrani.tocke = m_score;
+	m_shrani.uniceno = m_uniceno;
+
+	pisi.write((char*)&m_shrani, sizeof(m_shrani));
+
+	pisi.close();
+}

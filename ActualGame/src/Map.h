@@ -1,8 +1,12 @@
 #pragma once
 #include "TextureManager.h"
 #include "Predmet.h"
-//#include <vector>
 #include <cmath>
+
+struct SaveMap
+{
+	int tab[10][16], tocke, uniceno;
+};
 
 class Map
 {
@@ -20,6 +24,9 @@ public:
 	int vrniScore() { return m_score; }
 	void nextlvl(int l);
 	void clear();
+	void sendMap();
+	void shrani();
+
 	
 	int preveriProcente();
 	void pavza(bool p) { this->p = p; }
@@ -39,7 +46,9 @@ private:
 	int m_score = 0;
 	int m_uniceno = 0;
 
-	int m_map[20][25];
+	int m_map[10][16];
 
 	bool p;
+
+	struct SaveMap m_shrani;
 };

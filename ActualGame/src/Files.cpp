@@ -87,11 +87,13 @@ void Datoteka::izpis()
 {
 	std::cout << std::endl;
 	struct Pozicija p;
-	std::ifstream odpri("Replay.bin");
+	std::ifstream odpri("Shranjeno.bin");
 
 	if (odpri.is_open())
 		while (odpri.read((char*)&p, sizeof(p)))
-			std::cout << p.x << " " << p.y << std::endl;
+		{
+			std::cout << (m_pos.x += p.x * 3) << " " << (m_pos.y +=  p.y * 3) << std::endl;
+		}
 	
 	odpri.close();
 }
@@ -104,6 +106,19 @@ void Datoteka::replay(int x, int y)
 	m_pos.y = y;
 
 	pisi.write((char*)&m_pos, sizeof(m_pos));
+
+	pisi.close();
+}
+
+void Datoteka::shrani(int playerx, int playery, int lvl)
+{
+	std::ofstream pisi("Shranjeno.bin", std::ios::binary | std::ios::trunc);
+
+	m_shrani.x = playerx;
+	m_shrani.y = playery;
+	m_shrani.lvl = lvl;
+
+	pisi.write((char*)&m_shrani, sizeof(m_shrani));
 
 	pisi.close();
 }

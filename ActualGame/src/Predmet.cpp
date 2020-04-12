@@ -85,7 +85,6 @@ void Igralec::update()
 {
 	premik();
 	Predmet::border();
-
 	posUpdate();
 }
 
@@ -153,19 +152,22 @@ void Igralec::posUpdate()
 
 	m_destRect.w = m_srcRect.w * m_scale;
 	m_destRect.h = m_srcRect.h * m_scale;
-
-	m_lastpos.x = m_position.x;
-	m_lastpos.y = m_position.y;
 }
 
 void Igralec::replay()
 {
 	std::ifstream beri("Replay.bin");
 	struct Pozicija pos;
+	int count = 0;
 
 	if (beri.is_open())
+	{
 		while (beri.read((char*)&pos, sizeof(pos)))
-			std::cout << pos.x << " " << pos.y << std::endl;
+		{
+			m_position.x += pos.x * m_speed;
+			m_position.y += pos.y * m_speed;
+		}
+	}
 
 	beri.close();
 }

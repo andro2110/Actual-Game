@@ -26,6 +26,8 @@ public:
 	void clear();
 	void shrani();
 	void resume();
+	void posadi(Igralec* igralec);
+	void preveriUniceno();
 
 	
 	int preveriProcente();
@@ -42,9 +44,11 @@ private:
 	int m_delay;
 	int m_razsiri = 0;
 	int m_razsiriDelay;
+	int m_preveri = 1;
 	
 	int m_score = 0;
 	int m_uniceno = 0;
+	int uniceno = 0;
 
 	int m_map[10][16];
 

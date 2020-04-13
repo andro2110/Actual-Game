@@ -27,6 +27,9 @@ public:
 	bool preveriDatoteke();//preveri ali so datoteke prazne
 	int vrniLvl();
 	Vec2 vrniPos();
+	void pocistiDat();//pobrise datoteke
+	float vrnix(int index);
+	float vrniy(int index);
 
 	~Datoteka() {}
 

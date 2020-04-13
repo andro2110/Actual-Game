@@ -348,3 +348,30 @@ void Map::resume()
 		}
 	beri.close();
 }
+
+void Map::posadi(Igralec* igralec)
+{
+	int vrstica = floor((igralec->getx() + igralec->vrniSrc().w) / 50);
+	int stolpec = floor((igralec->gety() + igralec->vrniSrc().h) / 64);
+
+	if (m_map[stolpec][vrstica] == 2)
+	{
+		m_map[stolpec][vrstica] = 0;
+		m_uniceno--;
+		m_score++;
+	}
+
+	if (m_map[stolpec][vrstica] == 3)
+	{
+		if (m_preveri % 120 == 0)
+		{
+			m_map[stolpec][vrstica] = 0;
+			m_preveri = 1;
+			m_uniceno--;
+			m_score++;
+		}
+		m_preveri++;
+	}
+	else
+		m_preveri = 1;
+}

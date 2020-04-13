@@ -3,7 +3,6 @@
 #include <iostream>
 #include <vector>
 #include "HomeScreen.h"
-#include "Text.h"
 #include "Predmet.h"
 #include "Files.h"
 #include "Besedilo.h"
@@ -29,8 +28,6 @@ Text* procenti;
 Text* pt1;
 Text* pt2;
 Text* pt3;
-bool r = 0;
-bool resumed = 0;
 
 std::vector<std::unique_ptr<Hudoba>> hudoba;
 std::vector<std::unique_ptr<Staroselec>> starina;
@@ -75,6 +72,13 @@ void Game::Init(const char* title, int x, int y, int w, int h, Uint32 flags)
 	pt1 = new Text(60);
 	pt2 = new Text(40);
 	pt3 = new Text(40);
+
+	if (dat->preveriDatoteke() == 1)
+	{
+		player->resume(dat->vrniPos());
+		lvl = dat->vrniLvl();
+		map->resume();
+	}
 }
 
 void Game::HandleEvents()
@@ -92,7 +96,17 @@ void Game::HandleEvents()
 			m_play = 1;
 
 		if (homesc == true && (event.button.x > 660 && event.button.x < 765) && (event.button.y > 520 && event.button.y < 555))//quit
+		{
+			dat->pocistiDat();
 			m_IsRunning = false;
+		}
+		else if (homesc == true && (Game::event.button.x > 40 && Game::event.button.x < 160) && (Game::event.button.y > 530 && Game::event.button.y < 565))//replay
+		{
+			/*replay = 1;
+			homesc = 0;
+			player->preberi();*/
+			game->getVrsta(10);
+		}
 
 		else if (homesc == true && (Game::event.button.x > 280 && Game::event.button.x < 460) && (Game::event.button.y > 400 && Game::event.button.y < 450)) //save & quit
 		{
@@ -132,12 +146,8 @@ void Game::HandleEvents()
 				p = 0;
 				homesc = false;
 			}
-		case SDLK_r:
-				/*player->replay();
-				r = 1;*/
 			break;
 		default:
-			r = 0;
 			break;
 		}
 
@@ -151,14 +161,7 @@ void Game::HandleEvents()
 
 void Game::Update()
 {
-	if (dat->preveriDatoteke() == 1 && resumed == 0)
-	{
-		player->resume(dat->vrniPos());
-		lvl = dat->vrniLvl();
-		map->resume();
-		resumed = 1;
-	}
-	if (m_play == true && resumed == 1)
+	if (m_play == true)
 	{
 		stej++;
 
@@ -205,10 +208,8 @@ void Game::Update()
 		}
 	}
 
-	if (homesc == false && resumed == 1)//main game loop
+	if (homesc == false)//main game loop
 	{
-		//std::cout << save->preveriDatoteke() << std::endl;
-
 		tocke->podatki(380, 0, std::to_string(map->vrniScore()), { 255, 255, 255, 220 }, { 171, 205, 56, 175 });
 		procenti->podatki(0, 0, std::to_string(map->preveriProcente()), { 255, 255, 255, 175 }, { 216, 113, 65 , 215 });
 		player->update();
@@ -217,6 +218,7 @@ void Game::Update()
 			h->update();
 
 		map->pogasiPozar(player);
+		map->posadi(player);
 		map->correctmap(hudoba);
 
 		switch (lvl)
@@ -282,12 +284,15 @@ void Game::Update()
 		if (map->preveriProcente() >= 70)
 			game->getVrsta(4);
 
-		//if (r == 0)
-			//rep->replay(player->vrniSmerx(), player->vrniSmery());//zapisuje koordinate v Replay.bin
+		//rep->replay(player->vrniSmerx(), player->vrniSmery());//zapisuje koordinate v Replay.bin
 
 		if (p == 0)
 			m_Framecount++;
 	}
+	/*else if (homesc == false && replay == 1)
+	{
+		player->updateRep();
+	}*/
 }
 
 void Game::Render()
@@ -311,6 +316,7 @@ void Game::Render()
 			dat->sortiraj();
 			dat->brisi();
 			dat->topPet();
+			dat->pocistiDat();
 			map->nextlvl(1);
 
 			homesc = 1;
@@ -329,6 +335,7 @@ void Game::Render()
 			dat->sortiraj();
 			dat->brisi();
 			dat->topPet();
+			dat->pocistiDat();
 			map->nextlvl(1);
 
 			homesc = 1;
@@ -351,6 +358,10 @@ void Game::Render()
 		procenti->draw();
 
 	}
+	/*else if (replay == 1)
+	{
+		player->render();
+	}*/
 	SDL_RenderPresent(Game::renderer);
 }
 

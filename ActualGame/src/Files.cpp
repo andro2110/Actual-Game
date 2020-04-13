@@ -63,8 +63,8 @@ void Datoteka::brisi()
 			t++;
 		}
 
-	//Remove("Highscore.bin");
-	//rename("Temp.bin", "Highscore.bin");
+	remove("Highscore.bin");
+	rename("Temp.bin", "Highscore.bin");
 
 	pisi.close();
 	beri.close();
@@ -157,4 +157,41 @@ Vec2 Datoteka::vrniPos()
 		while (beri.read((char*)&m_pos, sizeof(m_pos)))
 			return m_pos;
 	beri.close();
+}
+
+void Datoteka::pocistiDat()
+{
+	remove("Lvl.bin");
+	remove("Shranjeno.bin");
+	remove("ShraniMap.bin");
+}
+
+float Datoteka::vrnix(int index)
+{
+	std::ifstream beri("Shranjeno.bin");
+	float tmp;
+	
+	if (beri.is_open())
+	{
+		beri.seekg(index * sizeof(m_pos), std::ios::beg);
+		beri.read((char*)&m_pos, sizeof(m_pos));
+		tmp = m_pos.x;
+	}
+	beri.close();
+	return tmp;
+}
+
+float Datoteka::vrniy(int index)
+{
+	std::ifstream beri("Shranjeno.bin");
+	float tmp;
+
+	if (beri.is_open())
+	{
+		beri.seekg(index * sizeof(m_pos), std::ios::beg);
+		beri.read((char*)&m_pos, sizeof(m_pos));
+		tmp = m_pos.y;
+	}
+	beri.close();
+	return tmp;
 }

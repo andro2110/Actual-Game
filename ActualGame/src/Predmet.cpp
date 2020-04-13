@@ -154,18 +154,16 @@ void Igralec::posUpdate()
 	m_destRect.h = m_srcRect.h * m_scale;
 }
 
-void Igralec::replay()
+void Igralec::preberi()
 {
 	std::ifstream beri("Replay.bin");
-	Vec2 pos;
-	int count = 0;
+	struct Pos tmp;
 
 	if (beri.is_open())
 	{
-		while (beri.read((char*)&pos, sizeof(pos)))
+		while (beri.read((char*)&tmp, sizeof(tmp)))
 		{
-			m_position.x += pos.x * m_speed;
-			m_position.y += pos.y * m_speed;
+			m_sm.push_back(tmp);
 		}
 	}
 
@@ -178,6 +176,27 @@ void Igralec::resume(Vec2 pos)
 	m_position.y = pos.y;
 }
 
+void Igralec::updateRep()
+{
+	m_position.x = 0;
+	m_position.y = 0;
+	for (int i = 0; i < m_sm.size(); i++)
+	{
+		m_srcRect.x = m_srcRect.w * static_cast<int>((SDL_GetTicks() / 200) % 1);
+		m_srcRect.y = 0;
+
+		m_position.x += m_sm[i].x * 2;
+		m_position.y += m_sm[i].y * 2;
+
+		m_destRect.x = m_position.x;
+		m_destRect.y = m_position.y;
+
+		m_destRect.w = m_srcRect.w * m_scale;
+		m_destRect.h = m_srcRect.h * m_scale;
+	}
+
+}
+
 Hudoba::Hudoba(const char* path, float scale, int lvl) : Predmet(path, scale)
 {
 	m_texture = TextureManager::LoadTexture(path);
@@ -185,11 +204,11 @@ Hudoba::Hudoba(const char* path, float scale, int lvl) : Predmet(path, scale)
 	m_srcRect.w = 32;
 	m_srcRect.h = 32;
 
-	m_position.x = rand() % 768 + 33;
-	m_position.y = rand() % 608 + 33;
+	m_position.x = rand() % (800 - m_srcRect.w) + m_srcRect.w;
+	m_position.y = rand() % (640 - m_srcRect.h) + m_srcRect.h;
 
-	m_randx = rand() % 768 + 33;
-	m_randy = rand() % 608 + 33;
+	m_randx = rand() % (800 - m_srcRect.w) + m_srcRect.w;
+	m_randy = rand() % (640 - m_srcRect.h) + m_srcRect.h;
 	
 	m_speed = 1;
 
@@ -268,8 +287,8 @@ void Hudoba::preveriPos()
 		m_framecount++;
 		if (m_framecount == 120)
 		{
-			m_randx = rand() % 768 + 33;
-			m_randy = rand() % 608 + 33;
+			m_randx = rand() % (800 - m_srcRect.w) + m_srcRect.w;
+			m_randy = rand() % (640 - m_srcRect.h) + m_srcRect.h;
 
 			m_framecount = 0;
 		}
@@ -285,8 +304,8 @@ Staroselec::Staroselec(const char* path, float scale) : Predmet(path, scale)
 	m_srcRect.w = 32;
 	m_srcRect.h = 32;
 
-	m_position.x = rand() % 768 + 33;
-	m_position.y = rand() % 608 + 33;
+	m_position.x = rand() % (800 - m_srcRect.w) + m_srcRect.w;
+	m_position.y = rand() % (640 - m_srcRect.h) + m_srcRect.h;
 
 	m_nasMestox = rand() % 768 + 33;
 	m_nasMestoy = rand() % 608 + 33;
@@ -367,8 +386,8 @@ void Staroselec::preveriPos()
 
 			if (m_framecount == 120)//dve sekundi
 			{
-				m_nasMestox = rand() % 768 + 33;
-				m_nasMestoy = rand() % 608 + 33;//mesto gre spet na random, ko pride do pozara
+				m_nasMestox = rand() % (800 - m_srcRect.w) + m_srcRect.w;
+				m_nasMestoy = rand() % (640 - m_srcRect.h) + m_srcRect.h;//mesto gre spet na random, ko pride do pozara
 
 				m_life--;
 				m_framecount = 0;
@@ -387,8 +406,8 @@ void Staroselec::preveriPos()
 
 			if (m_framecount == 60)
 			{
-				m_nasMestox = rand() % 758 + 33;
-				m_nasMestoy = rand() % 598 + 33;//mesto gre spet na random
+				m_nasMestox = rand() % (800 - m_srcRect.w) + m_srcRect.w;
+				m_nasMestoy = rand() % (640 - m_srcRect.h) + m_srcRect.h;//mesto gre spet na random
 
 				m_life--;
 				m_framecount = 0;

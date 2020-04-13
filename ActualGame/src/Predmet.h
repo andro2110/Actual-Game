@@ -8,6 +8,11 @@
 #include <memory>
 #include "Files.h"
 
+struct Pos
+{
+	float x, y;
+};
+
 class Predmet
 {
 protected:
@@ -33,7 +38,6 @@ public:
 	virtual void posUpdate();
 	int getx() { return m_position.x; }
 	int gety() { return m_position.y; }
-	//void premik();
 	void render();
 	bool checkCollision(SDL_Rect dest, SDL_Rect src);
 	void setTex(const char* path) { m_texture = TextureManager::LoadTexture(path); }
@@ -48,6 +52,9 @@ class Igralec : public Predmet
 private:
 	int m_zamik = 0;
 	bool m_shranjeno = 0;
+	std::vector<Pos> m_sm;
+	bool konec = 0;
+
 public:
 	Igralec(const char* path, float scale);
 	~Igralec();
@@ -55,8 +62,13 @@ public:
 	void update() override;
 	void premik();
 	void posUpdate() override;
-	void replay();
+	void preberi();
 	void resume(Vec2 pos);
+	void updateRep();
+	float vrniSmerx() { return m_smer.x; }
+	float vrniSmery() { return m_smer.y; }
+	bool koncano() { return konec; }
+	void replayPremik();
 };
 
 class Hudoba : public Predmet

@@ -144,7 +144,6 @@
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\Map.cpp" />
     <ClCompile Include="src\Predmet.cpp" />
-    <ClCompile Include="src\Text.cpp" />
     <ClCompile Include="src\TextureManager.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -154,7 +153,6 @@
     <ClInclude Include="src\HomeScreen.h" />
     <ClInclude Include="src\Map.h" />
     <ClInclude Include="src\Predmet.h" />
-    <ClInclude Include="src\Text.h" />
     <ClInclude Include="src\TextureManager.h" />
     <ClInclude Include="src\Vec2D.h" />
   </ItemGroup>

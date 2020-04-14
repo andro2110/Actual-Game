@@ -251,7 +251,7 @@ void Game::Update()
 		if (m_Framecount % m_delayHudoba == 0 && p == 0)//spawn hudobe
 			hudoba.push_back(std::unique_ptr<Hudoba>(std::make_unique<Hudoba>("Assets/EnemySprite.png", 1.5f, lvl)));
 
-		if(m_Framecount % m_delayStarina == 0 && p == 0)//spawn staroselcev
+		if(m_Framecount % m_delayStarina == 0 && p == 0)//spawn taprijaznih
 			starina.push_back(std::unique_ptr<Staroselec>(std::make_unique<Staroselec>("Assets/StaroselecSprite.png", 1.5f)));
 
 		if (hudoba.size() != 0)

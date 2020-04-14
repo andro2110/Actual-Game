@@ -106,7 +106,7 @@ void Datoteka::replay(int x, int y)
 	pisi.close();
 }
 
-void Datoteka::shrani(int playerx, int playery, int lvl)
+void Datoteka::shrani(int playerx, int playery, int lvl, int cas)
 {
 	std::ofstream pisi("Shranjeno.bin", std::ios::binary | std::ios::trunc);
 	std::ofstream pisi1("Lvl.bin", std::ios::binary | std::ios::trunc);
@@ -114,8 +114,11 @@ void Datoteka::shrani(int playerx, int playery, int lvl)
 	m_pos.x = playerx;
 	m_pos.y = playery;
 
+	m_lvl.lvl = lvl;
+	m_lvl.cas = cas;
+
 	pisi.write((char*)&m_pos, sizeof(m_pos));
-	pisi1.write((char*)&lvl, sizeof(lvl));
+	pisi1.write((char*)&m_lvl, sizeof(m_lvl));
 
 	pisi.close();
 	pisi1.close();
@@ -145,6 +148,18 @@ int Datoteka::vrniLvl()
 	if (beri.is_open())
 		while (beri.read((char*)&lvl, sizeof(lvl)))
 			return lvl;
+
+	beri.close();
+}
+
+int Datoteka::vrniCas()
+{
+	int cas;
+	std::ifstream beri("Lvl.bin");
+
+	if (beri.is_open())
+		while (beri.read((char*)&m_lvl, sizeof(m_lvl)))
+			return m_lvl.cas;
 
 	beri.close();
 }

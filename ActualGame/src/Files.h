@@ -11,6 +11,11 @@ struct Podatki//highscore
 	int tocke;
 };
 
+struct Lvl
+{
+	int lvl, cas;
+};
+
 class Datoteka
 {
 public:
@@ -23,9 +28,10 @@ public:
 	void topPet();//highscore//
 	void izpis();
 	void replay(int x, int y);//replay//
-	void shrani(int playerx, int playery, int lvl);//save & quit//
+	void shrani(int playerx, int playery, int lvl, int cas);//save & quit//
 	bool preveriDatoteke();//preveri ali so datoteke prazne
 	int vrniLvl();
+	int vrniCas();
 	Vec2 vrniPos();
 	void pocistiDat();//pobrise datoteke
 	float vrnix(int index);
@@ -37,4 +43,5 @@ private:
 	struct Podatki m_pod;
 	std::vector<Podatki> m_vec;
 	Vec2 m_pos;
+	struct Lvl m_lvl;
 };

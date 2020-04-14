@@ -11,6 +11,7 @@ SDL_Renderer* Game::renderer = nullptr;
 SDL_Event Game::event;
 
 bool Game::homesc = 1;
+int sec = 0;
 
 Game::Game() {}
 Game::~Game() {}
@@ -28,6 +29,7 @@ Text* procenti;
 Text* pt1;
 Text* pt2;
 Text* pt3;
+Text* cas;
 
 std::vector<std::unique_ptr<Hudoba>> hudoba;
 std::vector<std::unique_ptr<Staroselec>> starina;
@@ -69,6 +71,7 @@ void Game::Init(const char* title, int x, int y, int w, int h, Uint32 flags)
 
 	tocke = new Text(40);
 	procenti = new Text(40);
+	cas = new Text(40);
 	pt1 = new Text(60);
 	pt2 = new Text(40);
 	pt3 = new Text(40);
@@ -78,6 +81,7 @@ void Game::Init(const char* title, int x, int y, int w, int h, Uint32 flags)
 		player->resume(dat->vrniPos());
 		lvl = dat->vrniLvl();
 		map->resume();
+		sec = dat->vrniCas();
 	}
 }
 
@@ -110,7 +114,7 @@ void Game::HandleEvents()
 
 		else if (homesc == true && (Game::event.button.x > 280 && Game::event.button.x < 460) && (Game::event.button.y > 400 && Game::event.button.y < 450)) //save & quit
 		{
-			save->shrani(player->getx(), player->gety(), lvl);//shrani podatke od igralca in lvl
+			save->shrani(player->getx(), player->gety(), lvl, sec);//shrani podatke od igralca in lvl
 			map->shrani();//shrani podatke o mapi (indexe, uniceno, tocke)
 			m_IsRunning = false;
 		}
@@ -188,6 +192,7 @@ void Game::Update()
 		{
 			stej = 0;
 			m_play = 0;
+			sec = 0;
 			homesc = false;
 		}
 	}
@@ -212,6 +217,7 @@ void Game::Update()
 	{
 		tocke->podatki(380, 0, std::to_string(map->vrniScore()), { 255, 255, 255, 220 }, { 171, 205, 56, 175 });
 		procenti->podatki(0, 0, std::to_string(map->preveriProcente()), { 255, 255, 255, 175 }, { 216, 113, 65 , 215 });
+		cas->podatki(750, 0, std::to_string(20 - sec), { 255, 255, 255, 175 }, { 56, 148, 221, 215 });
 		player->update();
 
 		for (auto& h : hudoba)
@@ -286,6 +292,9 @@ void Game::Update()
 
 		//rep->replay(player->vrniSmerx(), player->vrniSmery());//zapisuje koordinate v Replay.bin
 
+		if (p == 0 && m_Framecount % 60 == 0)
+			sec++;
+
 		if (p == 0)
 			m_Framecount++;
 	}
@@ -356,7 +365,7 @@ void Game::Render()
 			s->render();
 		tocke->draw();
 		procenti->draw();
-
+		cas->draw();
 	}
 	/*else if (replay == 1)
 	{

@@ -5,6 +5,10 @@ Homesc::Homesc()
 {
 	bes1 = new Text(35);
 	naslov = new Text(50);
+	bes2 = new Text(35);
+	bes3 = new Text(35);
+	bes4 = new Text(35);
+	bes5 = new Text(35);
 
 	m_vrsta = 1;
 }
@@ -16,24 +20,26 @@ void Homesc::draw()
 	case 1://Home screen
 		naslov->drawText(100, 100, "RESI DEZEVNI PRAGOZD", { 231, 116, 39 });
 		bes1->drawText(35, 400, "PLAY", { 255, 255, 255 });
-		bes1->drawText(666, 515, "QUIT", { 255, 255, 255 });
-		bes1->drawText(35, 455, "HOW TO PLAY", { 255, 255, 255 });
-		bes1->drawText(35, 515, "REPLAY", { 255, 255, 255 });
+		bes2->drawText(666, 515, "QUIT", { 255, 255, 255 });
+		bes3->drawText(35, 455, "HOW TO PLAY", { 255, 255, 255 });
+		bes4->drawText(35, 515, "REPLAY", { 255, 255, 255 });
 		break;
 
 	case 3:
-		bes1->drawText(280, 100, "HOW TO PLAY", { 231, 116, 39 });//how to play
+		naslov->drawText(280, 100, "HOW TO PLAY", { 231, 116, 39 });//how to play
 		bes1->drawText(350, 515, "Back", { 255, 255, 255 });
-		bes1->drawText(35, 150, "Prepreci pozar... lahko gasis in sadis", { 255, 255, 255 });
-		bes1->drawText(35, 200, "Unici hudobe (vitezi), buce ti pomagajo", {255, 255, 255});
-		bes1->drawText(35, 250, "Premikas se z A, W, S, D", { 255, 255, 255 });
+		bes2->drawText(35, 150, "Prepreci pozar... lahko gasis in sadis", { 255, 255, 255 });
+		bes3->drawText(35, 200, "Unici hudobe (vitezi), buce ti pomagajo", {255, 255, 255});
+		bes4->drawText(35, 250, "Premikas se z A, W, S, D", { 255, 255, 255 });
+		bes5->drawText(35, 300, "Pavza -> p", { 255, 255, 255 });
+		bes1->drawText(35, 350, "2 sekundi na unicenem drevesu = novo drevo", { 255, 255, 255 });
 		break;
 
 	case 4:
 		naslov->drawText(300, 280, "GAME OVER!", { 255, 255, 255 });//konec igre
 		bes1->drawText(666, 515, "QUIT", { 255, 255, 255 });
-		bes1->drawText(350, 515, "Back", { 255, 255, 255 });
-		bes1->drawText(254, 340, "Klikni na konzolo in vpisi ime", { 255, 255, 255 });
+		bes2->drawText(350, 515, "Back", { 255, 255, 255 });
+		bes3->drawText(254, 340, "Klikni na konzolo in vpisi ime", { 255, 255, 255 });
 		break;
 
 	case 5:
@@ -51,14 +57,14 @@ void Homesc::draw()
 	case 8:
 		naslov->drawText(300, 250, "Cestitke!!!", { 255, 255, 255 }); //congrats
 		bes1->drawText(666, 515, "QUIT", { 255, 255, 255 });
-		bes1->drawText(350, 515, "Back", { 255, 255, 255 });
-		bes1->drawText(254, 340, "Klikni na konzolo in vpisi ime", { 255, 255, 255 });
+		bes2->drawText(350, 515, "Back", { 255, 255, 255 });
+		bes3->drawText(254, 340, "Klikni na konzolo in vpisi ime", { 255, 255, 255 });
 		break;
 
 	case 9:
 		naslov->shadedText(305, 230, "Pause", { 255, 255, 255, 255 }, { 0, 0, 0, 255 });//pavza
 		bes1->shadedText(666, 515, "Quit", { 255, 255, 255, 255 }, { 0, 0, 0, 255 });
-		bes1->shadedText(280, 400, "Save & quit", { 255, 255, 255, 255 }, { 0, 0, 0, 255 });
+		bes2->shadedText(280, 400, "Save & quit", { 255, 255, 255, 255 }, { 0, 0, 0, 255 });
 		break;
 	case 10:
 		naslov->drawText(270, 230, "Se v delu :/", { 255, 255, 255, 255 });

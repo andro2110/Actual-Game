@@ -354,14 +354,7 @@ void Map::posadi(Igralec* igralec)
 	int vrstica = floor((igralec->getx() + igralec->vrniSrc().w) / 50);
 	int stolpec = floor((igralec->gety() + igralec->vrniSrc().h) / 64);
 
-	if (m_map[stolpec][vrstica] == 2)
-	{
-		m_map[stolpec][vrstica] = 0;
-		m_uniceno--;
-		m_score++;
-	}
-
-	if (m_map[stolpec][vrstica] == 3)
+	if (m_map[stolpec][vrstica] == 3 || m_map[stolpec][vrstica] == 2)
 	{
 		if (m_preveri % 120 == 0)
 		{

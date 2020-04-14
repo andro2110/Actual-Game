@@ -18,6 +18,10 @@ private:
 
 	Text* bes1;
 	Text* naslov;
+	Text* bes2;
+	Text* bes3;
+	Text* bes4;
+	Text* bes5;
 
 	Datoteka* dat;
 	struct Podatki m_pod[5];

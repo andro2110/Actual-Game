@@ -25,7 +25,6 @@ public:
 	void preberi();
 	void sortiraj();
 	void brisi();
-	void topPet();//highscore//
 	void izpis();
 	void replay(int x, int y);//replay//
 	void shrani(int playerx, int playery, int lvl, int cas);//save & quit//

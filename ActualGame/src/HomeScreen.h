@@ -2,6 +2,7 @@
 #include "TextureManager.h"
 #include "Besedilo.h"
 #include "Files.h"
+#include <string>
 
 class Homesc
 {
@@ -11,8 +12,9 @@ public:
 
 	void getVrsta(int v) { m_vrsta = v; }
 	void preveri();
-	//void highscore();
+	void highscore();
 	void draw();
+	void vpisiIme();
 
 private:
 
@@ -24,8 +26,11 @@ private:
 	Text* bes5;
 
 	Datoteka* dat;
-	struct Podatki m_pod[5];
+	struct Podatki m_pod;
+	std::vector<struct Podatki> m_vec;
+	std::string s;
 
 	int m_vrsta;
 	int m_framecnt = 0;
+	bool m_koncano = 0;
 };

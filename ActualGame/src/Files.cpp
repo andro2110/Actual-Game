@@ -63,16 +63,16 @@ void Datoteka::brisi()
 			t++;
 		}
 
-	remove("Highscore.bin");
-	rename("Temp.bin", "Highscore.bin");
-
 	pisi.close();
 	beri.close();
+
+	remove("Highscore.bin");
+	rename("Temp.bin", "Highscore.bin");
 }
 
-void Datoteka::topPet()//izpise top 5 rezultatov
+void Datoteka::izpis()//izpise top 5 rezultatov
 {
-	std::ifstream beri("Temp.bin");
+	std::ifstream beri("Highscore.bin");
 
 	struct Podatki tmp;
 
@@ -81,18 +81,10 @@ void Datoteka::topPet()//izpise top 5 rezultatov
 			std::cout << tmp.ime << " " << tmp.tocke << std::endl;
 
 	beri.close();
+
+	pocistiDat();
 }
 
-void Datoteka::izpis()
-{
-	std::ifstream beri("Shranjeno.bin");
-	Vec2 p;
-
-	if (beri.is_open())
-		while (beri.read((char*)&p, sizeof(p)))
-			std::cout << p.x << " " << p.y << std::endl;
-	beri.close();
-}
 
 void Datoteka::replay(int x, int y)
 {

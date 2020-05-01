@@ -12,6 +12,8 @@ SDL_Event Game::event;
 
 bool Game::homesc = 1;
 int sec = 0;
+int m_cas = 300;//nastavi trajanje lvla
+bool seVpisuje;
 
 Game::Game() {}
 Game::~Game() {}
@@ -26,10 +28,10 @@ Datoteka* save;
 
 Text* tocke;
 Text* procenti;
-Text* pt1;
-Text* pt2;
-Text* pt3;
 Text* cas;
+Text* bes1;
+Text* ime;
+Text* bes2;
 
 std::vector<std::unique_ptr<Hudoba>> hudoba;
 std::vector<std::unique_ptr<Staroselec>> starina;
@@ -72,9 +74,9 @@ void Game::Init(const char* title, int x, int y, int w, int h, Uint32 flags)
 	tocke = new Text(40);
 	procenti = new Text(40);
 	cas = new Text(40);
-	pt1 = new Text(60);
-	pt2 = new Text(40);
-	pt3 = new Text(40);
+	ime = new Text(40);
+	bes1 = new Text(40);
+	bes2 = new Text(40);
 
 	if (dat->preveriDatoteke() == 1)
 	{
@@ -97,7 +99,9 @@ void Game::HandleEvents()
 
 	case SDL_MOUSEBUTTONDOWN:
 		if ((Game::event.button.x > 35 && Game::event.button.x < 120) && (Game::event.button.y > 410 && Game::event.button.y < 440))//play pozicija
+		{
 			m_play = 1;
+		}
 
 		if (homesc == true && (event.button.x > 660 && event.button.x < 765) && (event.button.y > 520 && event.button.y < 555))//quit
 		{
@@ -165,12 +169,16 @@ void Game::HandleEvents()
 
 void Game::Update()
 {
+
 	if (m_play == true)
 	{
 		stej++;
 
 		switch (lvl)
 		{
+		case 0:
+			game->getVrsta(11);
+			bes1->drawText(300, 300, "tuki", { 255, 255, 255 });
 		case 1:
 			game->getVrsta(5);
 			break;
@@ -188,7 +196,7 @@ void Game::Update()
 			break;
 		}
 
-		if (stej % 120 == 0)//po dveh sekundah se zacne igra
+		if (stej % 120 == 0 && lvl == 1)//po dveh sekundah se zacne igra
 		{
 			stej = 0;
 			m_play = 0;
@@ -198,7 +206,7 @@ void Game::Update()
 	}
 	else if (homesc == false)//preverja med igro
 	{
-		if (m_Framecount % 1200 == 0)//level traja 20 sekund
+		if (m_Framecount % m_cas == 0)//level traja 20 sekund
 		{
 			lvl++;
 
@@ -217,7 +225,7 @@ void Game::Update()
 	{
 		tocke->podatki(380, 0, std::to_string(map->vrniScore()), { 255, 255, 255, 220 }, { 171, 205, 56, 175 });
 		procenti->podatki(0, 0, std::to_string(map->preveriProcente()), { 255, 255, 255, 175 }, { 216, 113, 65 , 215 });
-		cas->podatki(750, 0, std::to_string(20 - sec), { 255, 255, 255, 175 }, { 56, 148, 221, 215 });
+		cas->podatki(750, 0, std::to_string((m_cas / 60) - sec), { 255, 255, 255, 175 }, { 56, 148, 221, 215 });
 		player->update();
 
 		for (auto& h : hudoba)
@@ -320,13 +328,13 @@ void Game::Render()
 			hudoba.clear();
 			starina.clear();
 			map->clear();
-			dat->vpisiPod(map->vrniScore());
+			/*dat->vpisiPod(map->vrniScore());
 			dat->preberi();
 			dat->sortiraj();
 			dat->brisi();
-			dat->topPet();
-			dat->pocistiDat();
+			dat->izpis();
 			map->nextlvl(1);
+			game->highscore();*/
 
 			homesc = 1;
 			lvl = 1;
@@ -343,8 +351,7 @@ void Game::Render()
 			dat->preberi();
 			dat->sortiraj();
 			dat->brisi();
-			dat->topPet();
-			dat->pocistiDat();
+			dat->izpis();
 			map->nextlvl(1);
 
 			homesc = 1;

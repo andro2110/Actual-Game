@@ -23,7 +23,7 @@ public:
 	static SDL_Event event;
 	int m_Framecount;
 	static bool homesc;
-	int lvl = 1;
+	int lvl;
 
 private:
 	bool m_play = false;
@@ -34,4 +34,5 @@ private:
 	int m_delayHudoba;
 	int m_delayStarina;
 	int p = 0;
+	int m_cas = 300;
 };

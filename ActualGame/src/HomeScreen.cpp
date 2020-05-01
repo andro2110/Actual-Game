@@ -15,6 +15,7 @@ Homesc::Homesc()
 
 void Homesc::draw()
 {
+	std::cout << m_vrsta << std::endl;
 	switch (m_vrsta)
 	{
 	case 1://Home screen
@@ -55,10 +56,10 @@ void Homesc::draw()
 		break;
 
 	case 8:
-		naslov->drawText(300, 250, "Cestitke!!!", { 255, 255, 255 }); //congrats
+		naslov->drawText(200, 150, "Cestitke!!!", { 255, 255, 255 }); //congrats
 		bes1->drawText(666, 515, "QUIT", { 255, 255, 255 });
 		bes2->drawText(350, 515, "Back", { 255, 255, 255 });
-		bes3->drawText(254, 340, "Klikni na konzolo in vpisi ime", { 255, 255, 255 });
+		//bes3->drawText(254, 340, "Klikni na konzolo in vpisi ime", { 255, 255, 255 });
 		break;
 
 	case 9:
@@ -70,6 +71,8 @@ void Homesc::draw()
 		naslov->drawText(270, 230, "Se v delu :/", { 255, 255, 255, 255 });
 		bes1->drawText(350, 515, "Back", { 255, 255, 255 });
 		break;
+	case 11:
+		std::cout << "tuiloi" << std::endl;
 	default:
 		break;
 	}
@@ -100,19 +103,133 @@ void Homesc::preveri()
 	}
 }
 
-/*void Homesc::highscore()
+void Homesc::highscore()
 {
-	std::ifstream beri("Temp.bin");
-	int ind = 0;
+	std::ifstream beri("Highscore.bin");
+	int ypos = 180;
+	std::string tmpstr;
 
-	struct Podatki pod;
+	if (beri.is_open())
+		while (beri.read((char*)&m_pod, sizeof(m_pod)))
+			m_vec.push_back(m_pod);
 
-	if(beri.is_open())
-		while (beri.read((char*)&pod, sizeof(pod)))
-		{
-			ind++;
-		}
 	beri.close();
-}*/
+
+	for (int i = 0; i < m_vec.size(); i++)
+	{
+		tmpstr = std::to_string(m_vec[i].tocke);
+		bes1->drawText(300, ypos, tmpstr, { 255, 255 ,255 });
+		bes2->drawText(200, ypos, m_vec[i].ime, { 255, 255, 255 });
+		ypos += 80;
+	}
+	m_vec.clear();
+}
+
+void Homesc::vpisiIme()
+{
+	switch (Game::event.type)
+	{
+	case SDL_KEYDOWN:
+		switch (Game::event.key.keysym.sym)
+		{
+		case SDLK_a:
+			s.push_back('a');
+			break;
+
+		case SDLK_b:
+			s.push_back('b');
+			break;
+		case SDLK_c:
+			s.push_back('c');
+			break;
+		case SDLK_d:
+			s.push_back('d');
+			break;
+		case SDLK_e:
+			s.push_back('e');
+			break;
+		case SDLK_f:
+			s.push_back('f');
+			break;
+		case SDLK_g:
+			s.push_back('g');
+			break;
+		case SDLK_h:
+			s.push_back('h');
+			break;
+		case SDLK_i:
+			s.push_back('i');
+			break;
+		case SDLK_j:
+			s.push_back('j');
+			break;
+		case SDLK_k:
+			s.push_back('k');
+			break;
+		case SDLK_l:
+			s.push_back('l');
+			break;
+		case SDLK_m:
+			s.push_back('m');
+			break;
+		case SDLK_n:
+			s.push_back('n');
+			break;
+		case SDLK_o:
+			s.push_back('o');
+			break;
+		case SDLK_p:
+			s.push_back('p');
+			break;
+		case SDLK_r:
+			s.push_back('r');
+			break;
+		case SDLK_s:
+			s.push_back('s');
+			break;
+		case SDLK_t:
+			s.push_back('t');
+			break;
+		case SDLK_u:
+			s.push_back('u');
+			break;
+		case SDLK_v:
+			s.push_back('v');
+			break;
+		case SDLK_z:
+			s.push_back('z');
+			break;
+		case SDLK_q:
+			s.push_back('q');
+			break;
+		case SDLK_w:
+			s.push_back('w');
+			break;
+		case SDLK_y:
+			s.push_back('y');
+			break;
+		case SDLK_x:
+			s.push_back('x');
+			break;
+		case SDLK_SPACE:
+			s.push_back(' ');
+			break;
+		case SDLK_BACKSPACE:
+			s.erase(s.end() - 1);
+			break;
+		case SDLK_KP_ENTER:
+			m_koncano = 1;
+			break;
+
+		default:
+			break;
+		}
+
+	default:
+		break;
+	}
+	std::cout << s << std::endl;
+
+}
 
 Homesc::~Homesc() {}

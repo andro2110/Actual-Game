@@ -21,7 +21,7 @@ class Datoteka
 public:
 
 	Datoteka() {}
-	void vpisiPod(int t);//highscore//
+	void vpisiPod(int tocke, std::string ime);//highscore//
 	void preberi();
 	void sortiraj();
 	void brisi();

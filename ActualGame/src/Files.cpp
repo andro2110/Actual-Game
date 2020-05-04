@@ -1,11 +1,11 @@
 #include "Files.h"
 
-void Datoteka::vpisiPod(int tocke)
+void Datoteka::vpisiPod(int tocke, std::string ime)
 {
 	std::ofstream pisi("Highscore.bin", std::ios::binary | std::ios::app);
 
-	std::cout << "Vnesi ime:";
-	gets_s(m_pod.ime);
+	std::cout << tocke << std::endl;
+	strcpy_s(m_pod.ime, ime.c_str());
 	m_pod.tocke = tocke;
 
 	pisi.write((char*)&m_pod, sizeof(m_pod));
@@ -30,6 +30,7 @@ void Datoteka::preberi()
 
 void Datoteka::sortiraj()
 {
+	std::cout << "sortiram" << std::endl;
 	std::ofstream pisi("Highscore.bin", std::ios::binary | std::ios::trunc);
 
 	for (int i = 0; i < m_vec.size(); i++)//sortiranje vectorja 

@@ -14,6 +14,7 @@ public:
 	void drawText(int xpos, int ypos, std::string besedilo, SDL_Color barva);
 	void draw();
 	void shadedText(int x, int y, std::string besedilo, SDL_Color barva, SDL_Color bgcolor);
+	SDL_Rect vrniRect() { return m_rect; }
 
 private:
 	SDL_Texture* m_texture;

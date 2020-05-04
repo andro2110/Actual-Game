@@ -15,18 +15,18 @@ Homesc::Homesc()
 
 void Homesc::draw()
 {
-	std::cout << m_vrsta << std::endl;
 	switch (m_vrsta)
 	{
 	case 1://Home screen
 		naslov->drawText(100, 100, "RESI DEZEVNI PRAGOZD", { 231, 116, 39 });
-		bes1->drawText(35, 400, "PLAY", { 255, 255, 255 });
+		bes1->drawText(35, 350, "PLAY", { 255, 255, 255 });
+		bes5->drawText(35, 400, "HIGHSCORES", { 255, 255, 255 });
 		bes2->drawText(666, 515, "QUIT", { 255, 255, 255 });
 		bes3->drawText(35, 455, "HOW TO PLAY", { 255, 255, 255 });
 		bes4->drawText(35, 515, "REPLAY", { 255, 255, 255 });
 		break;
 
-	case 3:
+	case 2:
 		naslov->drawText(280, 100, "HOW TO PLAY", { 231, 116, 39 });//how to play
 		bes1->drawText(350, 515, "Back", { 255, 255, 255 });
 		bes2->drawText(35, 150, "Prepreci pozar... lahko gasis in sadis", { 255, 255, 255 });
@@ -36,43 +36,62 @@ void Homesc::draw()
 		bes1->drawText(35, 350, "2 sekundi na unicenem drevesu = novo drevo", { 255, 255, 255 });
 		break;
 
-	case 4:
+	case 3:
 		naslov->drawText(300, 280, "GAME OVER!", { 255, 255, 255 });//konec igre
 		bes1->drawText(666, 515, "QUIT", { 255, 255, 255 });
 		bes2->drawText(350, 515, "Back", { 255, 255, 255 });
 		bes3->drawText(254, 340, "Klikni na konzolo in vpisi ime", { 255, 255, 255 });
 		break;
 
-	case 5:
+	case 4:
 		naslov->drawText(310, 280, "Level 1", { 255, 255, 255 });//lvl1
 		break;
 
-	case 6:
+	case 5:
 		naslov->drawText(310, 280, "Level 2", { 255, 255, 255 });//lvl2
 		break;
 
-	case 7:
+	case 6:
 		naslov->drawText(310, 280, "Level 3", { 255, 255, 255 });//lvl3
 		break;
 
-	case 8:
+	case 7:
 		naslov->drawText(200, 150, "Cestitke!!!", { 255, 255, 255 }); //congrats
 		bes1->drawText(666, 515, "QUIT", { 255, 255, 255 });
 		bes2->drawText(350, 515, "Back", { 255, 255, 255 });
-		//bes3->drawText(254, 340, "Klikni na konzolo in vpisi ime", { 255, 255, 255 });
 		break;
 
-	case 9:
+	case 8:
 		naslov->shadedText(305, 230, "Pause", { 255, 255, 255, 255 }, { 0, 0, 0, 255 });//pavza
 		bes1->shadedText(666, 515, "Quit", { 255, 255, 255, 255 }, { 0, 0, 0, 255 });
 		bes2->shadedText(280, 400, "Save & quit", { 255, 255, 255, 255 }, { 0, 0, 0, 255 });
 		break;
-	case 10:
-		naslov->drawText(270, 230, "Se v delu :/", { 255, 255, 255, 255 });
+
+	case 9:
+		naslov->drawText(270, 230, "Se v delu :/", { 255, 255, 255, 255 });//replay
 		bes1->drawText(350, 515, "Back", { 255, 255, 255 });
 		break;
-	case 11:
-		std::cout << "tuiloi" << std::endl;
+
+	case 10:
+		naslov->drawText(230, 150, "Cestitke!!!", { 255, 255, 255 }); //congrats
+		bes1->drawText(666, 515, "QUIT", { 255, 255, 255 });
+		bes2->drawText(350, 515, "Back", { 255, 255, 255 });
+		bes3->drawText(100, 280, "Vpisi ime", { 255, 255, 255 });
+
+		if (m_koncano == false)
+		{
+			vpisiIme();
+			izpisiText();
+		}
+		izpisiText();
+		break;
+
+	case 11://highscore
+		naslov->drawText(250, 100, "Highscores", { 255, 255, 255 });
+		bes1->drawText(350, 515, "Back", { 255, 255, 255 });
+
+		highscore();
+		break;
 	default:
 		break;
 	}
@@ -80,27 +99,35 @@ void Homesc::draw()
 
 void Homesc::preveri()
 {
-	if ((Game::event.button.x > 35 && Game::event.button.x < 280) && (Game::event.button.y > 460 && Game::event.button.y < 495))//how to play
-		m_vrsta = 3;
-
-	else if ((Game::event.button.x > 350 && Game::event.button.x < 460) && (Game::event.button.y > 525 && Game::event.button.y < 560))//back
-		m_vrsta = 1;
-
-	/*else if ((Game::event.button.x > 40 && Game::event.button.x < 160) && (Game::event.button.y > 530 && Game::event.button.y < 565))//replay
-		std::cout << "Replay" << std::endl;*/
-
-	else if (m_vrsta == 4)
+	switch (m_vrsta)
 	{
-		if ((Game::event.button.x > 350 && Game::event.button.x < 460) && (Game::event.button.y > 525 && Game::event.button.y < 560))//back to home screen, game over
-		{
-			getVrsta(1);
-		}
+	case 1:	
+		if ((Game::event.button.x > 35 && Game::event.button.x < 280) && (Game::event.button.y > 460 && Game::event.button.y < 495))//how to play
+			m_vrsta = 2;
+		if ((Game::event.button.x > 35) && (Game::event.button.x < 270) && (Game::event.button.y > 415) && (Game::event.button.y < 440))//highscore
+			m_vrsta = 11;
+		break;
+
+	case 2: //how to play
+		
+	case 9://replay
+
+	case 10://congrats
+
+	case 11://highscore
+
+		if ((Game::event.button.x > 350 && Game::event.button.x < 460) && (Game::event.button.y > 525 && Game::event.button.y < 560))//back
+			m_vrsta = 1;
+		break;
+
+	case 3:
+		break;
+	default:
+		break;
 	}
-	else if (m_vrsta == 8)
-	{
-		if ((Game::event.button.x > 210 && Game::event.button.x < 590) && (Game::event.button.y > 255 && Game::event.button.y < 580))//back to home screen, congrats
-			getVrsta(1);
-	}
+
+	//if ((Game::event.button.x > 350 && Game::event.button.x < 460) && (Game::event.button.y > 525 && Game::event.button.y < 560))//back to home screen, game over
+	//if ((Game::event.button.x > 210 && Game::event.button.x < 590) && (Game::event.button.y > 255 && Game::event.button.y < 580))//back to home screen, congrats
 }
 
 void Homesc::highscore()
@@ -118,9 +145,9 @@ void Homesc::highscore()
 	for (int i = 0; i < m_vec.size(); i++)
 	{
 		tmpstr = std::to_string(m_vec[i].tocke);
-		bes1->drawText(300, ypos, tmpstr, { 255, 255 ,255 });
 		bes2->drawText(200, ypos, m_vec[i].ime, { 255, 255, 255 });
-		ypos += 80;
+		bes1->drawText(200 + bes2->vrniRect().w + (bes2->vrniRect().w / 2) , ypos, tmpstr, { 255, 255 ,255 });
+		ypos += 50;
 	}
 	m_vec.clear();
 }
@@ -135,7 +162,6 @@ void Homesc::vpisiIme()
 		case SDLK_a:
 			s.push_back('a');
 			break;
-
 		case SDLK_b:
 			s.push_back('b');
 			break;
@@ -215,7 +241,12 @@ void Homesc::vpisiIme()
 			s.push_back(' ');
 			break;
 		case SDLK_BACKSPACE:
-			s.erase(s.end() - 1);
+			stej++;
+			if (stej == m_timer && s.size() > 0)//da ne spammas backspacea k ti drgac jau error
+			{
+				s.erase(s.end() - 1);
+				stej = 0;
+			}
 			break;
 		case SDLK_KP_ENTER:
 			m_koncano = 1;
@@ -228,8 +259,14 @@ void Homesc::vpisiIme()
 	default:
 		break;
 	}
-	std::cout << s << std::endl;
 
+	if (s.size() > 20)//max dolzina je 20
+		s.erase(s.end() - 1);
+}
+
+void Homesc::izpisiText()
+{
+	bes1->drawText(350, 280, s, { 255, 255, 255 });
 }
 
 Homesc::~Homesc() {}

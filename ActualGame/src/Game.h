@@ -22,11 +22,9 @@ public:
 	static SDL_Renderer* renderer;
 	static SDL_Event event;
 	int m_Framecount;
-	static bool homesc;
-	int lvl;
+	int lvl = 0;
 
 private:
-	bool m_play = false;
 	int stej = 0;
 	bool m_IsRunning;
 	SDL_Window* m_window;
@@ -35,4 +33,5 @@ private:
 	int m_delayStarina;
 	int p = 0;
 	int m_cas = 300;
+	int m_mode;//0 = besedilo stuff, 1 = main game loop, 2 = replay, 3 = konec igre...
 };

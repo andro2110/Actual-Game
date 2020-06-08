@@ -30,7 +30,6 @@ void Datoteka::preberi()
 
 void Datoteka::sortiraj()
 {
-	std::cout << "sortiram" << std::endl;
 	std::ofstream pisi("Highscore.bin", std::ios::binary | std::ios::trunc);
 
 	for (int i = 0; i < m_vec.size(); i++)//sortiranje vectorja 

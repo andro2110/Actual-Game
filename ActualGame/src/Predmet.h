@@ -54,6 +54,10 @@ private:
 	bool m_shranjeno = 0;
 	std::vector<Pos> m_sm;
 	bool konec = 0;
+	int m_timer = 0;
+	bool m_end = 1;
+	int m_sanicMode = 0;
+	int r, g, b;
 
 public:
 	Igralec(const char* path, float scale);
@@ -68,7 +72,9 @@ public:
 	float vrniSmerx() { return m_smer.x; }
 	float vrniSmery() { return m_smer.y; }
 	bool koncano() { return konec; }
-	void replayPremik();
+	void superSanic(bool mode);
+	bool endSanic() { return m_end; }
+	void spremeniRend();
 };
 
 class Hudoba : public Predmet
@@ -121,4 +127,15 @@ public:
 	bool zasedenost() { return m_zasedenost; }
 	void getZasedenost(bool x) { m_zasedenost = x; }
 	int getLife() { return m_life; }
+}; 
+
+class Diamantek : public Predmet
+{
+private:
+
+public:
+	Diamantek(const char* path, float scale);
+	~Diamantek();
+
+	void update() override;
 };

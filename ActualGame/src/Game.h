@@ -23,6 +23,7 @@ public:
 	static SDL_Event event;
 	int m_Framecount;
 	int lvl = 0;
+	SDL_Color m_hoover = { 181, 181, 181 };
 
 private:
 	int stej = 0;
@@ -31,7 +32,7 @@ private:
 
 	int m_delayHudoba;
 	int m_delayStarina;
+	int m_delayDiamantek;
 	int p = 0;
-	int m_cas = 300;
-	int m_mode;//0 = besedilo stuff, 1 = main game loop, 2 = replay, 3 = konec igre...
+	int m_mode;
 };

@@ -1,14 +1,12 @@
-﻿  Files.cpp
-C:\Users\Andraž Pergar\Desktop\Actual-Game\ActualGame\src\Files.cpp(35,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Andraž Pergar\Desktop\Actual-Game\ActualGame\src\Files.cpp(44,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Andraž Pergar\Desktop\Actual-Game\ActualGame\src\Files.cpp(101,12): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\Andraž Pergar\Desktop\Actual-Game\ActualGame\src\Files.cpp(102,12): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\Andraž Pergar\Desktop\Actual-Game\ActualGame\src\Files.cpp(114,12): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\Andraž Pergar\Desktop\Actual-Game\ActualGame\src\Files.cpp(115,12): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\Andraž Pergar\Desktop\Actual-Game\ActualGame\src\Files.cpp(157,6): warning C4101: 'cas': unreferenced local variable
+﻿  Game.cpp
+C:\Users\Andraž Pergar\Desktop\Actual-Game\ActualGame\src\Predmet.h(39,32): warning C4244: 'return': conversion from 'float' to 'int', possible loss of data
+C:\Users\Andraž Pergar\Desktop\Actual-Game\ActualGame\src\Predmet.h(40,32): warning C4244: 'return': conversion from 'float' to 'int', possible loss of data
+C:\Users\Andraž Pergar\Desktop\Actual-Game\ActualGame\src\Game.cpp(280,22): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Andraž Pergar\Desktop\Actual-Game\ActualGame\src\Game.cpp(287,23): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Andraž Pergar\Desktop\Actual-Game\ActualGame\src\Game.cpp(299,22): warning C4018: '<': signed/unsigned mismatch
   Generating code
-  1 of 827 functions ( 0.1%) were compiled, the rest were copied from previous compilation.
+  0 of 854 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    1 functions had inline decision re-evaluated but remain unchanged
+    2 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   ActualGame.vcxproj -> C:\Users\Andraž Pergar\Desktop\Actual-Game\Release\ActualGame.exe

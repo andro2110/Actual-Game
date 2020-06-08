@@ -34,6 +34,7 @@ void Homesc::draw()
 		bes4->drawText(35, 250, "Premikas se z A, W, S, D", { 255, 255, 255 });
 		bes5->drawText(35, 300, "Pavza -> p", { 255, 255, 255 });
 		bes1->drawText(35, 350, "2 sekundi na unicenem drevesu = novo drevo", { 255, 255, 255 });
+		bes2->drawText(35, 400, "Diamantki ti povecajo hitrost (SuperSanic)", { 255, 255, 255 });
 		break;
 
 	case 3:
@@ -103,7 +104,10 @@ void Homesc::preveri()
 	{
 	case 1:	
 		if ((Game::event.button.x > 35 && Game::event.button.x < 280) && (Game::event.button.y > 460 && Game::event.button.y < 495))//how to play
+		{
 			m_vrsta = 2;
+		}
+
 		if ((Game::event.button.x > 35) && (Game::event.button.x < 270) && (Game::event.button.y > 415) && (Game::event.button.y < 440))//highscore
 			m_vrsta = 11;
 		break;
@@ -115,9 +119,10 @@ void Homesc::preveri()
 	case 10://congrats
 
 	case 11://highscore
-
 		if ((Game::event.button.x > 350 && Game::event.button.x < 460) && (Game::event.button.y > 525 && Game::event.button.y < 560))//back
+		{
 			m_vrsta = 1;
+		}
 		break;
 
 	case 3:

@@ -197,6 +197,38 @@ void Igralec::updateRep()
 
 }
 
+void Igralec::superSanic(bool mode)
+{
+	if (m_timer < 180 && p == 0 && mode == 1)
+	{
+		m_speed = 5;
+		m_timer++;
+		m_end = 0;
+	}
+	else
+	{
+		m_speed = 3;
+		m_timer = 0;
+		m_end = 1;
+	}
+}
+
+void Igralec::spremeniRend()
+{
+	if (m_sanicMode == 5)
+	{
+		SDL_SetRenderDrawColor(Game::renderer, r, g, b, 255);
+		m_sanicMode = 0;
+	}
+	else
+	{
+		m_sanicMode++;
+		r = rand() % (255) + 1;
+		g = rand() % (255) + 1;
+		b = rand() % (255) + 1;
+	}
+}
+
 Hudoba::Hudoba(const char* path, float scale, int lvl) : Predmet(path, scale)
 {
 	m_texture = TextureManager::LoadTexture(path);
@@ -440,7 +472,30 @@ void Staroselec::slediHudobi(std::vector<std::unique_ptr<Hudoba>>& hudobe)
 		}
 }
 
+Diamantek::Diamantek(const char* path, float scale) : Predmet(path, scale)
+{
+	m_texture = TextureManager::LoadTexture(path);
+
+	m_srcRect.w = 15;
+	m_srcRect.h = 15;
+
+	m_position.x = rand() % (800 - m_srcRect.w) + m_srcRect.w;
+	m_position.y = rand() % (640 - m_srcRect.h) + m_srcRect.h;
+
+	m_scale = scale;
+}
+
+void Diamantek::update()
+{
+	m_destRect.x = m_position.x;
+	m_destRect.y = m_position.y;
+
+	m_destRect.w = m_srcRect.w * m_scale;
+	m_destRect.h = m_srcRect.h * m_scale;
+}
+
 Predmet::~Predmet() {}
 Igralec::~Igralec() {}
 Hudoba::~Hudoba() {}
 Staroselec::~Staroselec() {}
+Diamantek::~Diamantek() {}

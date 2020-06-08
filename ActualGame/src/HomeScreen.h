@@ -33,6 +33,7 @@ private:
 	struct Podatki m_pod;
 	std::vector<struct Podatki> m_vec;
 	std::string s;
+	
 
 	int m_vrsta = 1;
 	int m_framecnt = 0;
